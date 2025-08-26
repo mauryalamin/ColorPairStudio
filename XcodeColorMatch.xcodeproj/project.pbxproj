@@ -1,0 +1,556 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXContainerItemProxy section */
+		AEC411992E5E56F90054C9E1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = AEC411822E5E56F70054C9E1 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = AEC411892E5E56F70054C9E1;
+			remoteInfo = XcodeColorMatch;
+		};
+		AEC411A32E5E56F90054C9E1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = AEC411822E5E56F70054C9E1 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = AEC411892E5E56F70054C9E1;
+			remoteInfo = XcodeColorMatch;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		AEC4118A2E5E56F70054C9E1 /* XcodeColorMatch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = XcodeColorMatch.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		AEC411982E5E56F90054C9E1 /* XcodeColorMatchTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = XcodeColorMatchTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		AEC411A22E5E56F90054C9E1 /* XcodeColorMatchUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = XcodeColorMatchUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		AEC4118C2E5E56F70054C9E1 /* XcodeColorMatch */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = XcodeColorMatch;
+			sourceTree = "<group>";
+		};
+		AEC4119B2E5E56F90054C9E1 /* XcodeColorMatchTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = XcodeColorMatchTests;
+			sourceTree = "<group>";
+		};
+		AEC411A52E5E56F90054C9E1 /* XcodeColorMatchUITests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = XcodeColorMatchUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXFileSystemSynchronizedRootGroup section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		AEC411872E5E56F70054C9E1 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AEC411952E5E56F90054C9E1 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AEC4119F2E5E56F90054C9E1 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		AEC411812E5E56F70054C9E1 = {
+			isa = PBXGroup;
+			children = (
+				AEC4118C2E5E56F70054C9E1 /* XcodeColorMatch */,
+				AEC4119B2E5E56F90054C9E1 /* XcodeColorMatchTests */,
+				AEC411A52E5E56F90054C9E1 /* XcodeColorMatchUITests */,
+				AEC4118B2E5E56F70054C9E1 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		AEC4118B2E5E56F70054C9E1 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				AEC4118A2E5E56F70054C9E1 /* XcodeColorMatch.app */,
+				AEC411982E5E56F90054C9E1 /* XcodeColorMatchTests.xctest */,
+				AEC411A22E5E56F90054C9E1 /* XcodeColorMatchUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		AEC411892E5E56F70054C9E1 /* XcodeColorMatch */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AEC411AC2E5E56F90054C9E1 /* Build configuration list for PBXNativeTarget "XcodeColorMatch" */;
+			buildPhases = (
+				AEC411862E5E56F70054C9E1 /* Sources */,
+				AEC411872E5E56F70054C9E1 /* Frameworks */,
+				AEC411882E5E56F70054C9E1 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				AEC4118C2E5E56F70054C9E1 /* XcodeColorMatch */,
+			);
+			name = XcodeColorMatch;
+			packageProductDependencies = (
+			);
+			productName = XcodeColorMatch;
+			productReference = AEC4118A2E5E56F70054C9E1 /* XcodeColorMatch.app */;
+			productType = "com.apple.product-type.application";
+		};
+		AEC411972E5E56F90054C9E1 /* XcodeColorMatchTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AEC411AF2E5E56F90054C9E1 /* Build configuration list for PBXNativeTarget "XcodeColorMatchTests" */;
+			buildPhases = (
+				AEC411942E5E56F90054C9E1 /* Sources */,
+				AEC411952E5E56F90054C9E1 /* Frameworks */,
+				AEC411962E5E56F90054C9E1 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				AEC4119A2E5E56F90054C9E1 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				AEC4119B2E5E56F90054C9E1 /* XcodeColorMatchTests */,
+			);
+			name = XcodeColorMatchTests;
+			packageProductDependencies = (
+			);
+			productName = XcodeColorMatchTests;
+			productReference = AEC411982E5E56F90054C9E1 /* XcodeColorMatchTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		AEC411A12E5E56F90054C9E1 /* XcodeColorMatchUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AEC411B22E5E56F90054C9E1 /* Build configuration list for PBXNativeTarget "XcodeColorMatchUITests" */;
+			buildPhases = (
+				AEC4119E2E5E56F90054C9E1 /* Sources */,
+				AEC4119F2E5E56F90054C9E1 /* Frameworks */,
+				AEC411A02E5E56F90054C9E1 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				AEC411A42E5E56F90054C9E1 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				AEC411A52E5E56F90054C9E1 /* XcodeColorMatchUITests */,
+			);
+			name = XcodeColorMatchUITests;
+			packageProductDependencies = (
+			);
+			productName = XcodeColorMatchUITests;
+			productReference = AEC411A22E5E56F90054C9E1 /* XcodeColorMatchUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		AEC411822E5E56F70054C9E1 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1640;
+				LastUpgradeCheck = 1640;
+				TargetAttributes = {
+					AEC411892E5E56F70054C9E1 = {
+						CreatedOnToolsVersion = 16.4;
+					};
+					AEC411972E5E56F90054C9E1 = {
+						CreatedOnToolsVersion = 16.4;
+						TestTargetID = AEC411892E5E56F70054C9E1;
+					};
+					AEC411A12E5E56F90054C9E1 = {
+						CreatedOnToolsVersion = 16.4;
+						TestTargetID = AEC411892E5E56F70054C9E1;
+					};
+				};
+			};
+			buildConfigurationList = AEC411852E5E56F70054C9E1 /* Build configuration list for PBXProject "XcodeColorMatch" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = AEC411812E5E56F70054C9E1;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = AEC4118B2E5E56F70054C9E1 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				AEC411892E5E56F70054C9E1 /* XcodeColorMatch */,
+				AEC411972E5E56F90054C9E1 /* XcodeColorMatchTests */,
+				AEC411A12E5E56F90054C9E1 /* XcodeColorMatchUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		AEC411882E5E56F70054C9E1 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AEC411962E5E56F90054C9E1 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AEC411A02E5E56F90054C9E1 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		AEC411862E5E56F70054C9E1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AEC411942E5E56F90054C9E1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AEC4119E2E5E56F90054C9E1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		AEC4119A2E5E56F90054C9E1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = AEC411892E5E56F70054C9E1 /* XcodeColorMatch */;
+			targetProxy = AEC411992E5E56F90054C9E1 /* PBXContainerItemProxy */;
+		};
+		AEC411A42E5E56F90054C9E1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = AEC411892E5E56F70054C9E1 /* XcodeColorMatch */;
+			targetProxy = AEC411A32E5E56F90054C9E1 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		AEC411AA2E5E56F90054C9E1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = 7Y457JX2Z3;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 15.5;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		AEC411AB2E5E56F90054C9E1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = 7Y457JX2Z3;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 15.5;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+			};
+			name = Release;
+		};
+		AEC411AD2E5E56F90054C9E1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = XcodeColorMatch/XcodeColorMatch.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 7Y457JX2Z3;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.alamin.XcodeColorMatch;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				REGISTER_APP_GROUPS = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		AEC411AE2E5E56F90054C9E1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = XcodeColorMatch/XcodeColorMatch.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 7Y457JX2Z3;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.alamin.XcodeColorMatch;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				REGISTER_APP_GROUPS = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		AEC411B02E5E56F90054C9E1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 7Y457JX2Z3;
+				GENERATE_INFOPLIST_FILE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 15.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.alamin.XcodeColorMatchTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/XcodeColorMatch.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/XcodeColorMatch";
+			};
+			name = Debug;
+		};
+		AEC411B12E5E56F90054C9E1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 7Y457JX2Z3;
+				GENERATE_INFOPLIST_FILE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 15.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.alamin.XcodeColorMatchTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/XcodeColorMatch.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/XcodeColorMatch";
+			};
+			name = Release;
+		};
+		AEC411B32E5E56F90054C9E1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 7Y457JX2Z3;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.alamin.XcodeColorMatchUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TEST_TARGET_NAME = XcodeColorMatch;
+			};
+			name = Debug;
+		};
+		AEC411B42E5E56F90054C9E1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 7Y457JX2Z3;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.alamin.XcodeColorMatchUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TEST_TARGET_NAME = XcodeColorMatch;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		AEC411852E5E56F70054C9E1 /* Build configuration list for PBXProject "XcodeColorMatch" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AEC411AA2E5E56F90054C9E1 /* Debug */,
+				AEC411AB2E5E56F90054C9E1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		AEC411AC2E5E56F90054C9E1 /* Build configuration list for PBXNativeTarget "XcodeColorMatch" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AEC411AD2E5E56F90054C9E1 /* Debug */,
+				AEC411AE2E5E56F90054C9E1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		AEC411AF2E5E56F90054C9E1 /* Build configuration list for PBXNativeTarget "XcodeColorMatchTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AEC411B02E5E56F90054C9E1 /* Debug */,
+				AEC411B12E5E56F90054C9E1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		AEC411B22E5E56F90054C9E1 /* Build configuration list for PBXNativeTarget "XcodeColorMatchUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AEC411B32E5E56F90054C9E1 /* Debug */,
+				AEC411B42E5E56F90054C9E1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = AEC411822E5E56F70054C9E1 /* Project object */;
+}
