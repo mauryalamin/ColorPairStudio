@@ -6,3 +6,10 @@
 //
 
 import Foundation
+
+
+enum MatchMode: String, CaseIterable, Identifiable {
+    case approximator = "Approximator"
+    case derivedPair = "Derived Pair"
+    var id: String { rawValue }
+}

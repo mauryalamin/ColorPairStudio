@@ -6,6 +6,28 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		AE0A8ACD2E5E5A520066A017 /* ColorMatcherViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0A8ACC2E5E5A520066A017 /* ColorMatcherViewModel.swift */; };
+		AE0A8ACF2E5E5EC00066A017 /* EmptyState.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0A8ACE2E5E5EC00066A017 /* EmptyState.swift */; };
+		AE0A8AD12E5E5EFC0066A017 /* ApproximatedOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0A8AD02E5E5EFC0066A017 /* ApproximatedOutput.swift */; };
+		AE0A8AD32E5E5F560066A017 /* DerivedPair.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0A8AD22E5E5F560066A017 /* DerivedPair.swift */; };
+		AE0A8AD52E5E5F840066A017 /* MatchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0A8AD42E5E5F840066A017 /* MatchResult.swift */; };
+		AE0A8AD72E5E5FAA0066A017 /* ApproximatorEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0A8AD62E5E5FAA0066A017 /* ApproximatorEngine.swift */; };
+		AE0A8AD92E5E6EE50066A017 /* DerivedPairEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0A8AD82E5E6EE50066A017 /* DerivedPairEngine.swift */; };
+		AE0A8ADB2E5E6F090066A017 /* Exporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0A8ADA2E5E6F090066A017 /* Exporter.swift */; };
+		AE0A8ADD2E5E6FFA0066A017 /* ApproximatorResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0A8ADC2E5E6FFA0066A017 /* ApproximatorResultView.swift */; };
+		AE0A8ADF2E5E70470066A017 /* DerivedPairResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0A8ADE2E5E70470066A017 /* DerivedPairResultView.swift */; };
+		AE0A8AE12E5E70810066A017 /* PreviewRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0A8AE02E5E70810066A017 /* PreviewRow.swift */; };
+		AE0A8AE32E5E713E0066A017 /* TwinPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0A8AE22E5E713E0066A017 /* TwinPreview.swift */; };
+		AE0A8AE52E5E71750066A017 /* ExportSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0A8AE42E5E71750066A017 /* ExportSheet.swift */; };
+		AE0A8AE72E5E71A90066A017 /* RGBA.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0A8AE62E5E71A90066A017 /* RGBA.swift */; };
+		AE0A8AE92E5E71D30066A017 /* Color+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0A8AE82E5E71D30066A017 /* Color+Extensions.swift */; };
+		AEC411BA2E5E57250054C9E1 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEC411B62E5E57250054C9E1 /* ContentView.swift */; };
+		AEC411BB2E5E57250054C9E1 /* XcodeColorMatchApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEC411B82E5E57250054C9E1 /* XcodeColorMatchApp.swift */; };
+		AEC411BC2E5E57250054C9E1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AEC411B52E5E57250054C9E1 /* Assets.xcassets */; };
+		AEC411BE2E5E575C0054C9E1 /* MatchMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEC411BD2E5E575C0054C9E1 /* MatchMode.swift */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		AEC411992E5E56F90054C9E1 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -24,17 +46,32 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		AE0A8ACC2E5E5A520066A017 /* ColorMatcherViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorMatcherViewModel.swift; sourceTree = "<group>"; };
+		AE0A8ACE2E5E5EC00066A017 /* EmptyState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyState.swift; sourceTree = "<group>"; };
+		AE0A8AD02E5E5EFC0066A017 /* ApproximatedOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApproximatedOutput.swift; sourceTree = "<group>"; };
+		AE0A8AD22E5E5F560066A017 /* DerivedPair.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DerivedPair.swift; sourceTree = "<group>"; };
+		AE0A8AD42E5E5F840066A017 /* MatchResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchResult.swift; sourceTree = "<group>"; };
+		AE0A8AD62E5E5FAA0066A017 /* ApproximatorEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApproximatorEngine.swift; sourceTree = "<group>"; };
+		AE0A8AD82E5E6EE50066A017 /* DerivedPairEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DerivedPairEngine.swift; sourceTree = "<group>"; };
+		AE0A8ADA2E5E6F090066A017 /* Exporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Exporter.swift; sourceTree = "<group>"; };
+		AE0A8ADC2E5E6FFA0066A017 /* ApproximatorResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApproximatorResultView.swift; sourceTree = "<group>"; };
+		AE0A8ADE2E5E70470066A017 /* DerivedPairResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DerivedPairResultView.swift; sourceTree = "<group>"; };
+		AE0A8AE02E5E70810066A017 /* PreviewRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewRow.swift; sourceTree = "<group>"; };
+		AE0A8AE22E5E713E0066A017 /* TwinPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwinPreview.swift; sourceTree = "<group>"; };
+		AE0A8AE42E5E71750066A017 /* ExportSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportSheet.swift; sourceTree = "<group>"; };
+		AE0A8AE62E5E71A90066A017 /* RGBA.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RGBA.swift; sourceTree = "<group>"; };
+		AE0A8AE82E5E71D30066A017 /* Color+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extensions.swift"; sourceTree = "<group>"; };
 		AEC4118A2E5E56F70054C9E1 /* XcodeColorMatch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = XcodeColorMatch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AEC411982E5E56F90054C9E1 /* XcodeColorMatchTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = XcodeColorMatchTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		AEC411A22E5E56F90054C9E1 /* XcodeColorMatchUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = XcodeColorMatchUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		AEC411B52E5E57250054C9E1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		AEC411B62E5E57250054C9E1 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		AEC411B72E5E57250054C9E1 /* XcodeColorMatch.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = XcodeColorMatch.entitlements; sourceTree = "<group>"; };
+		AEC411B82E5E57250054C9E1 /* XcodeColorMatchApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XcodeColorMatchApp.swift; sourceTree = "<group>"; };
+		AEC411BD2E5E575C0054C9E1 /* MatchMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchMode.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		AEC4118C2E5E56F70054C9E1 /* XcodeColorMatch */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = XcodeColorMatch;
-			sourceTree = "<group>";
-		};
 		AEC4119B2E5E56F90054C9E1 /* XcodeColorMatchTests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = XcodeColorMatchTests;
@@ -72,10 +109,44 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		AE0A8AEA2E5E7D030066A017 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				AE0A8ACC2E5E5A520066A017 /* ColorMatcherViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		AE0A8AEB2E5E7D3F0066A017 /* Screens */ = {
+			isa = PBXGroup;
+			children = (
+				AEC411B62E5E57250054C9E1 /* ContentView.swift */,
+			);
+			path = Screens;
+			sourceTree = "<group>";
+		};
+		AE0A8AEC2E5E7D720066A017 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				AE0A8AD22E5E5F560066A017 /* DerivedPair.swift */,
+				AE0A8AD02E5E5EFC0066A017 /* ApproximatedOutput.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		AE0A8AED2E5E7D9F0066A017 /* ColorMatchingEngines */ = {
+			isa = PBXGroup;
+			children = (
+				AE0A8AD62E5E5FAA0066A017 /* ApproximatorEngine.swift */,
+				AE0A8AD82E5E6EE50066A017 /* DerivedPairEngine.swift */,
+			);
+			path = ColorMatchingEngines;
+			sourceTree = "<group>";
+		};
 		AEC411812E5E56F70054C9E1 = {
 			isa = PBXGroup;
 			children = (
-				AEC4118C2E5E56F70054C9E1 /* XcodeColorMatch */,
+				AEC411B92E5E57250054C9E1 /* XcodeColorMatch */,
 				AEC4119B2E5E56F90054C9E1 /* XcodeColorMatchTests */,
 				AEC411A52E5E56F90054C9E1 /* XcodeColorMatchUITests */,
 				AEC4118B2E5E56F70054C9E1 /* Products */,
@@ -92,6 +163,31 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		AEC411B92E5E57250054C9E1 /* XcodeColorMatch */ = {
+			isa = PBXGroup;
+			children = (
+				AEC411B72E5E57250054C9E1 /* XcodeColorMatch.entitlements */,
+				AEC411B82E5E57250054C9E1 /* XcodeColorMatchApp.swift */,
+				AE0A8AEB2E5E7D3F0066A017 /* Screens */,
+				AE0A8AEA2E5E7D030066A017 /* ViewModels */,
+				AE0A8AEC2E5E7D720066A017 /* Models */,
+				AE0A8AD42E5E5F840066A017 /* MatchResult.swift */,
+				AE0A8AED2E5E7D9F0066A017 /* ColorMatchingEngines */,
+				AE0A8ADA2E5E6F090066A017 /* Exporter.swift */,
+				AE0A8ADC2E5E6FFA0066A017 /* ApproximatorResultView.swift */,
+				AE0A8ADE2E5E70470066A017 /* DerivedPairResultView.swift */,
+				AE0A8AE02E5E70810066A017 /* PreviewRow.swift */,
+				AE0A8AE22E5E713E0066A017 /* TwinPreview.swift */,
+				AE0A8AE42E5E71750066A017 /* ExportSheet.swift */,
+				AE0A8AE62E5E71A90066A017 /* RGBA.swift */,
+				AE0A8AE82E5E71D30066A017 /* Color+Extensions.swift */,
+				AE0A8ACE2E5E5EC00066A017 /* EmptyState.swift */,
+				AEC411BD2E5E575C0054C9E1 /* MatchMode.swift */,
+				AEC411B52E5E57250054C9E1 /* Assets.xcassets */,
+			);
+			path = XcodeColorMatch;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -106,9 +202,6 @@
 			buildRules = (
 			);
 			dependencies = (
-			);
-			fileSystemSynchronizedGroups = (
-				AEC4118C2E5E56F70054C9E1 /* XcodeColorMatch */,
 			);
 			name = XcodeColorMatch;
 			packageProductDependencies = (
@@ -212,6 +305,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AEC411BC2E5E57250054C9E1 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -236,6 +330,24 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AE0A8ADB2E5E6F090066A017 /* Exporter.swift in Sources */,
+				AE0A8AD72E5E5FAA0066A017 /* ApproximatorEngine.swift in Sources */,
+				AE0A8AD52E5E5F840066A017 /* MatchResult.swift in Sources */,
+				AE0A8AE32E5E713E0066A017 /* TwinPreview.swift in Sources */,
+				AEC411BE2E5E575C0054C9E1 /* MatchMode.swift in Sources */,
+				AE0A8ADF2E5E70470066A017 /* DerivedPairResultView.swift in Sources */,
+				AE0A8ACD2E5E5A520066A017 /* ColorMatcherViewModel.swift in Sources */,
+				AE0A8AE52E5E71750066A017 /* ExportSheet.swift in Sources */,
+				AE0A8ACF2E5E5EC00066A017 /* EmptyState.swift in Sources */,
+				AEC411BA2E5E57250054C9E1 /* ContentView.swift in Sources */,
+				AE0A8AE72E5E71A90066A017 /* RGBA.swift in Sources */,
+				AE0A8AE92E5E71D30066A017 /* Color+Extensions.swift in Sources */,
+				AE0A8ADD2E5E6FFA0066A017 /* ApproximatorResultView.swift in Sources */,
+				AE0A8AD32E5E5F560066A017 /* DerivedPair.swift in Sources */,
+				AE0A8AD92E5E6EE50066A017 /* DerivedPairEngine.swift in Sources */,
+				AE0A8AE12E5E70810066A017 /* PreviewRow.swift in Sources */,
+				AE0A8AD12E5E5EFC0066A017 /* ApproximatedOutput.swift in Sources */,
+				AEC411BB2E5E57250054C9E1 /* XcodeColorMatchApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -13,5 +13,6 @@ struct XcodeColorMatchApp: App {
         WindowGroup {
             ContentView()
         }
+        .windowStyle(.titleBar)
     }
 }

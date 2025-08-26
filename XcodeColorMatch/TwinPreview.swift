@@ -8,11 +8,37 @@
 import SwiftUI
 
 struct TwinPreview: View {
+    var title: String
+    var rgba: RGBA
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack(alignment: .leading) {
+            Text(title).font(.headline)
+            RoundedRectangle(cornerRadius: 12)
+                .fill(Color(rgba))
+                .frame(width: 360, height: 120)
+                .overlay(Text("Sample").foregroundStyle(.white))
+        }
     }
 }
 
-#Preview {
-    TwinPreview()
+#Preview("TwinPreview — Light Twin") {
+    TwinPreview(title: "Light", rgba: DerivedPair.sample.light)
+        .padding(20)
+        .frame(width: 380, height: 180)
+}
+
+#Preview("TwinPreview — Dark Twin") {
+    TwinPreview(title: "Dark", rgba: DerivedPair.sample.dark)
+        .padding(20)
+        .frame(width: 380, height: 180)
+}
+
+#Preview("TwinPreview — Side by Side") {
+    HStack(spacing: 16) {
+        TwinPreview(title: "Light", rgba: DerivedPair.sample.light)
+        TwinPreview(title: "Dark",  rgba: DerivedPair.sample.dark)
+    }
+    .padding(20)
+    .frame(height: 200)
 }

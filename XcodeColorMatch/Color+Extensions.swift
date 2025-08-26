@@ -6,3 +6,10 @@
 //
 
 import Foundation
+import SwiftUI
+
+extension Color {
+    init(_ rgba: RGBA) {
+        self.init(red: rgba.r, green: rgba.g, blue: rgba.b, opacity: rgba.a)
+    }
+}

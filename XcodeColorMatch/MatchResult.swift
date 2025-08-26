@@ -6,3 +6,8 @@
 //
 
 import Foundation
+
+enum MatchResult {
+    case approximated(ApproximatedOutput)
+    case derived(DerivedPair)
+}

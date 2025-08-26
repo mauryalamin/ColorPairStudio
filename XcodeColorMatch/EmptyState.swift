@@ -9,7 +9,12 @@ import SwiftUI
 
 struct EmptyState: View {
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack(alignment: .leading, spacing: 8) {
+            Text("No result yet")
+                .font(.headline)
+            Text("Choose a color, pick a mode, then Generate.")
+                .foregroundStyle(.secondary)
+        }
     }
 }
 
