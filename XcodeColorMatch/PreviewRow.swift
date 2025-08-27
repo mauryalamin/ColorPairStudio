@@ -12,6 +12,7 @@ struct PreviewRow: View {
     var hue: Double
     var sat: Double
     var bri: Double
+    var swatchHeight: CGFloat = 64
     
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
@@ -22,7 +23,7 @@ struct PreviewRow: View {
                         .hueRotation(.degrees(hue)) // 2) then modify the shape (a View)
                         .saturation(sat)
                         .brightness(bri)
-                        .frame(height: 64)
+                        .frame(height: swatchHeight)
                         .overlay(
                             Text("Body text on background")
                                 .foregroundStyle(.white)

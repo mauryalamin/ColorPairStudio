@@ -24,6 +24,23 @@ struct ContentView: View {
         }
         .padding(20)
         .frame(minWidth: 820, minHeight: 560)
+        .toolbar {
+            ToolbarItem(placement: .automatic) {
+                Button("Toggle Light/Dark Preview") {
+                    togglePreviewAppearance()
+                }
+                .keyboardShortcut("l", modifiers: [.command]) // ⌘L
+            }
+        }
+        
+    }
+    
+    private func togglePreviewAppearance() {
+        if NSApp.appearance?.name == .aqua {
+            NSApp.appearance = NSAppearance(named: .darkAqua)
+        } else {
+            NSApp.appearance = NSAppearance(named: .aqua)
+        }
     }
     
     private var header: some View {
@@ -36,14 +53,16 @@ struct ContentView: View {
     
     private var inputRow: some View {
         HStack(alignment: .center, spacing: 12) {
-            ColorPicker("Color", selection: $vm.pickedColor, supportsOpacity: false)
-                .labelsHidden()
-                .frame(maxWidth: 120)
+            ColorWellView(rgba: $vm.input)
+                .frame(width: 120, height: 36)
             
             VStack(alignment: .leading) {
                 HStack {
                     Text("HEX:")
                     TextField("#RRGGBB", text: $vm.hexText)
+                        .onChange(of: vm.hexText) { vm.syncFromHex() }
+
+                    // TextField("#RRGGBB", text: $vm.hexText)
                         .textFieldStyle(.roundedBorder)
                         .font(.system(.body, design: .monospaced))
                         .frame(width: 140)
@@ -51,6 +70,9 @@ struct ContentView: View {
                 HStack {
                     Text("RGB:")
                     TextField("r,g,b", text: $vm.rgbText)
+                        .onChange(of: vm.rgbText) { vm.syncFromRGB() }
+
+                    // TextField("r,g,b", text: $vm.rgbText)
                         .textFieldStyle(.roundedBorder)
                         .font(.system(.body, design: .monospaced))
                         .frame(width: 140)

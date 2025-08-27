@@ -22,6 +22,7 @@
 		AE0A8AE52E5E71750066A017 /* ExportSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0A8AE42E5E71750066A017 /* ExportSheet.swift */; };
 		AE0A8AE72E5E71A90066A017 /* RGBA.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0A8AE62E5E71A90066A017 /* RGBA.swift */; };
 		AE0A8AE92E5E71D30066A017 /* Color+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0A8AE82E5E71D30066A017 /* Color+Extensions.swift */; };
+		AE331AAF2E5FA06100C6B110 /* ColorWellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE331AAE2E5FA06100C6B110 /* ColorWellView.swift */; };
 		AEC411BA2E5E57250054C9E1 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEC411B62E5E57250054C9E1 /* ContentView.swift */; };
 		AEC411BB2E5E57250054C9E1 /* XcodeColorMatchApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEC411B82E5E57250054C9E1 /* XcodeColorMatchApp.swift */; };
 		AEC411BC2E5E57250054C9E1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AEC411B52E5E57250054C9E1 /* Assets.xcassets */; };
@@ -61,6 +62,7 @@
 		AE0A8AE42E5E71750066A017 /* ExportSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportSheet.swift; sourceTree = "<group>"; };
 		AE0A8AE62E5E71A90066A017 /* RGBA.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RGBA.swift; sourceTree = "<group>"; };
 		AE0A8AE82E5E71D30066A017 /* Color+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extensions.swift"; sourceTree = "<group>"; };
+		AE331AAE2E5FA06100C6B110 /* ColorWellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorWellView.swift; sourceTree = "<group>"; };
 		AEC4118A2E5E56F70054C9E1 /* XcodeColorMatch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = XcodeColorMatch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AEC411982E5E56F90054C9E1 /* XcodeColorMatchTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = XcodeColorMatchTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		AEC411A22E5E56F90054C9E1 /* XcodeColorMatchUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = XcodeColorMatchUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -121,6 +123,7 @@
 			isa = PBXGroup;
 			children = (
 				AEC411B62E5E57250054C9E1 /* ContentView.swift */,
+				AE331AAE2E5FA06100C6B110 /* ColorWellView.swift */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -344,6 +347,7 @@
 				AE0A8AE92E5E71D30066A017 /* Color+Extensions.swift in Sources */,
 				AE0A8ADD2E5E6FFA0066A017 /* ApproximatorResultView.swift in Sources */,
 				AE0A8AD32E5E5F560066A017 /* DerivedPair.swift in Sources */,
+				AE331AAF2E5FA06100C6B110 /* ColorWellView.swift in Sources */,
 				AE0A8AD92E5E6EE50066A017 /* DerivedPairEngine.swift in Sources */,
 				AE0A8AE12E5E70810066A017 /* PreviewRow.swift in Sources */,
 				AE0A8AD12E5E5EFC0066A017 /* ApproximatedOutput.swift in Sources */,

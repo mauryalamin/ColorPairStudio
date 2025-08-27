@@ -7,6 +7,8 @@
 
 import Foundation
 
+struct HSB { var h: Double; var s: Double; var b: Double } // h in [0,360)
+
 struct RGBA: Equatable {
     var r: Double; var g: Double; var b: Double; var a: Double
     
@@ -43,4 +45,52 @@ struct RGBA: Equatable {
     }
     
     private func clamp01(_ x: Double) -> Double { min(max(0, x), 1) }
+}
+
+extension RGBA {
+    
+    var asRGBText: String { "\(Int(r*255)),\(Int(g*255)),\(Int(b*255))" }
+    
+    func toHSB() -> HSB {
+        let r = r, g = g, b = b
+        let maxv = max(r, g, b), minv = min(r, g, b)
+        let delta = maxv - minv
+        // Hue
+        var h: Double
+        if delta == 0 { h = 0 }
+        else if maxv == r { h = 60 * fmod(((g - b) / delta), 6) }
+        else if maxv == g { h = 60 * (((b - r) / delta) + 2) }
+        else { h = 60 * (((r - g) / delta) + 4) }
+        if h < 0 { h += 360 }
+        // Saturation
+        let s = maxv == 0 ? 0 : (delta / maxv)
+        // Brightness
+        let v = maxv
+        return HSB(h: h, s: s, b: v)
+    }
+
+    static func fromHSB(_ hsb: HSB, alpha: Double = 1) -> RGBA {
+        let c = hsb.b * hsb.s
+        let x = c * (1 - abs(fmod(hsb.h / 60.0, 2) - 1))
+        let m = hsb.b - c
+        let (rp, gp, bp): (Double, Double, Double)
+        switch hsb.h {
+        case 0..<60:   (rp, gp, bp) = (c, x, 0)
+        case 60..<120: (rp, gp, bp) = (x, c, 0)
+        case 120..<180:(rp, gp, bp) = (0, c, x)
+        case 180..<240:(rp, gp, bp) = (0, x, c)
+        case 240..<300:(rp, gp, bp) = (x, 0, c)
+        default:       (rp, gp, bp) = (c, 0, x)
+        }
+        return RGBA(r: rp + m, g: gp + m, b: bp + m, a: alpha)
+    }
+
+    /// Apply the same adjustments you show in UI (degrees, sat multiplier, brightness delta)
+    func applying(hueDegrees: Double, satMultiplier: Double, brightnessDelta: Double) -> RGBA {
+        var hsb = toHSB()
+        hsb.h = fmod((hsb.h + hueDegrees + 360), 360)
+        hsb.s = min(max(hsb.s * satMultiplier, 0), 1)
+        hsb.b = min(max(hsb.b + brightnessDelta, 0), 1)
+        return RGBA.fromHSB(hsb, alpha: a)
+    }
 }

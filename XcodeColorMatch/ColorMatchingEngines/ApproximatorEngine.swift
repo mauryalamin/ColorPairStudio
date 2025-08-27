@@ -38,6 +38,7 @@ struct ApproximatorEngine {
         return ApproximatedOutput(target: target,
                                   baseName: nearest.name,
                                   baseColor: nearest.color,
+                                  baseRGBA: nearest.rgba, 
                                   hueDegrees: hueDegrees,
                                   saturation: saturation,
                                   brightness: brightness,
