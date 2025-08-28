@@ -31,36 +31,84 @@ struct ApproximatorResultView: View {
         _bri = State(initialValue: output.brightness)
     }
     
-    // recompute Δ vs target using numeric RGBA with our adjustments
-    private var liveDelta: Double {
-        let adjusted = output.baseRGBA.applying(
+    
+    // Derived metrics for the header / export
+    // Inside ApproximatorResultView, add these computed props above `var body`
+    private var adjustedRGBA: RGBA {
+        output.baseRGBA.applying(
             hueDegrees: hue,
             satMultiplier: sat,
             brightnessDelta: bri
         )
-        return output.target.rgbDistance(to: adjusted) // (we’ll swap to ΔE later)
     }
-    
+
+    private var liveDeltaE: Double {
+        DeltaE.ciede2000(output.target.toLab(), adjustedRGBA.toLab())
+    }
+
     private var deltaLabel: String {
-        switch liveDelta {
-        case ..<0.08: return "Low"
-        case ..<0.16: return "Medium"
-        default:      return "High"
+        switch liveDeltaE {
+        case ..<1.0: return "Very Low"
+        case ..<2.0: return "Low"
+        case ..<5.0: return "Medium"
+        default:     return "High"
         }
+    }
+
+    // Real WCAG (white text on the adjusted fill)
+    private var liveContrast: Double {
+        WCAG.contrastRatio(fg: RGBA(r: 1, g: 1, b: 1, a: 1), bg: adjustedRGBA)
+    }
+    private var wcagPass: Bool { WCAG.passesAA(normalText: liveContrast) }
+    
+    private func fixContrast() {
+        // Try darkening background (better for white text) until AA passes or we hit bounds
+        var trial = bri
+        let step = moreRange ? 0.02 : 0.01
+        let minBri = moreRange ? -1.0 : -0.08
+
+        var passes = wcagPass
+        var guardrail = 0
+        while !passes && guardrail < 80 {
+            // Darken a bit
+            trial = max(trial - step, minBri)
+            let testBG = output.baseRGBA.applying(
+                hueDegrees: hue, satMultiplier: sat, brightnessDelta: trial
+            )
+            let ratio = WCAG.contrastRatio(fg: RGBA(r: 1, g: 1, b: 1, a: 1), bg: testBG)
+            passes = WCAG.passesAA(normalText: ratio)
+            guardrail += 1
+            if trial == minBri { break }
+        }
+        withAnimation { bri = trial }
     }
     
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
+            // 2) In your header HStack inside var body, add the button after the WCAG badge:
+
             HStack {
                 Text("Target \(output.target.hexString)")
                 Text("Base: \(output.baseName)")
-                Text(String(format: "Δ ≈ %.2f (%@)", liveDelta, deltaLabel))
-                Label("WCAG: PASS", systemImage: "checkmark.seal") // stub; real check next
-                    .foregroundStyle(.green)
+                Text(String(format: "ΔE00 %.2f (%@)", liveDeltaE, deltaLabel)).monospaced()
+
+                Label(String(format: "WCAG: %.2fx %@", liveContrast, wcagPass ? "PASS" : "FAIL"),
+                      systemImage: wcagPass ? "checkmark.seal" : "xmark.seal")
+                    .foregroundStyle(wcagPass ? .green : .red)
+
+                // Show only when failing
+                if !wcagPass {
+                    Button("Fix Contrast") { fixContrast() }
+                        .buttonStyle(.bordered)                // or .borderedProminent for emphasis
+                        .help("Automatically nudge brightness until AA passes")
+                }
+
                 Spacer()
+
                 Button("Export Snippet") { showSheet = true }
-                    .keyboardShortcut("e", modifiers: [.command]) // ⌘E
+                    .keyboardShortcut("e", modifiers: [.command])
             }
+
             
             // NEW: More range toggle (lets users stretch farther if needed)
             Toggle("More range (may look less 'native')", isOn: $moreRange)
@@ -107,14 +155,16 @@ struct ApproximatorResultView: View {
             PreviewRow(fill: output.baseColor, hue: hue, sat: sat, bri: bri)
         }
         .sheet(isPresented: $showSheet) {
-            // export using current slider values
             let updated = ApproximatedOutput(
                 target: output.target,
                 baseName: output.baseName,
                 baseColor: output.baseColor,
                 baseRGBA: output.baseRGBA,
-                hueDegrees: hue, saturation: sat, brightness: bri,
-                deltaE: liveDelta, wcagPass: output.wcagPass
+                hueDegrees: hue,
+                saturation: sat,
+                brightness: bri,
+                deltaE: liveDeltaE,
+                wcagPass: wcagPass
             )
             ExportSheet(snippet: Exporter.approximatorSnippet(output: updated))
         }

@@ -8,11 +8,28 @@
 import SwiftUI
 
 struct ExportSheet: View {
+    @Environment(\.dismiss) private var dismiss
     let snippet: String
-    
+
     var body: some View {
-        VStack(alignment: .leading) {
-            Text("Export Preview").font(.headline)
+        VStack(alignment: .leading, spacing: 12) {
+            // Header with X button
+            HStack {
+                Text("Export Preview")
+                    .font(.headline)
+                Spacer()
+                Button {
+                    dismiss()
+                } label: {
+                    Image(systemName: "xmark.circle.fill")
+                        .imageScale(.large)
+                        .foregroundStyle(.secondary)
+                        .accessibilityLabel("Close")
+                }
+                .buttonStyle(.plain)
+            }
+
+            // Content
             ScrollView {
                 Text(snippet)
                     .textSelection(.enabled)
@@ -21,10 +38,17 @@ struct ExportSheet: View {
                     .background(.thinMaterial, in: RoundedRectangle(cornerRadius: 12))
             }
             .frame(minWidth: 640, minHeight: 320)
+
+            // Footer with Close button (optional, but nice on macOS)
+            HStack {
+                Spacer()
+                Button("Close") { dismiss() }
+            }
         }
         .padding(20)
     }
 }
+
 
 // Uses the Approximator sample
 #Preview("ExportSheet — Approximator") {
