@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+
 struct ContentView: View {
     @StateObject private var vm = ColorMatcherViewModel()
     
@@ -29,18 +30,10 @@ struct ContentView: View {
                 Button("Toggle Light/Dark Preview") {
                     togglePreviewAppearance()
                 }
-                .keyboardShortcut("l", modifiers: [.command]) // ⌘L
+                .keyboardShortcut("l", modifiers: [.command])
             }
         }
         
-    }
-    
-    private func togglePreviewAppearance() {
-        if NSApp.appearance?.name == .aqua {
-            NSApp.appearance = NSAppearance(named: .darkAqua)
-        } else {
-            NSApp.appearance = NSAppearance(named: .aqua)
-        }
     }
     
     private var header: some View {

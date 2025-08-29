@@ -160,11 +160,8 @@ struct ApproximatorResultView: View {
                 baseName: output.baseName,
                 baseColor: output.baseColor,
                 baseRGBA: output.baseRGBA,
-                hueDegrees: hue,
-                saturation: sat,
-                brightness: bri,
-                deltaE: liveDeltaE,
-                wcagPass: wcagPass
+                hueDegrees: hue, saturation: sat, brightness: bri,
+                deltaE: liveDeltaE, wcagPass: wcagPass
             )
             ExportSheet(snippet: Exporter.approximatorSnippet(output: updated))
         }

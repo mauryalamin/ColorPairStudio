@@ -5,7 +5,9 @@
 //  Created by Maury Alamin on 8/26/25.
 //
 
+// ExportSheet.swift
 import SwiftUI
+import AppKit
 
 struct ExportSheet: View {
     @Environment(\.dismiss) private var dismiss
@@ -13,10 +15,9 @@ struct ExportSheet: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
-            // Header with X button
+            // Header
             HStack {
-                Text("Export Preview")
-                    .font(.headline)
+                Text("Export Preview").font(.headline)
                 Spacer()
                 Button {
                     dismiss()
@@ -39,8 +40,12 @@ struct ExportSheet: View {
             }
             .frame(minWidth: 640, minHeight: 320)
 
-            // Footer with Close button (optional, but nice on macOS)
+            // Footer (Copy + Close)
             HStack {
+                Button("Copy") {
+                    NSPasteboard.general.clearContents()
+                    NSPasteboard.general.setString(snippet, forType: .string)
+                }
                 Spacer()
                 Button("Close") { dismiss() }
             }
@@ -48,7 +53,6 @@ struct ExportSheet: View {
         .padding(20)
     }
 }
-
 
 // Uses the Approximator sample
 #Preview("ExportSheet — Approximator") {

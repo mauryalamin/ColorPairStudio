@@ -6,13 +6,25 @@
 //
 
 import SwiftUI
+import AppKit
 
 @main
-struct XcodeColorMatchApp: App {
+struct ColorMatcherApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
         }
         .windowStyle(.titleBar)
+        Settings {
+            PreferencesView()
+        }
+        .commands {
+            CommandMenu("View") {
+                Button("Toggle Light/Dark Preview") {
+                    togglePreviewAppearance()
+                }
+                    .keyboardShortcut("l", modifiers: [.command])
+            }
+        }
     }
 }

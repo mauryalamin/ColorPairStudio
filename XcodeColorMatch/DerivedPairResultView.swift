@@ -98,6 +98,9 @@ struct DerivedPairResultView: View {
                                                                      pair: recomputed))
                 }
         }
+        .sheet(isPresented: $showSheet) {
+            ExportSheet(snippet: Exporter.derivedPairSnippet(name: "BrandPrimary", pair: recomputed))
+        }
     }
 
 }

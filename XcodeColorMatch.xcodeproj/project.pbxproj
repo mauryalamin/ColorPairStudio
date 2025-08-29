@@ -23,6 +23,8 @@
 		AE0A8AE72E5E71A90066A017 /* RGBA.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0A8AE62E5E71A90066A017 /* RGBA.swift */; };
 		AE0A8AE92E5E71D30066A017 /* Color+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0A8AE82E5E71D30066A017 /* Color+Extensions.swift */; };
 		AE331AAF2E5FA06100C6B110 /* ColorWellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE331AAE2E5FA06100C6B110 /* ColorWellView.swift */; };
+		AE91A1E92E61FCD9009575D0 /* PreferencesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE91A1E82E61FCD9009575D0 /* PreferencesView.swift */; };
+		AE91A1ED2E6200F8009575D0 /* AppearanceToggle.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE91A1EC2E6200F8009575D0 /* AppearanceToggle.swift */; };
 		AEC411BA2E5E57250054C9E1 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEC411B62E5E57250054C9E1 /* ContentView.swift */; };
 		AEC411BB2E5E57250054C9E1 /* XcodeColorMatchApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEC411B82E5E57250054C9E1 /* XcodeColorMatchApp.swift */; };
 		AEC411BC2E5E57250054C9E1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AEC411B52E5E57250054C9E1 /* Assets.xcassets */; };
@@ -66,6 +68,8 @@
 		AE0A8AE62E5E71A90066A017 /* RGBA.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RGBA.swift; sourceTree = "<group>"; };
 		AE0A8AE82E5E71D30066A017 /* Color+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extensions.swift"; sourceTree = "<group>"; };
 		AE331AAE2E5FA06100C6B110 /* ColorWellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorWellView.swift; sourceTree = "<group>"; };
+		AE91A1E82E61FCD9009575D0 /* PreferencesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesView.swift; sourceTree = "<group>"; };
+		AE91A1EC2E6200F8009575D0 /* AppearanceToggle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppearanceToggle.swift; sourceTree = "<group>"; };
 		AEC4118A2E5E56F70054C9E1 /* XcodeColorMatch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = XcodeColorMatch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AEC411982E5E56F90054C9E1 /* XcodeColorMatchTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = XcodeColorMatchTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		AEC411A22E5E56F90054C9E1 /* XcodeColorMatchUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = XcodeColorMatchUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -190,12 +194,14 @@
 				AE0A8AE22E5E713E0066A017 /* TwinPreview.swift */,
 				AEFB4FB92E60D0110044D6C2 /* PassBadge.swift */,
 				AE0A8AE42E5E71750066A017 /* ExportSheet.swift */,
+				AE91A1E82E61FCD9009575D0 /* PreferencesView.swift */,
 				AE0A8AE62E5E71A90066A017 /* RGBA.swift */,
 				AE0A8AE82E5E71D30066A017 /* Color+Extensions.swift */,
 				AE0A8ACE2E5E5EC00066A017 /* EmptyState.swift */,
 				AEC411BD2E5E575C0054C9E1 /* MatchMode.swift */,
 				AEC411B52E5E57250054C9E1 /* Assets.xcassets */,
 				AEFB4FB32E60BDA90044D6C2 /* WCAG.swift */,
+				AE91A1EC2E6200F8009575D0 /* AppearanceToggle.swift */,
 			);
 			path = XcodeColorMatch;
 			sourceTree = "<group>";
@@ -353,9 +359,11 @@
 				AE0A8ACF2E5E5EC00066A017 /* EmptyState.swift in Sources */,
 				AEC411BA2E5E57250054C9E1 /* ContentView.swift in Sources */,
 				AE0A8AE72E5E71A90066A017 /* RGBA.swift in Sources */,
+				AE91A1ED2E6200F8009575D0 /* AppearanceToggle.swift in Sources */,
 				AE0A8AE92E5E71D30066A017 /* Color+Extensions.swift in Sources */,
 				AE0A8ADD2E5E6FFA0066A017 /* ApproximatorResultView.swift in Sources */,
 				AE0A8AD32E5E5F560066A017 /* DerivedPair.swift in Sources */,
+				AE91A1E92E61FCD9009575D0 /* PreferencesView.swift in Sources */,
 				AE331AAF2E5FA06100C6B110 /* ColorWellView.swift in Sources */,
 				AEFB4FB42E60BDA90044D6C2 /* WCAG.swift in Sources */,
 				AE0A8AD92E5E6EE50066A017 /* DerivedPairEngine.swift in Sources */,
