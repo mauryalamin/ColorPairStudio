@@ -1,21 +1,20 @@
 //
-//  MatchMode.swift
+//  Mode.swift
 //  XcodeColorMatch
 //
-//  Created by Maury Alamin on 8/26/25.
+//  Created by Maury Alamin on 8/29/25.
 //
 
 import Foundation
 
-// MatchMode.swift
-enum MatchMode: String, CaseIterable, Hashable {
+enum Mode: String, CaseIterable, Hashable {
     case approximator
-    case derivedPair // ← if your project uses `.derivedPair`, keep that name instead
+    case derived
 
     var label: String {
         switch self {
         case .approximator: return "Approximator"
-        case .derivedPair:      return "Derived Pair" // or return "Derived Pair" for `.derivedPair`
+        case .derived:      return "Derived Pair"
         }
     }
 
@@ -23,7 +22,7 @@ enum MatchMode: String, CaseIterable, Hashable {
         switch self {
         case .approximator:
             return "Start from a system color and nudge hue/sat/brightness. Quick and adaptive; export a SwiftUI snippet."
-        case .derivedPair:
+        case .derived:
             return "Generate reusable light/dark twins as a named asset. Exact brand intent, autocomplete everywhere."
         }
     }

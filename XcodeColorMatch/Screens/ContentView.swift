@@ -7,12 +7,15 @@
 
 import SwiftUI
 
+enum UI {
+    static let row: CGFloat = 24; static let col: CGFloat = 24
+}
 
 struct ContentView: View {
     @StateObject private var vm = ColorMatcherViewModel()
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 16) {
+        VStack(alignment: .leading, spacing: 24) {
             header
             inputRow
             modeRow
@@ -24,7 +27,7 @@ struct ContentView: View {
             Spacer()
         }
         .padding(20)
-        .frame(minWidth: 820, minHeight: 560)
+        .frame(minWidth: 820, minHeight: 640)
         .toolbar {
             ToolbarItem(placement: .automatic) {
                 Button("Toggle Light/Dark Preview") {
@@ -45,17 +48,17 @@ struct ContentView: View {
     }
     
     private var inputRow: some View {
-        HStack(alignment: .center, spacing: 12) {
+        HStack(alignment: .top, spacing: 24) {
             ColorWellView(rgba: $vm.input)
-                .frame(width: 120, height: 36)
+                .frame(width: 120, height: 60)
+                .overlay(RoundedRectangle(cornerRadius: 8).stroke(.quaternary))
             
             VStack(alignment: .leading) {
                 HStack {
                     Text("HEX:")
                     TextField("#RRGGBB", text: $vm.hexText)
                         .onChange(of: vm.hexText) { vm.syncFromHex() }
-
-                    // TextField("#RRGGBB", text: $vm.hexText)
+                        .controlSize(.large)
                         .textFieldStyle(.roundedBorder)
                         .font(.system(.body, design: .monospaced))
                         .frame(width: 140)
@@ -64,8 +67,7 @@ struct ContentView: View {
                     Text("RGB:")
                     TextField("r,g,b", text: $vm.rgbText)
                         .onChange(of: vm.rgbText) { vm.syncFromRGB() }
-
-                    // TextField("r,g,b", text: $vm.rgbText)
+                        .controlSize(.large)
                         .textFieldStyle(.roundedBorder)
                         .font(.system(.body, design: .monospaced))
                         .frame(width: 140)
@@ -79,24 +81,20 @@ struct ContentView: View {
     }
     
     private var modeRow: some View {
-        HStack(spacing: 16) {
+        VStack(alignment: .leading ,spacing: 8) {
+            // Mode toggle (your existing control)
             Picker("Mode", selection: $vm.mode) {
-                ForEach(MatchMode.allCases) { mode in
-                    Text(mode.rawValue).tag(mode)
-                }
+                Text("Approximator").tag(MatchMode.approximator)
+                Text("Derived Pair").tag(MatchMode.derivedPair) // or .derivedPair
             }
             .pickerStyle(.segmented)
-            Group {
-                if vm.mode == .approximator {
-                    Text("System base + tiny nudges (component fill only)")
-                        .foregroundStyle(.secondary)
-                } else {
-                    Text("Creates Light/Dark twins saved as a named color asset")
-                        .foregroundStyle(.secondary)
-                }
-            }
-            Spacer()
+
+            ModeHelp(text: vm.mode.helpText)
+                .transition(.opacity.combined(with: .move(edge: .top)))
+                .animation(.easeInOut(duration: 0.2), value: vm.mode)
+                .padding(.top, 4)
         }
+        .frame(maxWidth: 600)
     }
     
     @ViewBuilder
