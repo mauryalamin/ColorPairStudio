@@ -1,6 +1,6 @@
 //
-//  XcodeColorMatchApp.swift
-//  XcodeColorMatch
+//  ColorPairStudioApp.swift
+//  ColorPairStudioApp
 //
 //  Created by Maury Alamin on 8/26/25.
 //
@@ -9,7 +9,7 @@ import SwiftUI
 import AppKit
 
 @main
-struct ColorMatcherApp: App {
+struct ColorPairStudioApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()

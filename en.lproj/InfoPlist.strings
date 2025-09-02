@@ -1,0 +1,11 @@
+/* 
+  InfoPlist.strings
+  ColorPairStudio
+
+  Created by Maury Alamin on 8/29/25.
+  
+*/
+
+/* App name for menus, Dock tooltip, About, etc. */
+CFBundleName = "Color Pair Studio";
+CFBundleDisplayName = "Color Pair Studio";
