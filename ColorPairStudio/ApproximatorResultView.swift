@@ -9,31 +9,29 @@ import SwiftUI
 
 struct ApproximatorResultView: View {
     let output: ApproximatedOutput
-    let export: () -> String
-    @State private var showSheet = false
-    
-    // live slider state
+    let onExport: (String) -> Void   // parent-provided presenter
+
+    // Live slider state
     @State private var hue: Double
     @State private var sat: Double
     @State private var bri: Double
-    
-    // NEW: widen ranges on demand
+
+    // Range toggle
     @State private var moreRange = false
     private var hueRange: ClosedRange<Double> { moreRange ? -180...180   : -15...15 }
-    private var satRange: ClosedRange<Double> { moreRange ?  0.00...2.00 :  0.85...1.10 }
-    private var briRange: ClosedRange<Double> { moreRange ? -1.00...1.00 : -0.08...0.08 }
-    
-    init(output: ApproximatedOutput, export: @escaping () -> String) {
+    private var satRange: ClosedRange<Double> { moreRange ?   0.00...2.00 :  0.85...1.10 }
+    private var briRange: ClosedRange<Double> { moreRange ?  -1.00...1.00 : -0.08...0.08 }
+
+    init(output: ApproximatedOutput, onExport: @escaping (String) -> Void = { _ in }) {
         self.output = output
-        self.export = export
+        self.onExport = onExport
         _hue = State(initialValue: output.hueDegrees)
         _sat = State(initialValue: output.saturation)
         _bri = State(initialValue: output.brightness)
     }
-    
-    
-    // Derived metrics for the header / export
-    // Inside ApproximatorResultView, add these computed props above `var body`
+
+    // MARK: - Live metrics based on sliders
+
     private var adjustedRGBA: RGBA {
         output.baseRGBA.applying(
             hueDegrees: hue,
@@ -55,22 +53,21 @@ struct ApproximatorResultView: View {
         }
     }
 
-    // Real WCAG (white text on the adjusted fill)
+    // White text contrast vs adjusted fill
     private var liveContrast: Double {
         WCAG.contrastRatio(fg: RGBA(r: 1, g: 1, b: 1, a: 1), bg: adjustedRGBA)
     }
     private var wcagPass: Bool { WCAG.passesAA(normalText: liveContrast) }
-    
+
+    // Nudge brightness darker until AA passes (or bounds)
     private func fixContrast() {
-        // Try darkening background (better for white text) until AA passes or we hit bounds
         var trial = bri
-        let step = moreRange ? 0.02 : 0.01
+        let step   = moreRange ? 0.02 : 0.01
         let minBri = moreRange ? -1.0 : -0.08
 
         var passes = wcagPass
         var guardrail = 0
         while !passes && guardrail < 80 {
-            // Darken a bit
             trial = max(trial - step, minBri)
             let testBG = output.baseRGBA.applying(
                 hueDegrees: hue, satMultiplier: sat, brightnessDelta: trial
@@ -82,98 +79,108 @@ struct ApproximatorResultView: View {
         }
         withAnimation { bri = trial }
     }
-    
+
+    // MARK: - Export snippet built from *live* values
+
+    private var snippet: String {
+        // Format nicely; omit no-op modifiers
+        let base = output.baseName
+        let hueDeg = Int(hue.rounded())
+        let satStr = String(format: "%.2f", sat)
+        let briStr = String(format: "%.2f", bri)
+
+        var lines: [String] = ["Color.\(base)"]
+        if hueDeg != 0       { lines.append("    .hueRotation(.degrees(\(hueDeg)))") }
+        if abs(sat - 1.0) > 0.0001 { lines.append("    .saturation(\(satStr))") }
+        if abs(bri) > 0.0001 { lines.append("    .brightness(\(briStr))") }
+
+        return lines.joined(separator: "\n")
+    }
+
+    // MARK: - View
+
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
-            // 2) In your header HStack inside var body, add the button after the WCAG badge:
 
-            HStack {
+            // Header metrics + actions
+            HStack(spacing: 12) {
                 Text("Target \(output.target.hexString)")
                 Text("Base: \(output.baseName)")
-                Text(String(format: "ΔE00 %.2f (%@)", liveDeltaE, deltaLabel)).monospaced()
+                Text(String(format: "ΔE00 %.2f (%@)", liveDeltaE, deltaLabel))
+                    .monospaced()
 
-                Label(String(format: "WCAG: %.2fx %@", liveContrast, wcagPass ? "PASS" : "FAIL"),
-                      systemImage: wcagPass ? "checkmark.seal" : "xmark.seal")
-                    .foregroundStyle(wcagPass ? .green : .red)
+                Label(
+                    String(format: "WCAG: %.2fx %@", liveContrast, wcagPass ? "PASS" : "FAIL"),
+                    systemImage: wcagPass ? "checkmark.seal" : "xmark.seal"
+                )
+                .foregroundStyle(wcagPass ? .green : .red)
 
-                // Show only when failing
                 if !wcagPass {
                     Button("Fix Contrast") { fixContrast() }
-                        .buttonStyle(.bordered)                // or .borderedProminent for emphasis
-                        .help("Automatically nudge brightness until AA passes")
+                        .buttonStyle(.bordered)
+                        .help("Nudge brightness until AA passes")
                 }
 
                 Spacer()
 
-                Button("Export Snippet") { showSheet = true }
-                    .keyboardShortcut("e", modifiers: [.command])
+                Button("Export Snippet…") {
+                    onExport(snippet)
+                }
+                .keyboardShortcut("e", modifiers: [.command])
             }
 
-            
-            // NEW: More range toggle (lets users stretch farther if needed)
-            Toggle("More range (may look less 'native')", isOn: $moreRange)
+            // Range toggle
+            Toggle("More range (may look less ‘native’)", isOn: $moreRange)
                 .onChange(of: moreRange) { oldValue, newValue in
                     if oldValue == true && newValue == false {
-                        // we just narrowed the ranges → clamp current values
-                        hue = min(max(hue, -15), 15)
-                        sat = min(max(sat, 0.85), 1.10)
-                        bri = min(max(bri, -0.08), 0.08)
+                        // Clamp to default subranges when turning off
+                        hue = min(max(hue, hueRange.lowerBound), hueRange.upperBound)
+                        sat = min(max(sat, satRange.lowerBound), satRange.upperBound)
+                        bri = min(max(bri, briRange.lowerBound), briRange.upperBound)
                     }
                 }
-            
-            // Guard-ranged sliders that respect the toggle
+
+            // Sliders
             VStack(alignment: .leading, spacing: 8) {
                 LabeledContent("Hue Rotation") {
                     if moreRange {
-                        Slider(value: $hue, in: -180...180) // continuous
+                        Slider(value: $hue, in: -180...180)
                     } else {
-                        Slider(value: $hue, in: -15...15, step: 1) // discrete, tidy ticks
+                        Slider(value: $hue, in: -15...15, step: 1)
                     }
                     Text("\(Int(hue))°").monospaced()
                 }
-                
+
                 LabeledContent("Saturation") {
                     if moreRange {
-                        Slider(value: $sat, in: 0.00...2.00)      // continuous
+                        Slider(value: $sat, in: 0.00...2.00)
                     } else {
                         Slider(value: $sat, in: 0.85...1.10, step: 0.01)
                     }
                     Text(String(format: "%.2f", sat)).monospaced()
                 }
-                
+
                 LabeledContent("Brightness") {
                     if moreRange {
-                        Slider(value: $bri, in: -1.00...1.00)     // continuous
+                        Slider(value: $bri, in: -1.00...1.00)
                     } else {
                         Slider(value: $bri, in: -0.08...0.08, step: 0.01)
                     }
                     Text(String(format: "%.2f", bri)).monospaced()
                 }
             }
-            
-            // Previews use the visual pipeline (shape-first; modifiers after .fill)
+
+            // Visual preview uses the same pipeline as export snippet
             PreviewRow(fill: output.baseColor, hue: hue, sat: sat, bri: bri)
         }
-        .sheet(isPresented: $showSheet) {
-            let updated = ApproximatedOutput(
-                target: output.target,
-                baseName: output.baseName,
-                baseColor: output.baseColor,
-                baseRGBA: output.baseRGBA,
-                hueDegrees: hue, saturation: sat, brightness: bri,
-                deltaE: liveDeltaE, wcagPass: wcagPass
-            )
-            ExportSheet(snippet: Exporter.approximatorSnippet(output: updated))
-        }
+        // Make global ⌘E call the same path as the button
+        .focusedSceneValue(\.exportAction) { onExport(snippet) }
     }
 }
 
-
-
 #Preview("Approximator — PASS") {
     ApproximatorResultView(
-        output: .samplePass,
-        export: { Exporter.approximatorSnippet(output: .samplePass) }
+        output: .samplePass    // make sure you’ve defined this fixture elsewhere
     )
     .frame(width: 860)
     .padding(20)
@@ -181,8 +188,7 @@ struct ApproximatorResultView: View {
 
 #Preview("Approximator — FAIL") {
     ApproximatorResultView(
-        output: .sampleFail,
-        export: { Exporter.approximatorSnippet(output: .sampleFail) }
+        output: .sampleFail
     )
     .frame(width: 860)
     .padding(20)

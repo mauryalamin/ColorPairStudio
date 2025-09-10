@@ -11,20 +11,32 @@ import AppKit
 @main
 struct ColorPairStudioApp: App {
     var body: some Scene {
-        WindowGroup {
+        WindowGroup("Color Pair Studio") {
             ContentView()
         }
-        .windowStyle(.titleBar)
         Settings {
             PreferencesView()
         }
         .commands {
-            CommandMenu("View") {
-                Button("Toggle Light/Dark Preview") {
-                    togglePreviewAppearance()
+            // App menu (under “Color Pair Studio”): add Feedback
+            CommandGroup(after: .appInfo) {
+                Divider()
+                Button("Send Feedback…") {
+                    NSWorkspace.shared.open(Links.feedback)
                 }
-                    .keyboardShortcut("l", modifiers: [.command])
+                .keyboardShortcut("f", modifiers: [.command, .shift]) // ⌘⇧F
             }
+            
+            // Help menu (far right): open Support URL
+            CommandGroup(replacing: .help) {
+                Button("Color Pair Studio Help") {
+                    NSWorkspace.shared.open(Links.support)
+                }
+                // (Optional) add more help items here later
+            }
+            
+            AppCommands()
         }
     }
 }
+

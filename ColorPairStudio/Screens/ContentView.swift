@@ -14,6 +14,16 @@ enum UI {
 struct ContentView: View {
     @StateObject private var vm = ColorMatcherViewModel()
     
+    private struct ExportPayload: Identifiable {
+        let id = UUID()
+        let snippet: String
+    }
+    @State private var exportPayload: ExportPayload?
+    
+    private func presentExport(_ snippet: String) {
+        exportPayload = ExportPayload(snippet: snippet)
+    }
+    
     var body: some View {
         VStack(alignment: .leading, spacing: 24) {
             header
@@ -21,7 +31,7 @@ struct ContentView: View {
             modeRow
             Button("Generate", action: vm.generate)
                 .keyboardShortcut(.return)
-            
+
             Divider()
             resultsSection
             Spacer()
@@ -30,15 +40,15 @@ struct ContentView: View {
         .frame(minWidth: 820, minHeight: 640)
         .toolbar {
             ToolbarItem(placement: .automatic) {
-                Button("Toggle Light/Dark Preview") {
-                    togglePreviewAppearance()
-                }
-                .keyboardShortcut("l", modifiers: [.command])
+                Button("Toggle Light/Dark Preview") { togglePreviewAppearance() }
+                    .keyboardShortcut("l", modifiers: [.command])
             }
         }
-        
+        .sheet(item: $exportPayload) { payload in
+            ExportSheet(snippet: payload.snippet)
+        }
     }
-    
+
     private var header: some View {
         HStack {
             Text("Custom → Native Color Matcher")
@@ -46,13 +56,13 @@ struct ContentView: View {
             Spacer()
         }
     }
-    
+
     private var inputRow: some View {
         HStack(alignment: .top, spacing: 24) {
             ColorWellView(rgba: $vm.input)
                 .frame(width: 120, height: 60)
                 .overlay(RoundedRectangle(cornerRadius: 8).stroke(.quaternary))
-            
+
             VStack(alignment: .leading) {
                 HStack {
                     Text("HEX:")
@@ -79,13 +89,12 @@ struct ContentView: View {
             Spacer()
         }
     }
-    
+
     private var modeRow: some View {
         VStack(alignment: .leading ,spacing: 8) {
-            // Mode toggle (your existing control)
             Picker("Mode", selection: $vm.mode) {
                 Text("Approximator").tag(MatchMode.approximator)
-                Text("Derived Pair").tag(MatchMode.derivedPair) // or .derivedPair
+                Text("Derived Pair").tag(MatchMode.derivedPair)
             }
             .pickerStyle(.segmented)
 
@@ -97,15 +106,19 @@ struct ContentView: View {
         .frame(maxWidth: 600)
     }
     
+
     @ViewBuilder
     private var resultsSection: some View {
         switch vm.result {
         case .none:
             EmptyState()
+                .focusedSceneValue(\.exportAction, nil)
+
         case .some(.approximated(let out)):
-            ApproximatorResultView(output: out, export: vm.exportSnippet)
+            ApproximatorResultView(output: out, onExport: presentExport)
+
         case .some(.derived(let pair)):
-            DerivedPairResultView(pair: pair, export: vm.exportSnippet)
+            DerivedPairResultView(pair: pair, onExport: presentExport)
         }
     }
 }
