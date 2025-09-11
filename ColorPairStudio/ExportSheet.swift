@@ -36,6 +36,7 @@ struct ExportSheet: View {
                     .textSelection(.enabled)
                     .font(.system(.footnote, design: .monospaced))
                     .padding()
+                    .accessibilityLabel("SwiftUI export code")
                     .background(.thinMaterial, in: RoundedRectangle(cornerRadius: 12))
             }
             .frame(minWidth: 640, minHeight: 320)
@@ -46,6 +47,7 @@ struct ExportSheet: View {
                     NSPasteboard.general.clearContents()
                     NSPasteboard.general.setString(snippet, forType: .string)
                 }
+                .accessibilityLabel("Copy code to clipboard")
                 Spacer()
                 Button("Close") { dismiss() }
             }

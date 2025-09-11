@@ -31,6 +31,7 @@ struct ContentView: View {
             modeRow
             Button("Generate", action: vm.generate)
                 .keyboardShortcut(.return)
+                .accessibilityLabel("Generate results")
 
             Divider()
             resultsSection
@@ -42,6 +43,8 @@ struct ContentView: View {
             ToolbarItem(placement: .automatic) {
                 Button("Toggle Light/Dark Preview") { togglePreviewAppearance() }
                     .keyboardShortcut("l", modifiers: [.command])
+                    .accessibilityLabel("Toggle Light or Dark preview")
+                    .accessibilityHint("Switches the app window appearance for preview only")
             }
         }
         .sheet(item: $exportPayload) { payload in
@@ -62,6 +65,7 @@ struct ContentView: View {
             ColorWellView(rgba: $vm.input)
                 .frame(width: 120, height: 60)
                 .overlay(RoundedRectangle(cornerRadius: 8).stroke(.quaternary))
+                .accessibilityHidden(true)
 
             VStack(alignment: .leading) {
                 HStack {
@@ -97,6 +101,9 @@ struct ContentView: View {
                 Text("Derived Pair").tag(MatchMode.derivedPair)
             }
             .pickerStyle(.segmented)
+            .accessibilityLabel("Mode")
+            .accessibilityValue(vm.mode == .approximator ? "Approximator" : "Derived Pair")
+            .accessibilityHint(vm.mode.helpText)
 
             ModeHelp(text: vm.mode.helpText)
                 .transition(.opacity.combined(with: .move(edge: .top)))

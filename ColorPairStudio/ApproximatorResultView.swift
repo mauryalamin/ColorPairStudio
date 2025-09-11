@@ -118,7 +118,8 @@ struct ApproximatorResultView: View {
                 if !wcagPass {
                     Button("Fix Contrast") { fixContrast() }
                         .buttonStyle(.bordered)
-                        .help("Nudge brightness until AA passes")
+                        .accessibilityLabel("Fix contrast")
+                        .accessibilityHint("Darkens the color slightly until text contrast passes AA")
                 }
 
                 Spacer()
@@ -126,7 +127,9 @@ struct ApproximatorResultView: View {
                 Button("Export Snippet…") {
                     onExport(snippet)
                 }
-                .keyboardShortcut("e", modifiers: [.command])
+                    .keyboardShortcut("e", modifiers: [.command])
+                    .accessibilityLabel("Export SwiftUI snippet")
+                    .accessibilityHint("Opens a window to copy the SwiftUI code")
             }
 
             // Range toggle
@@ -139,39 +142,41 @@ struct ApproximatorResultView: View {
                         bri = min(max(bri, briRange.lowerBound), briRange.upperBound)
                     }
                 }
+                .accessibilityLabel("More range")
+                .accessibilityHint("Expands hue, saturation, and brightness ranges for finer matching")
 
             // Sliders
             VStack(alignment: .leading, spacing: 8) {
                 LabeledContent("Hue Rotation") {
-                    if moreRange {
-                        Slider(value: $hue, in: -180...180)
-                    } else {
-                        Slider(value: $hue, in: -15...15, step: 1)
-                    }
-                    Text("\(Int(hue))°").monospaced()
+                    (moreRange ? Slider(value: $hue, in: -180...180)
+                               : Slider(value: $hue, in: -15...15, step: 1))
+                    .accessibilityLabel("Hue rotation")
+                    .accessibilityValue("\(Int(hue)) degrees")
                 }
 
                 LabeledContent("Saturation") {
-                    if moreRange {
-                        Slider(value: $sat, in: 0.00...2.00)
-                    } else {
-                        Slider(value: $sat, in: 0.85...1.10, step: 0.01)
-                    }
-                    Text(String(format: "%.2f", sat)).monospaced()
+                    (moreRange ? Slider(value: $sat, in: 0.00...2.00)
+                               : Slider(value: $sat, in: 0.85...1.10, step: 0.01))
+                    .accessibilityLabel("Saturation")
+                    .accessibilityValue(String(format: "%.2f", sat))
                 }
 
                 LabeledContent("Brightness") {
-                    if moreRange {
-                        Slider(value: $bri, in: -1.00...1.00)
-                    } else {
-                        Slider(value: $bri, in: -0.08...0.08, step: 0.01)
-                    }
-                    Text(String(format: "%.2f", bri)).monospaced()
+                    (moreRange ? Slider(value: $bri, in: -1.00...1.00)
+                               : Slider(value: $bri, in: -0.08...0.08, step: 0.01))
+                    .accessibilityLabel("Brightness")
+                    .accessibilityValue(String(format: "%.2f", bri))
                 }
             }
 
             // Visual preview uses the same pipeline as export snippet
             PreviewRow(fill: output.baseColor, hue: hue, sat: sat, bri: bri)
+                .accessibilityElement(children: .ignore)
+                .accessibilityLabel("Preview color")
+                .accessibilityValue("\(adjustedRGBA.hexString) " +
+                                    String(format: "Delta E %.2f, %@", liveDeltaE, deltaLabel))
+                .accessibilityCustomContent("WCAG white text ratio",
+                                            String(format: "%.2f×", liveContrast), importance: .high)
         }
         // Make global ⌘E call the same path as the button
         .focusedSceneValue(\.exportAction) { onExport(snippet) }

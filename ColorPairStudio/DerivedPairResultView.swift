@@ -50,6 +50,9 @@ struct DerivedPairResultView: View {
     private var lightCR: Double { WCAG.contrastRatio(fg: white, bg: recomputed.light) }
     private var darkCR:  Double { WCAG.contrastRatio(fg: white, bg: recomputed.dark) }
     
+    private var lightPass: Bool { WCAG.passesAA(normalText: lightTextCR) }
+    private var darkPass: Bool  { WCAG.passesAA(normalText: darkTextCR) }
+    
     private var bothPass: Bool {
         WCAG.passesAA(normalText: lightCR) && WCAG.passesAA(normalText: darkCR)
     }
@@ -60,8 +63,9 @@ struct DerivedPairResultView: View {
             HStack(spacing: 12) {
                 Text(String(format: "Δ Light: %.2fx", lightCR)).monospaced()
                 Text(String(format: "Δ Dark:  %.2fx", darkCR)).monospaced()
-                Label(bothPass ? "WCAG: BOTH PASS" : "WCAG: FAIL",
+                Label(bothPass ? "Both PASS" : "Both FAIL",
                       systemImage: bothPass ? "checkmark.seal" : "xmark.seal")
+                .accessibilityLabel(bothPass ? "Both twins pass contrast" : "Both twins fail contrast")
                 .foregroundStyle(bothPass ? .green : .red)
                 Spacer()
             }
@@ -74,6 +78,12 @@ struct DerivedPairResultView: View {
             HStack(spacing: 16) {
                 VStack(alignment: .leading, spacing: 6) {
                     TwinPreview(title: "Light", rgba: recomputed.light)
+                        .accessibilityElement(children: .ignore)
+                        .accessibilityLabel("Light twin")
+                        .accessibilityValue(
+                                "\(recomputed.light.hexString) " +
+                                String(format: "white text %.2fx %@", lightTextCR, lightPass ? "passes" : "fails")
+                            )
                     HStack(spacing: 8) {
                         PassBadge(title: "Text \(r(lightTextCR))", pass: lightTextPass)
                         PassBadge(title: "BG \(r(lightVsBGCR))",   pass: lightVsBGPass)
@@ -83,6 +93,12 @@ struct DerivedPairResultView: View {
                 
                 VStack(alignment: .leading, spacing: 6) {
                     TwinPreview(title: "Dark", rgba: recomputed.dark)
+                        .accessibilityElement(children: .ignore)
+                        .accessibilityLabel("Dark twin")
+                        .accessibilityValue(
+                                "\(recomputed.dark.hexString) " +
+                                String(format: "white text %.2fx %@", darkTextCR, darkPass ? "passes" : "fails")
+                            )
                     HStack(spacing: 8) {
                         PassBadge(title: "Text \(r(darkTextCR))", pass: darkTextPass)
                         PassBadge(title: "BG \(r(darkVsBGCR))",   pass: darkVsBGPass)
@@ -95,7 +111,9 @@ struct DerivedPairResultView: View {
             Button("Export to Assets + SwiftUI") {
                 onExport(snippet)
             }
-            .keyboardShortcut("e", modifiers: [.command])
+                .keyboardShortcut("e", modifiers: [.command])
+                .accessibilityLabel("Export to Assets and SwiftUI")
+                .accessibilityHint("Opens a window with steps and code for Xcode")
         }
         .focusedSceneValue(\.exportAction) {
             onExport(snippet)
