@@ -26,23 +26,31 @@ struct ApproximatorEngine {
         Base(name: ".gray", rgba: .init(r: 0.56, g: 0.56, b: 0.58, a: 1), color: .gray)
     ]
     
+    // ApproximatorEngine.swift
     func approximate(to target: RGBA) -> ApproximatedOutput {
-        // Pick nearest base by simple RGB distance (ΔE stubbed)
-        let nearest = bases.min(by: { $0.rgba.rgbDistance(to: target) < $1.rgba.rgbDistance(to: target) })!
-        // Placeholder tiny nudges – will be replaced by guard‑ranged search
-        let hueDegrees = 8.0
-        let saturation = 0.95
-        let brightness = 0.04
-        let deltaE = target.rgbDistance(to: nearest.rgba) // TODO: swap with ΔE
-        let wcagPass = true // TODO: compute WCAG on previews
-        return ApproximatedOutput(target: target,
-                                  baseName: nearest.name,
-                                  baseColor: nearest.color,
-                                  baseRGBA: nearest.rgba, 
-                                  hueDegrees: hueDegrees,
-                                  saturation: saturation,
-                                  brightness: brightness,
-                                  deltaE: deltaE,
-                                  wcagPass: wcagPass)
+        let tLab = target.toLab()
+        let nearest = bases.min { a, b in
+            DeltaE.ciede2000(a.rgba.toLab(), tLab) < DeltaE.ciede2000(b.rgba.toLab(), tLab)
+        }!
+
+        // Start with no nudges; the view’s sliders apply live changes
+        let hueDegrees = 0.0, saturation = 1.0, brightness = 0.0
+        let deltaE = DeltaE.ciede2000(nearest.rgba.toLab(), tLab)
+
+        // White-on-color contrast for the initial badge
+        let white = RGBA(r: 1, g: 1, b: 1, a: 1)
+        let wcagPass = WCAG.passesAA(normalText: WCAG.contrastRatio(fg: white, bg: nearest.rgba))
+
+        return ApproximatedOutput(
+            target: target,
+            baseName: nearest.name,
+            baseColor: nearest.color,
+            baseRGBA: nearest.rgba,
+            hueDegrees: hueDegrees,
+            saturation: saturation,
+            brightness: brightness,
+            deltaE: deltaE,
+            wcagPass: wcagPass
+        )
     }
 }

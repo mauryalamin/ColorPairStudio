@@ -12,7 +12,7 @@ final class ColorMatcherViewModel: ObservableObject {
     @Published var hexText: String = "#4C6FAF"
     @Published var rgbText: String = "76,111,175"
     @Published var pickedColor: Color = Color(red: 76/255, green: 111/255, blue: 175/255)
-    // @Published var input = RGBA(r: 76/255, g: 111/255, b: 175/255, a: 1)
+    @Published var bias: Double = 0.0
     @Published var input: RGBA = RGBA(r: 76/255, g: 111/255, b: 175/255, a: 1) {
         didSet {
             guard !isSyncing else { return }
@@ -34,19 +34,26 @@ final class ColorMatcherViewModel: ObservableObject {
     
     
     func generate() {
-        // Prefer HEX → RGB → fallback to picker
         let rgba = RGBA.fromHexString(hexText)
         ?? RGBA.fromRGBText(rgbText)
         ?? RGBA(r: 76/255, g: 111/255, b: 175/255, a: 1)
+        
+        let props: [String: Any]
         
         switch mode {
         case .approximator:
             let approx = engine.approximate(to: rgba)
             result = .approximated(approx)
+            props = ["mode": mode.rawValue, "feature": "Approximator"]
+            
         case .derivedPair:
-            let pair = DerivedPairEngine.derive(from: rgba)
+            let pair = DerivedPairEngine.derive(from: rgba, bias: bias)
             result = .derived(pair)
+            let roundedBias = (bias * 100).rounded() / 100   // optional nicety for logs
+            props = ["mode": mode.rawValue, "feature": "DerivedPair", "bias": roundedBias]
         }
+        
+        Analytics.track("generate_clicked", props)
     }
     
     func exportSnippet() -> String {

@@ -30,7 +30,9 @@ struct ColorWellView: NSViewRepresentable {
         var parent: ColorWellView
         init(_ parent: ColorWellView) { self.parent = parent }
         @objc func changed(_ sender: NSColorWell) {
-            let c = (sender.color.usingColorSpace(.deviceRGB) ?? sender.color)
+            
+            let c = sender.color.usingColorSpace(.sRGB) ??
+                    sender.color.usingColorSpace(.deviceRGB) ?? sender.color
             parent.rgba = RGBA(r: Double(c.redComponent),
                                g: Double(c.greenComponent),
                                b: Double(c.blueComponent),

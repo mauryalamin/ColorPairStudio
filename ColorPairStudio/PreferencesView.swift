@@ -9,12 +9,13 @@
 import SwiftUI
 
 struct PreferencesView: View {
-    @AppStorage("analytics_opt_in") private var analytics = false
+    @AppStorage(Analytics.optInKey) private var analyticsOptIn = false
 
     var body: some View {
         Form {
             Section("Privacy") {
-                Toggle("Share anonymous usage counts to improve the app", isOn: $analytics)
+                Toggle("Share anonymous usage analytics", isOn: $analyticsOptIn)
+                            .toggleStyle(.switch)
                 Text("Off by default. No personal data, no identifiers, and no color values are sent.")
                     .font(.footnote).foregroundStyle(.secondary)
                     .fixedSize(horizontal: false, vertical: true)

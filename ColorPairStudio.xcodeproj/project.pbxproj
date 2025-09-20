@@ -26,6 +26,7 @@
 		AE0D6E802E6277BB001CC246 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = AE0D6E7D2E6277BB001CC246 /* InfoPlist.strings */; };
 		AE0D6E812E6277BB001CC246 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = AE0D6E7D2E6277BB001CC246 /* InfoPlist.strings */; };
 		AE331AAF2E5FA06100C6B110 /* ColorWellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE331AAE2E5FA06100C6B110 /* ColorWellView.swift */; };
+		AE4D78FC2E7AFB7300DA6AD9 /* Analytics.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE4D78FB2E7AFB7300DA6AD9 /* Analytics.swift */; };
 		AE72F0CD2E720F7A0054C84A /* Links.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE72F0CC2E720F7A0054C84A /* Links.swift */; };
 		AE72F0CF2E7216010054C84A /* FocusedActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE72F0CE2E7216010054C84A /* FocusedActions.swift */; };
 		AE72F0D12E7226B10054C84A /* AppCommands.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE72F0D02E7226B10054C84A /* AppCommands.swift */; };
@@ -77,6 +78,7 @@
 		AE0D6E7E2E6277BB001CC246 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		AE2FBDC22E627B4000C833C9 /* ColorPairStudio-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "ColorPairStudio-Info.plist"; sourceTree = "<group>"; };
 		AE331AAE2E5FA06100C6B110 /* ColorWellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorWellView.swift; sourceTree = "<group>"; };
+		AE4D78FB2E7AFB7300DA6AD9 /* Analytics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Analytics.swift; sourceTree = "<group>"; };
 		AE72F0CC2E720F7A0054C84A /* Links.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Links.swift; sourceTree = "<group>"; };
 		AE72F0CE2E7216010054C84A /* FocusedActions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusedActions.swift; sourceTree = "<group>"; };
 		AE72F0D02E7226B10054C84A /* AppCommands.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCommands.swift; sourceTree = "<group>"; };
@@ -169,6 +171,14 @@
 			path = ColorMatchingEngines;
 			sourceTree = "<group>";
 		};
+		AE4D78FA2E7AFB5600DA6AD9 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				AE4D78FB2E7AFB7300DA6AD9 /* Analytics.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
 		AEC411812E5E56F70054C9E1 = {
 			isa = PBXGroup;
 			children = (
@@ -202,6 +212,7 @@
 				AE0A8AD42E5E5F840066A017 /* MatchResult.swift */,
 				AE0A8AED2E5E7D9F0066A017 /* ColorMatchingEngines */,
 				AE0A8ADA2E5E6F090066A017 /* Exporter.swift */,
+				AE4D78FA2E7AFB5600DA6AD9 /* Utilities */,
 				AE72F0D02E7226B10054C84A /* AppCommands.swift */,
 				AE72F0CC2E720F7A0054C84A /* Links.swift */,
 				AE72F0CE2E7216010054C84A /* FocusedActions.swift */,
@@ -301,7 +312,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1640;
-				LastUpgradeCheck = 1640;
+				LastUpgradeCheck = 2600;
 				TargetAttributes = {
 					AEC411892E5E56F70054C9E1 = {
 						CreatedOnToolsVersion = 16.4;
@@ -379,6 +390,7 @@
 				AE0A8ADF2E5E70470066A017 /* DerivedPairResultView.swift in Sources */,
 				AE0A8ACD2E5E5A520066A017 /* ColorMatcherViewModel.swift in Sources */,
 				AE0A8AE52E5E71750066A017 /* ExportSheet.swift in Sources */,
+				AE4D78FC2E7AFB7300DA6AD9 /* Analytics.swift in Sources */,
 				AE0A8ACF2E5E5EC00066A017 /* EmptyState.swift in Sources */,
 				AEC411BA2E5E57250054C9E1 /* ContentView.swift in Sources */,
 				AE0A8AE72E5E71A90066A017 /* RGBA.swift in Sources */,
@@ -476,6 +488,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = 7Y457JX2Z3;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -501,6 +514,7 @@
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -540,6 +554,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 7Y457JX2Z3;
 				ENABLE_NS_ASSERTIONS = NO;
@@ -558,6 +573,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = macosx;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;
 			};
 			name = Release;
@@ -571,9 +587,12 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = 7Y457JX2Z3;
+				ENABLE_APP_SANDBOX = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SELECTED_FILES = readonly;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "";
 				INFOPLIST_KEY_CFBundleDisplayName = "Color Pair Studio";
@@ -602,9 +621,12 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = 7Y457JX2Z3;
+				ENABLE_APP_SANDBOX = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SELECTED_FILES = readonly;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "";
 				INFOPLIST_KEY_CFBundleDisplayName = "Color Pair Studio";
@@ -630,6 +652,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = 7Y457JX2Z3;
 				GENERATE_INFOPLIST_FILE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 15.5;
@@ -648,6 +671,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = 7Y457JX2Z3;
 				GENERATE_INFOPLIST_FILE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 15.5;
@@ -665,6 +689,7 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = 7Y457JX2Z3;
 				GENERATE_INFOPLIST_FILE = YES;
 				MARKETING_VERSION = 1.0;
@@ -681,6 +706,7 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = 7Y457JX2Z3;
 				GENERATE_INFOPLIST_FILE = YES;
 				MARKETING_VERSION = 1.0;

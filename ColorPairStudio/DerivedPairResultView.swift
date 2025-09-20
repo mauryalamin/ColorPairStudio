@@ -8,15 +8,21 @@
 import SwiftUI
 
 struct DerivedPairResultView: View {
+    // Stored props
     let pair: DerivedPair
     let onExport: (String) -> Void
-    
-    init(pair: DerivedPair, onExport: @escaping (String) -> Void = { _ in }) {
+
+    // Single source of truth: bias comes in as a Binding
+    @Binding private var bias: Double
+
+    // ✅ Preferred initializer
+    init(pair: DerivedPair,
+         bias: Binding<Double>,
+         onExport: @escaping (String) -> Void = { _ in }) {
         self.pair = pair
         self.onExport = onExport
+        self._bias = bias
     }
-    
-    @State private var bias: Double = 0.0
     
     // Recompute twins from current bias
     private var recomputed: DerivedPair {
@@ -71,7 +77,7 @@ struct DerivedPairResultView: View {
             }
             
             LabeledContent("Brightness Bias") {
-                Slider(value: $bias, in: -0.12...0.12, step: 0.01)
+                Slider(value: $bias, in: -0.25...0.25)
                 Text(String(format: "%+.2f", bias)).monospaced()
             }
             
@@ -122,6 +128,26 @@ struct DerivedPairResultView: View {
     
 }
 
+// MARK: - Back-compat wrapper for your old init(pair:onExport:)
+extension DerivedPairResultView {
+    @available(*, deprecated, message: "Prefer init(pair:bias:onExport:) with a Binding (e.g., bias: $vm.bias).")
+    static func legacy(pair: DerivedPair,
+                       onExport: @escaping (String) -> Void = { _ in }) -> some View {
+        _DerivedPairResultViewWithState(pair: pair, onExport: onExport)
+    }
+}
+
+// A tiny wrapper view that owns a local @State and passes it as a Binding
+private struct _DerivedPairResultViewWithState: View {
+    let pair: DerivedPair
+    let onExport: (String) -> Void
+    @State private var localBias: Double = 0.0
+
+    var body: some View {
+        DerivedPairResultView(pair: pair, bias: $localBias, onExport: onExport)
+    }
+}
+
 extension DerivedPair {
     static func sampleComputed() -> DerivedPair {
         let target = RGBA(r: 0.3, g: 0.5, b: 0.7, a: 1)
@@ -137,7 +163,7 @@ extension DerivedPair {
 }
 
 #Preview("Derived Pair") {
-    DerivedPairResultView(pair: .sample)
+    DerivedPairResultView(pair: .sample, bias: .constant(0.0))
         .frame(width: 860)
         .padding(20)
 }

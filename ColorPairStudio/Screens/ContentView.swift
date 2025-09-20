@@ -125,7 +125,7 @@ struct ContentView: View {
             ApproximatorResultView(output: out, onExport: presentExport)
 
         case .some(.derived(let pair)):
-            DerivedPairResultView(pair: pair, onExport: presentExport)
+            DerivedPairResultView(pair: pair, bias: $vm.bias, onExport: presentExport)
         }
     }
 }
