@@ -30,9 +30,11 @@
 		AE72F0CD2E720F7A0054C84A /* Links.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE72F0CC2E720F7A0054C84A /* Links.swift */; };
 		AE72F0CF2E7216010054C84A /* FocusedActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE72F0CE2E7216010054C84A /* FocusedActions.swift */; };
 		AE72F0D12E7226B10054C84A /* AppCommands.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE72F0D02E7226B10054C84A /* AppCommands.swift */; };
+		AE7350662E7E53F200EC3A14 /* SystemColorToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE7350652E7E53F200EC3A14 /* SystemColorToken.swift */; };
 		AE91A1E92E61FCD9009575D0 /* PreferencesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE91A1E82E61FCD9009575D0 /* PreferencesView.swift */; };
 		AE91A1ED2E6200F8009575D0 /* AppearanceToggle.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE91A1EC2E6200F8009575D0 /* AppearanceToggle.swift */; };
 		AE91A1FD2E621539009575D0 /* ModeHelp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE91A1FC2E621539009575D0 /* ModeHelp.swift */; };
+		AE9FC04D2E7E4C8400D22CC1 /* ModeSegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE9FC04C2E7E4C8400D22CC1 /* ModeSegmentedControl.swift */; };
 		AEC411BA2E5E57250054C9E1 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEC411B62E5E57250054C9E1 /* ContentView.swift */; };
 		AEC411BB2E5E57250054C9E1 /* ColorPairStudioApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEC411B82E5E57250054C9E1 /* ColorPairStudioApp.swift */; };
 		AEC411BC2E5E57250054C9E1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AEC411B52E5E57250054C9E1 /* Assets.xcassets */; };
@@ -82,9 +84,11 @@
 		AE72F0CC2E720F7A0054C84A /* Links.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Links.swift; sourceTree = "<group>"; };
 		AE72F0CE2E7216010054C84A /* FocusedActions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusedActions.swift; sourceTree = "<group>"; };
 		AE72F0D02E7226B10054C84A /* AppCommands.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCommands.swift; sourceTree = "<group>"; };
+		AE7350652E7E53F200EC3A14 /* SystemColorToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemColorToken.swift; sourceTree = "<group>"; };
 		AE91A1E82E61FCD9009575D0 /* PreferencesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesView.swift; sourceTree = "<group>"; };
 		AE91A1EC2E6200F8009575D0 /* AppearanceToggle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppearanceToggle.swift; sourceTree = "<group>"; };
 		AE91A1FC2E621539009575D0 /* ModeHelp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModeHelp.swift; sourceTree = "<group>"; };
+		AE9FC04C2E7E4C8400D22CC1 /* ModeSegmentedControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModeSegmentedControl.swift; sourceTree = "<group>"; };
 		AEC4118A2E5E56F70054C9E1 /* ColorPairStudio.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ColorPairStudio.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AEC411982E5E56F90054C9E1 /* ColorPairStudioTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ColorPairStudioTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		AEC411A22E5E56F90054C9E1 /* ColorPairStudioUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ColorPairStudioUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -232,6 +236,8 @@
 				AEFB4FB32E60BDA90044D6C2 /* WCAG.swift */,
 				AE91A1EC2E6200F8009575D0 /* AppearanceToggle.swift */,
 				AE91A1FC2E621539009575D0 /* ModeHelp.swift */,
+				AE9FC04C2E7E4C8400D22CC1 /* ModeSegmentedControl.swift */,
+				AE7350652E7E53F200EC3A14 /* SystemColorToken.swift */,
 			);
 			path = ColorPairStudio;
 			sourceTree = "<group>";
@@ -392,11 +398,13 @@
 				AE0A8AE52E5E71750066A017 /* ExportSheet.swift in Sources */,
 				AE4D78FC2E7AFB7300DA6AD9 /* Analytics.swift in Sources */,
 				AE0A8ACF2E5E5EC00066A017 /* EmptyState.swift in Sources */,
+				AE9FC04D2E7E4C8400D22CC1 /* ModeSegmentedControl.swift in Sources */,
 				AEC411BA2E5E57250054C9E1 /* ContentView.swift in Sources */,
 				AE0A8AE72E5E71A90066A017 /* RGBA.swift in Sources */,
 				AE91A1ED2E6200F8009575D0 /* AppearanceToggle.swift in Sources */,
 				AE0A8AE92E5E71D30066A017 /* Color+Extensions.swift in Sources */,
 				AE72F0CF2E7216010054C84A /* FocusedActions.swift in Sources */,
+				AE7350662E7E53F200EC3A14 /* SystemColorToken.swift in Sources */,
 				AE72F0D12E7226B10054C84A /* AppCommands.swift in Sources */,
 				AE0A8ADD2E5E6FFA0066A017 /* ApproximatorResultView.swift in Sources */,
 				AE0A8AD32E5E5F560066A017 /* DerivedPair.swift in Sources */,

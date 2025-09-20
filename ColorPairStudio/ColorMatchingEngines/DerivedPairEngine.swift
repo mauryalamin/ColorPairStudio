@@ -56,8 +56,8 @@ enum DerivedPairEngine {
         var dark  = target.adjust(brightness: baseDarkOffset  + clampedBias * biasScale)
 
         // 3) Ensure contrast vs system backgrounds (≈ UI 3:1 guardrail)
-        light = ensureContrastVSBackground(color: light, bg: lightBG, wantLighter: false, minRatio: 3.0)
-        dark  = ensureContrastVSBackground(color: dark,  bg: darkBG,  wantLighter: true,  minRatio: 3.0)
+        light = ensureContrast(color: light, bg: lightBG, minRatio: 3.0)
+        dark  = ensureContrast(color: dark,  bg: darkBG,  minRatio: 3.0)
 
         // 4) Preserve intuitive ordering (the "dark-mode twin" should be lighter than the light-mode twin)
         if luminance(dark) <= luminance(light) {
@@ -78,17 +78,55 @@ enum DerivedPairEngine {
     // MARK: - Helpers
 
     /// Iteratively nudge until the color meets a minimum contrast ratio vs. a background.
-    private static func ensureContrastVSBackground(color: RGBA,
-                                                   bg: RGBA,
-                                                   wantLighter: Bool,
-                                                   minRatio: Double) -> RGBA {
-        var c = color
-        var tries = 0
-        while WCAG.contrastRatio(fg: c, bg: bg) < minRatio && tries < 48 {
-            c = c.adjust(brightness: wantLighter ? 0.02 : -0.02)
-            tries += 1
+    // Replace your ensureContrastVSBackground with this:
+    private static func ensureContrast(color start: RGBA,
+                                       bg: RGBA,
+                                       preferLighter: Bool? = nil,
+                                       minRatio: Double) -> RGBA {
+        // Decide a sensible first direction: if the background is dark, lighten; if light, darken.
+        let bgIsDark = luminance(bg) < 0.5
+        let firstLighter = preferLighter ?? bgIsDark
+
+        // Try once in the preferred direction; if we don't hit the target, try the opposite and keep the best.
+        let attempt1 = climbContrast(from: start, bg: bg, wantLighter: firstLighter, minRatio: minRatio)
+        if attempt1.hit { return attempt1.color }
+
+        let attempt2 = climbContrast(from: start, bg: bg, wantLighter: !firstLighter, minRatio: minRatio)
+        return (attempt2.ratio > attempt1.ratio) ? attempt2.color : attempt1.color
+    }
+
+    // Small hill-climb with a stall guard; never walks forever.
+    private static func climbContrast(from start: RGBA,
+                                      bg: RGBA,
+                                      wantLighter: Bool,
+                                      minRatio: Double) -> (color: RGBA, ratio: Double, hit: Bool) {
+        var c = start
+        var best = start
+        var bestRatio = WCAG.contrastRatio(fg: c, bg: bg)
+
+        if bestRatio >= minRatio { return (start, bestRatio, true) }
+
+        let step = wantLighter ? 0.02 : -0.02
+        let maxSteps = 48
+        var stallCount = 0
+        let epsilon = 1e-3  // ignore tiny floating noise
+
+        for _ in 0..<maxSteps {
+            c = c.adjust(brightness: step)
+            let r = WCAG.contrastRatio(fg: c, bg: bg)
+
+            if r > bestRatio + epsilon {
+                bestRatio = r
+                best = c
+                stallCount = 0
+            } else {
+                stallCount += 1
+            }
+
+            if r >= minRatio { return (c, r, true) }
+            if stallCount >= 6 { break } // bail if not improving
         }
-        return c
+        return (best, bestRatio, false)
     }
 
     private enum Direction { case lighter, darker }

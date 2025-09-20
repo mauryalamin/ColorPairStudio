@@ -32,7 +32,7 @@ struct ContentView: View {
             Button("Generate", action: vm.generate)
                 .keyboardShortcut(.return)
                 .accessibilityLabel("Generate results")
-
+            
             Divider()
             resultsSection
             Spacer()
@@ -51,7 +51,7 @@ struct ContentView: View {
             ExportSheet(snippet: payload.snippet)
         }
     }
-
+    
     private var header: some View {
         HStack {
             Text("Custom → Native Color Matcher")
@@ -59,14 +59,14 @@ struct ContentView: View {
             Spacer()
         }
     }
-
+    
     private var inputRow: some View {
         HStack(alignment: .top, spacing: 24) {
             ColorWellView(rgba: $vm.input)
                 .frame(width: 120, height: 60)
                 .overlay(RoundedRectangle(cornerRadius: 8).stroke(.quaternary))
                 .accessibilityHidden(true)
-
+            
             VStack(alignment: .leading) {
                 HStack {
                     Text("HEX:")
@@ -93,37 +93,34 @@ struct ContentView: View {
             Spacer()
         }
     }
-
+    
     private var modeRow: some View {
         VStack(alignment: .leading ,spacing: 8) {
-            Picker("Mode", selection: $vm.mode) {
-                Text("Approximator").tag(MatchMode.approximator)
-                Text("Derived Pair").tag(MatchMode.derivedPair)
-            }
-            .pickerStyle(.segmented)
-            .accessibilityLabel("Mode")
-            .accessibilityValue(vm.mode == .approximator ? "Approximator" : "Derived Pair")
-            .accessibilityHint(vm.mode.helpText)
-
+            ModeSegmentedControl(selection: $vm.mode)
+                .frame(maxWidth: .infinity)   // now it actually fills
+                .accessibilityLabel("Mode")
+                .accessibilityValue(vm.mode == .approximator ? "Approximator" : "Derived Pair")
+                .accessibilityHint(vm.mode.helpText)
+            
             ModeHelp(text: vm.mode.helpText)
                 .transition(.opacity.combined(with: .move(edge: .top)))
                 .animation(.easeInOut(duration: 0.2), value: vm.mode)
                 .padding(.top, 4)
         }
-        .frame(maxWidth: 600)
+        .frame(width: 600)
     }
     
-
+    
     @ViewBuilder
     private var resultsSection: some View {
         switch vm.result {
         case .none:
             EmptyState()
                 .focusedSceneValue(\.exportAction, nil)
-
+            
         case .some(.approximated(let out)):
             ApproximatorResultView(output: out, onExport: presentExport)
-
+            
         case .some(.derived(let pair)):
             DerivedPairResultView(pair: pair, bias: $vm.bias, onExport: presentExport)
         }
