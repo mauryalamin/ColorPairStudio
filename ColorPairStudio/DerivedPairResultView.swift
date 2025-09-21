@@ -64,7 +64,7 @@ struct DerivedPairResultView: View {
     }
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 12) {
+        VStack(alignment: .leading, spacing: 24) {
             
             HStack(spacing: 12) {
                 Text(String(format: "Δ Light: %.2fx", lightCR)).monospaced()
@@ -73,7 +73,15 @@ struct DerivedPairResultView: View {
                       systemImage: bothPass ? "checkmark.seal" : "xmark.seal")
                 .accessibilityLabel(bothPass ? "Both twins pass contrast" : "Both twins fail contrast")
                 .foregroundStyle(bothPass ? .green : .red)
+                
                 Spacer()
+                
+                Button("Export to Assets + SwiftUI") {
+                    onExport(snippet)
+                }
+                    .keyboardShortcut("e", modifiers: [.command])
+                    .accessibilityLabel("Export to Assets and SwiftUI")
+                    .accessibilityHint("Opens a window with steps and code for Xcode")
             }
             
             LabeledContent("Brightness Bias") {
@@ -114,12 +122,7 @@ struct DerivedPairResultView: View {
             }
             
             
-            Button("Export to Assets + SwiftUI") {
-                onExport(snippet)
-            }
-                .keyboardShortcut("e", modifiers: [.command])
-                .accessibilityLabel("Export to Assets and SwiftUI")
-                .accessibilityHint("Opens a window with steps and code for Xcode")
+            
         }
         .focusedSceneValue(\.exportAction) {
             onExport(snippet)

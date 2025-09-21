@@ -16,7 +16,7 @@ struct TwinPreview: View {
             Text(title).font(.headline)
             RoundedRectangle(cornerRadius: 12)
                 .fill(Color(rgba))
-                .frame(width: 360, height: 120)
+                .frame(width: 380, height: 120)
                 .overlay(Text("Sample").foregroundStyle(.white))
         }
     }

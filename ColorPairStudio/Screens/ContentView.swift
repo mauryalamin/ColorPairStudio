@@ -38,13 +38,17 @@ struct ContentView: View {
             Spacer()
         }
         .padding(20)
-        .frame(minWidth: 820, minHeight: 640)
+        .frame(minWidth: 820, minHeight: 710)
         .toolbar {
             ToolbarItem(placement: .automatic) {
-                Button("Toggle Light/Dark Preview") { togglePreviewAppearance() }
-                    .keyboardShortcut("l", modifiers: [.command])
-                    .accessibilityLabel("Toggle Light or Dark preview")
-                    .accessibilityHint("Switches the app window appearance for preview only")
+                Button("Toggle Light/Dark Preview") {
+                    togglePreviewAppearance()
+                }
+                .padding(.horizontal, 6)
+                .controlSize(.large)
+                .keyboardShortcut("l", modifiers: [.command])
+                .accessibilityLabel("Toggle Light or Dark preview")
+                .accessibilityHint("Switches the app window appearance for preview only")
             }
         }
         .sheet(item: $exportPayload) { payload in
@@ -96,11 +100,15 @@ struct ContentView: View {
     
     private var modeRow: some View {
         VStack(alignment: .leading ,spacing: 8) {
-            ModeSegmentedControl(selection: $vm.mode)
-                .frame(maxWidth: .infinity)   // now it actually fills
-                .accessibilityLabel("Mode")
-                .accessibilityValue(vm.mode == .approximator ? "Approximator" : "Derived Pair")
-                .accessibilityHint(vm.mode.helpText)
+            HStack {
+                Text ("Mode")
+                    .fontWeight(.bold)
+                ModeSegmentedControl(selection: $vm.mode)
+                    .frame(maxWidth: .infinity)   // now it actually fills
+                    .accessibilityLabel("Mode")
+                    .accessibilityValue(vm.mode == .approximator ? "Approximator" : "Derived Pair")
+                    .accessibilityHint(vm.mode.helpText)
+            }
             
             ModeHelp(text: vm.mode.helpText)
                 .transition(.opacity.combined(with: .move(edge: .top)))
