@@ -27,6 +27,8 @@ enum DerivedPairEngine {
             a: 1
         )
     }
+    
+    enum PairPolicy { case guardrailed, exactLightIfCompliant, brandLockedLight }
 
     // Cache once; adjust to computed vars if you ever need these to update at runtime.
     private static let lightBG: RGBA = makeSystemBG(.aqua)
@@ -44,29 +46,51 @@ enum DerivedPairEngine {
 
     /// Derive Light/Dark twins from a target color.
     /// Positive `bias` => lighter dark twin & darker light twin (more separation).
-    static func derive(from target: RGBA, bias: Double = 0.0) -> DerivedPair {
+    static func derive(from target: RGBA,
+                       bias: Double = 0.0,
+                       policy: PairPolicy = .exactLightIfCompliant) -> DerivedPair {
         let clampedBias = bias.clamped(to: biasRange)
 
-        // 1) Start with sensible base offsets (tuned to feel "Mac-right")
-        let baseLightOffset = -0.08   // darken for light mode background
-        let baseDarkOffset  =  0.10   // lighten for dark mode background
+        // Base offsets (tuned to feel “Mac-right”)
+        let baseLightOffset = -0.08   // darken for light background
+        let baseDarkOffset  =  0.10   // lighten for dark background
 
-        // 2) Apply symmetric bias around those bases
-        var light = target.adjust(brightness: baseLightOffset - clampedBias * biasScale)
-        var dark  = target.adjust(brightness: baseDarkOffset  + clampedBias * biasScale)
+        // Bias-adjusted starting points
+        let lightBase = target.adjust(brightness: baseLightOffset - clampedBias * biasScale)
+        let darkBase  = target.adjust(brightness: baseDarkOffset  + clampedBias * biasScale)
 
-        // 3) Ensure contrast vs system backgrounds (≈ UI 3:1 guardrail)
-        light = ensureContrast(color: light, bg: lightBG, minRatio: 3.0)
-        dark  = ensureContrast(color: dark,  bg: darkBG,  minRatio: 3.0)
+        var light: RGBA
+        var dark: RGBA
 
-        // 4) Preserve intuitive ordering (the "dark-mode twin" should be lighter than the light-mode twin)
+        switch policy {
+        case .guardrailed:
+            // Current behavior: minimal nudge both sides to meet contrast
+            light = ensureContrast(color: lightBase, bg: lightBG, minRatio: 3.0)
+            dark  = ensureContrast(color: darkBase,  bg: darkBG,  minRatio: 3.0)
+
+        case .exactLightIfCompliant:
+            // Keep Light exactly brand if it already passes on Light bg; otherwise minimal nudge FROM the brand
+            if WCAG.contrastRatio(fg: target, bg: lightBG) >= 3.0 {
+                light = target
+            } else {
+                light = ensureContrast(color: target, bg: lightBG, minRatio: 3.0)
+            }
+            // Dark still derived with bias and guardrails
+            dark = ensureContrast(color: darkBase, bg: darkBG, minRatio: 3.0)
+
+        case .brandLockedLight:
+            // Force Light to be exact brand (even if it fails); Dark adjusted to pass
+            light = target
+            dark  = ensureContrast(color: darkBase, bg: darkBG, minRatio: 3.0)
+        }
+
+        // Preserve intuitive ordering (Dark twin should be lighter than Light twin)
         if luminance(dark) <= luminance(light) {
-            // Minimal opposing nudge to re-establish ordering
             light = nudge(color: light, direction: .darker, steps: 1)
             dark  = nudge(color: dark,  direction: .lighter, steps: 1)
         }
 
-        // 5) Optional: white-on-color WCAG badge for previews
+        // White-on-color badge (unchanged)
         let white = RGBA(r: 1, g: 1, b: 1, a: 1)
         let bothPassText =
             WCAG.passesAA(normalText: WCAG.contrastRatio(fg: white, bg: light)) &&
