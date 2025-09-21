@@ -31,6 +31,7 @@
 		AE72F0CF2E7216010054C84A /* FocusedActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE72F0CE2E7216010054C84A /* FocusedActions.swift */; };
 		AE72F0D12E7226B10054C84A /* AppCommands.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE72F0D02E7226B10054C84A /* AppCommands.swift */; };
 		AE7350662E7E53F200EC3A14 /* SystemColorToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE7350652E7E53F200EC3A14 /* SystemColorToken.swift */; };
+		AE85F15B2E7F68D800063541 /* Color Pair Studio Icon.icon in Resources */ = {isa = PBXBuildFile; fileRef = AE85F15A2E7F68D800063541 /* Color Pair Studio Icon.icon */; };
 		AE91A1E92E61FCD9009575D0 /* PreferencesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE91A1E82E61FCD9009575D0 /* PreferencesView.swift */; };
 		AE91A1ED2E6200F8009575D0 /* AppearanceToggle.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE91A1EC2E6200F8009575D0 /* AppearanceToggle.swift */; };
 		AE91A1FD2E621539009575D0 /* ModeHelp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE91A1FC2E621539009575D0 /* ModeHelp.swift */; };
@@ -85,6 +86,7 @@
 		AE72F0CE2E7216010054C84A /* FocusedActions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusedActions.swift; sourceTree = "<group>"; };
 		AE72F0D02E7226B10054C84A /* AppCommands.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCommands.swift; sourceTree = "<group>"; };
 		AE7350652E7E53F200EC3A14 /* SystemColorToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemColorToken.swift; sourceTree = "<group>"; };
+		AE85F15A2E7F68D800063541 /* Color Pair Studio Icon.icon */ = {isa = PBXFileReference; lastKnownFileType = folder.iconcomposer.icon; path = "Color Pair Studio Icon.icon"; sourceTree = "<group>"; };
 		AE91A1E82E61FCD9009575D0 /* PreferencesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesView.swift; sourceTree = "<group>"; };
 		AE91A1EC2E6200F8009575D0 /* AppearanceToggle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppearanceToggle.swift; sourceTree = "<group>"; };
 		AE91A1FC2E621539009575D0 /* ModeHelp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModeHelp.swift; sourceTree = "<group>"; };
@@ -238,6 +240,7 @@
 				AE91A1FC2E621539009575D0 /* ModeHelp.swift */,
 				AE9FC04C2E7E4C8400D22CC1 /* ModeSegmentedControl.swift */,
 				AE7350652E7E53F200EC3A14 /* SystemColorToken.swift */,
+				AE85F15A2E7F68D800063541 /* Color Pair Studio Icon.icon */,
 			);
 			path = ColorPairStudio;
 			sourceTree = "<group>";
@@ -360,6 +363,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AEC411BC2E5E57250054C9E1 /* Assets.xcassets in Resources */,
+				AE85F15B2E7F68D800063541 /* Color Pair Studio Icon.icon in Resources */,
 				AE0D6E802E6277BB001CC246 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -589,7 +593,7 @@
 		AEC411AD2E5E56F90054C9E1 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = "Color Pair Studio Icon";
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = ColorPairStudio/ColorPairStudio.entitlements;
 				CODE_SIGN_STYLE = Automatic;
@@ -623,7 +627,7 @@
 		AEC411AE2E5E56F90054C9E1 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = "Color Pair Studio Icon";
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = ColorPairStudio/ColorPairStudio.entitlements;
 				CODE_SIGN_STYLE = Automatic;
