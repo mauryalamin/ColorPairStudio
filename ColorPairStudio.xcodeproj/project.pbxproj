@@ -154,35 +154,186 @@
 			isa = PBXGroup;
 			children = (
 				AEC411B62E5E57250054C9E1 /* ContentView.swift */,
-				AE331AAE2E5FA06100C6B110 /* ColorWellView.swift */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
 		};
-		AE0A8AEC2E5E7D720066A017 /* Models */ = {
+		AEA9B5162E809AC400193F57 /* App */ = {
 			isa = PBXGroup;
 			children = (
-				AE0A8AD22E5E5F560066A017 /* DerivedPair.swift */,
+				AEC411B82E5E57250054C9E1 /* ColorPairStudioApp.swift */,
+				AE72F0D02E7226B10054C84A /* AppCommands.swift */,
+				AE72F0CE2E7216010054C84A /* FocusedActions.swift */,
+				AE91A1EC2E6200F8009575D0 /* AppearanceToggle.swift */,
+				AEA9B5172E809B3100193F57 /* Preferences */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		AEA9B5172E809B3100193F57 /* Preferences */ = {
+			isa = PBXGroup;
+			children = (
+				AE91A1E82E61FCD9009575D0 /* PreferencesView.swift */,
+			);
+			path = Preferences;
+			sourceTree = "<group>";
+		};
+		AEA9B5192E809B6B00193F57 /* Features */ = {
+			isa = PBXGroup;
+			children = (
+				AEA9B51A2E809B8500193F57 /* Approximator */,
+				AEA9B51E2E809C0000193F57 /* DerivedPair */,
+			);
+			path = Features;
+			sourceTree = "<group>";
+		};
+		AEA9B51A2E809B8500193F57 /* Approximator */ = {
+			isa = PBXGroup;
+			children = (
+				AEA9B51B2E809B9900193F57 /* Views */,
+				AEA9B51C2E809BA600193F57 /* Models */,
+				AEA9B51D2E809BD700193F57 /* Engine */,
+			);
+			path = Approximator;
+			sourceTree = "<group>";
+		};
+		AEA9B51B2E809B9900193F57 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				AE0A8ADC2E5E6FFA0066A017 /* ApproximatorResultView.swift */,
+				AE0A8AE02E5E70810066A017 /* PreviewRow.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		AEA9B51C2E809BA600193F57 /* Models */ = {
+			isa = PBXGroup;
+			children = (
 				AE0A8AD02E5E5EFC0066A017 /* ApproximatedOutput.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
 		};
-		AE0A8AED2E5E7D9F0066A017 /* ColorMatchingEngines */ = {
+		AEA9B51D2E809BD700193F57 /* Engine */ = {
 			isa = PBXGroup;
 			children = (
 				AE0A8AD62E5E5FAA0066A017 /* ApproximatorEngine.swift */,
-				AE0A8AD82E5E6EE50066A017 /* DerivedPairEngine.swift */,
 			);
-			path = ColorMatchingEngines;
+			path = Engine;
 			sourceTree = "<group>";
 		};
-		AE4D78FA2E7AFB5600DA6AD9 /* Utilities */ = {
+		AEA9B51E2E809C0000193F57 /* DerivedPair */ = {
+			isa = PBXGroup;
+			children = (
+				AEA9B5212E809C3700193F57 /* Views */,
+				AEA9B5202E809C2A00193F57 /* Models */,
+				AEA9B51F2E809C1C00193F57 /* Engine */,
+			);
+			path = DerivedPair;
+			sourceTree = "<group>";
+		};
+		AEA9B51F2E809C1C00193F57 /* Engine */ = {
+			isa = PBXGroup;
+			children = (
+				AE0A8AD82E5E6EE50066A017 /* DerivedPairEngine.swift */,
+			);
+			path = Engine;
+			sourceTree = "<group>";
+		};
+		AEA9B5202E809C2A00193F57 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				AE0A8AD22E5E5F560066A017 /* DerivedPair.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		AEA9B5212E809C3700193F57 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				AE0A8ADE2E5E70470066A017 /* DerivedPairResultView.swift */,
+				AE0A8AE22E5E713E0066A017 /* TwinPreview.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		AEA9B5222E809C9000193F57 /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				AEA9B5232E809CAB00193F57 /* Core */,
+				AEA9B5262E809D2400193F57 /* UIComponents */,
+				AEA9B5272E809D8800193F57 /* DesignSystems */,
+				AEA9B5282E809E1800193F57 /* Export */,
+				AEA9B5292E809E5000193F57 /* Services */,
+			);
+			path = Shared;
+			sourceTree = "<group>";
+		};
+		AEA9B5232E809CAB00193F57 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				AEA9B5242E809CB500193F57 /* ColorScience */,
+				AEA9B5252E809CC000193F57 /* Models */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		AEA9B5242E809CB500193F57 /* ColorScience */ = {
+			isa = PBXGroup;
+			children = (
+				AE0A8AE62E5E71A90066A017 /* RGBA.swift */,
+				AEFB4FB72E60BF8F0044D6C2 /* DeltaE.swift */,
+				AEFB4FB32E60BDA90044D6C2 /* WCAG.swift */,
+			);
+			path = ColorScience;
+			sourceTree = "<group>";
+		};
+		AEA9B5252E809CC000193F57 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				AE0A8AD42E5E5F840066A017 /* MatchResult.swift */,
+				AEC411BD2E5E575C0054C9E1 /* MatchMode.swift */,
+				AE7350652E7E53F200EC3A14 /* SystemColorToken.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		AEA9B5262E809D2400193F57 /* UIComponents */ = {
+			isa = PBXGroup;
+			children = (
+				AE9FC04C2E7E4C8400D22CC1 /* ModeSegmentedControl.swift */,
+				AE331AAE2E5FA06100C6B110 /* ColorWellView.swift */,
+				AEFB4FB92E60D0110044D6C2 /* PassBadge.swift */,
+				AE0A8ACE2E5E5EC00066A017 /* EmptyState.swift */,
+				AE72F0CC2E720F7A0054C84A /* Links.swift */,
+				AE91A1FC2E621539009575D0 /* ModeHelp.swift */,
+			);
+			path = UIComponents;
+			sourceTree = "<group>";
+		};
+		AEA9B5272E809D8800193F57 /* DesignSystems */ = {
+			isa = PBXGroup;
+			children = (
+				AE0A8AE82E5E71D30066A017 /* Color+Extensions.swift */,
+			);
+			path = DesignSystems;
+			sourceTree = "<group>";
+		};
+		AEA9B5282E809E1800193F57 /* Export */ = {
+			isa = PBXGroup;
+			children = (
+				AE0A8ADA2E5E6F090066A017 /* Exporter.swift */,
+				AE0A8AE42E5E71750066A017 /* ExportSheet.swift */,
+			);
+			path = Export;
+			sourceTree = "<group>";
+		};
+		AEA9B5292E809E5000193F57 /* Services */ = {
 			isa = PBXGroup;
 			children = (
 				AE4D78FB2E7AFB7300DA6AD9 /* Analytics.swift */,
 			);
-			path = Utilities;
+			path = Services;
 			sourceTree = "<group>";
 		};
 		AEC411812E5E56F70054C9E1 = {
@@ -211,35 +362,12 @@
 			isa = PBXGroup;
 			children = (
 				AEC411B72E5E57250054C9E1 /* ColorPairStudio.entitlements */,
-				AEC411B82E5E57250054C9E1 /* ColorPairStudioApp.swift */,
+				AEA9B5162E809AC400193F57 /* App */,
 				AE0A8AEB2E5E7D3F0066A017 /* Screens */,
+				AEA9B5192E809B6B00193F57 /* Features */,
+				AEA9B5222E809C9000193F57 /* Shared */,
 				AE0A8AEA2E5E7D030066A017 /* ViewModels */,
-				AE0A8AEC2E5E7D720066A017 /* Models */,
-				AE0A8AD42E5E5F840066A017 /* MatchResult.swift */,
-				AE0A8AED2E5E7D9F0066A017 /* ColorMatchingEngines */,
-				AE0A8ADA2E5E6F090066A017 /* Exporter.swift */,
-				AE4D78FA2E7AFB5600DA6AD9 /* Utilities */,
-				AE72F0D02E7226B10054C84A /* AppCommands.swift */,
-				AE72F0CC2E720F7A0054C84A /* Links.swift */,
-				AE72F0CE2E7216010054C84A /* FocusedActions.swift */,
-				AE0A8ADC2E5E6FFA0066A017 /* ApproximatorResultView.swift */,
-				AE0A8ADE2E5E70470066A017 /* DerivedPairResultView.swift */,
-				AEFB4FB72E60BF8F0044D6C2 /* DeltaE.swift */,
-				AE0A8AE02E5E70810066A017 /* PreviewRow.swift */,
-				AE0A8AE22E5E713E0066A017 /* TwinPreview.swift */,
-				AEFB4FB92E60D0110044D6C2 /* PassBadge.swift */,
-				AE0A8AE42E5E71750066A017 /* ExportSheet.swift */,
-				AE91A1E82E61FCD9009575D0 /* PreferencesView.swift */,
-				AE0A8AE62E5E71A90066A017 /* RGBA.swift */,
-				AE0A8AE82E5E71D30066A017 /* Color+Extensions.swift */,
-				AE0A8ACE2E5E5EC00066A017 /* EmptyState.swift */,
-				AEC411BD2E5E575C0054C9E1 /* MatchMode.swift */,
 				AEC411B52E5E57250054C9E1 /* Assets.xcassets */,
-				AEFB4FB32E60BDA90044D6C2 /* WCAG.swift */,
-				AE91A1EC2E6200F8009575D0 /* AppearanceToggle.swift */,
-				AE91A1FC2E621539009575D0 /* ModeHelp.swift */,
-				AE9FC04C2E7E4C8400D22CC1 /* ModeSegmentedControl.swift */,
-				AE7350652E7E53F200EC3A14 /* SystemColorToken.swift */,
 				AE85F15A2E7F68D800063541 /* Color Pair Studio Icon.icon */,
 			);
 			path = ColorPairStudio;
