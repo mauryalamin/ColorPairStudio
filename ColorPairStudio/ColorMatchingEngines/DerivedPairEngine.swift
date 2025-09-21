@@ -173,6 +173,47 @@ enum DerivedPairEngine {
     static var systemBackgrounds: (light: RGBA, dark: RGBA) { (lightBG, darkBG) }
 }
 
+
+// MARK: - Metrics (text/background ratios + summary)
+extension DerivedPairEngine {
+    private static let textAA: Double = 4.5
+    private static let bgUI: Double  = 3.0
+
+    struct PairMetrics {
+        struct Twin {
+            let text: Double   // white-on-color text contrast
+            let bg: Double     // color vs system background
+            var pass: Bool { text >= textAA && bg >= bgUI }
+        }
+        let light: Twin
+        let dark: Twin
+        var overallPass: Bool { light.pass && dark.pass }
+
+        var overallSummary: String {
+            if overallPass { return "Both PASS" }
+            // Explain the first failing reason (most actionable)
+            if dark.text < textAA { return "Both FAIL — Dark text \(fmt(dark.text))× < 4.5×" }
+            if light.text < textAA { return "Both FAIL — Light text \(fmt(light.text))× < 4.5×" }
+            if dark.bg   < bgUI   { return "Both FAIL — Dark bg \(fmt(dark.bg))× < 3.0×" }
+            return                 "Both FAIL — Light bg \(fmt(light.bg))× < 3.0×"
+        }
+    }
+
+    static func metrics(for pair: DerivedPair) -> PairMetrics {
+        let white = RGBA(r: 1, g: 1, b: 1, a: 1)
+        let lightText = WCAG.contrastRatio(fg: white,      bg: pair.light)
+        let darkText  = WCAG.contrastRatio(fg: white,      bg: pair.dark)
+        let lightBg   = WCAG.contrastRatio(fg: pair.light, bg: lightBG)
+        let darkBg    = WCAG.contrastRatio(fg: pair.dark,  bg: darkBG)
+        return PairMetrics(
+            light: .init(text: lightText, bg: lightBg),
+            dark:  .init(text: darkText,  bg: darkBg)
+        )
+    }
+
+    private static func fmt(_ x: Double) -> String { String(format: "%.2f", x) }
+}
+
 // MARK: - Small utilities
 
 extension Comparable {

@@ -33,6 +33,10 @@ struct DerivedPairResultView: View {
         Exporter.derivedPairSnippet(name: "BrandPrimary", pair: recomputed)
     }
     
+    private var m: DerivedPairEngine.PairMetrics {
+        DerivedPairEngine.metrics(for: recomputed)
+    }
+    
     // Contrast bases
     private var white: RGBA { RGBA(r: 1, g: 1, b: 1, a: 1) }
     private var lightBG: RGBA { RGBA(r: 1, g: 1, b: 1, a: 1) }
@@ -67,12 +71,13 @@ struct DerivedPairResultView: View {
         VStack(alignment: .leading, spacing: 24) {
             
             HStack(spacing: 12) {
-                Text(String(format: "Δ Light: %.2fx", lightCR)).monospaced()
-                Text(String(format: "Δ Dark:  %.2fx", darkCR)).monospaced()
-                Label(bothPass ? "Both PASS" : "Both FAIL",
-                      systemImage: bothPass ? "checkmark.seal" : "xmark.seal")
-                .accessibilityLabel(bothPass ? "Both twins pass contrast" : "Both twins fail contrast")
-                .foregroundStyle(bothPass ? .green : .red)
+                Text(String(format: "Text (AA) — Light: %.2fx   Dark: %.2fx", m.light.text, m.dark.text))
+                    .monospaced()
+
+                Label(m.overallSummary,
+                      systemImage: m.overallPass ? "checkmark.seal" : "xmark.seal")
+                    .accessibilityLabel(m.overallPass ? "Both twins pass contrast" : "Both twins fail contrast")
+                    .foregroundStyle(m.overallPass ? .green : .red)
                 
                 Spacer()
                 
@@ -99,8 +104,8 @@ struct DerivedPairResultView: View {
                                 String(format: "white text %.2fx %@", lightTextCR, lightPass ? "passes" : "fails")
                             )
                     HStack(spacing: 8) {
-                        PassBadge(title: "Text \(r(lightTextCR))", pass: lightTextPass)
-                        PassBadge(title: "BG \(r(lightVsBGCR))",   pass: lightVsBGPass)
+                        PassBadge(title: "Text \(r(m.light.text))", pass: m.light.text >= 4.5)
+                        PassBadge(title: "BG \(r(m.light.bg))",     pass: m.light.bg   >= 3.0)
                     }
                     .fontDesign(.monospaced)
                 }
