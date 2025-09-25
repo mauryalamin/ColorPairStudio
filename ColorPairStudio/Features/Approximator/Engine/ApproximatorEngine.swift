@@ -27,25 +27,45 @@ struct ApproximatorEngine {
     ]
     
     // ApproximatorEngine.swift
+    // ApproximatorEngine.swift
     func approximate(to target: RGBA) -> ApproximatedOutput {
+        // 1) Find nearest system base (same logic you had)
         let tLab = target.toLab()
-        let nearest = bases.min { a, b in
-            DeltaE.ciede2000(a.rgba.toLab(), tLab) < DeltaE.ciede2000(b.rgba.toLab(), tLab)
-        }!
+        guard let nearest = bases.min(by: {
+            DeltaE.ciede2000($0.rgba.toLab(), tLab) < DeltaE.ciede2000($1.rgba.toLab(), tLab)
+        }) else {
+            // Fallback if `bases` were ever empty
+            let fallbackToken: SystemColorToken = .blue
+            let white = RGBA(r: 1, g: 1, b: 1, a: 1)
+            let wcag = WCAG.passesAA(normalText: WCAG.contrastRatio(fg: white, bg: target))
+            return ApproximatedOutput(
+                target: target,
+                base: fallbackToken,
+                hueDegrees: 0.0,
+                saturation: 1.0,
+                brightness: 0.0,
+                deltaE: 0.0,
+                wcagPass: wcag
+            )
+        }
 
-        // Start with no nudges; the view’s sliders apply live changes
-        let hueDegrees = 0.0, saturation = 1.0, brightness = 0.0
+        // 2) Convert the nearest base name (".indigo", "indigo", or "Color.indigo") to a token
+        let baseToken = SystemColorToken(normalizing: nearest.name) ?? .blue
+
+        // 3) Start with identity tweaks (sliders in the UI will change these live)
+        let hueDegrees: Double = 0.0
+        let saturation: Double = 1.0
+        let brightness: Double = 0.0
+
+        // 4) Metrics for ΔE and initial WCAG badge (white-on-color)
         let deltaE = DeltaE.ciede2000(nearest.rgba.toLab(), tLab)
-
-        // White-on-color contrast for the initial badge
         let white = RGBA(r: 1, g: 1, b: 1, a: 1)
         let wcagPass = WCAG.passesAA(normalText: WCAG.contrastRatio(fg: white, bg: nearest.rgba))
 
+        // 5) Return the new token-based output (no more Color..red)
         return ApproximatedOutput(
             target: target,
-            baseName: nearest.name,
-            baseColor: nearest.color,
-            baseRGBA: nearest.rgba,
+            base: baseToken,
             hueDegrees: hueDegrees,
             saturation: saturation,
             brightness: brightness,

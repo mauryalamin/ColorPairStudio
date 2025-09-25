@@ -61,35 +61,47 @@ struct ApproximatorResultView: View {
     
     // Nudge brightness darker until AA passes (or bounds)
     private func fixContrast() {
+        // If we already pass, don’t nudge.
+        if wcagPass { return }
+
         var trial = bri
         let step   = moreRange ? 0.02 : 0.01
         let minBri = moreRange ? -1.0 : -0.08
-        
-        var passes = wcagPass
+        let maxBri = moreRange ?  1.0 :  0.10   // safety cap in case you flip direction later
+
+        // Walk brightness downward (darker bg = higher contrast with white text)
+        var passes = false
         var guardrail = 0
         while !passes && guardrail < 80 {
             trial = max(trial - step, minBri)
+
             let testBG = output.baseRGBA.applying(
-                hueDegrees: hue, satMultiplier: sat, brightnessDelta: trial
+                hueDegrees: hue,
+                satMultiplier: sat,
+                brightnessDelta: trial
             )
-            let ratio = WCAG.contrastRatio(fg: RGBA(r: 1, g: 1, b: 1, a: 1), bg: testBG)
-            passes = WCAG.passesAA(normalText: ratio)
+            let ratio  = WCAG.contrastRatio(fg: RGBA(r: 1, g: 1, b: 1, a: 1), bg: testBG)
+            passes     = WCAG.passesAA(normalText: ratio)
+
             guardrail += 1
-            if trial == minBri { break }
+            if trial <= minBri { break }
         }
-        withAnimation { bri = trial }
+
+        // Apply the nudge
+        let clamped = max(min(trial, maxBri), minBri)
+        withAnimation { bri = clamped }
     }
     
     // MARK: - Export snippet built from *live* values
     
     private var snippet: String {
         // Format nicely; omit no-op modifiers
-        let base = output.baseName
+        let baseExpr = output.swiftBaseExpr
         let hueDeg = Int(hue.rounded())
         let satStr = String(format: "%.2f", sat)
         let briStr = String(format: "%.2f", bri)
         
-        var lines: [String] = ["Color.\(base)"]
+        var lines: [String] = [ baseExpr ]
         if hueDeg != 0       { lines.append("    .hueRotation(.degrees(\(hueDeg)))") }
         if abs(sat - 1.0) > 0.0001 { lines.append("    .saturation(\(satStr))") }
         if abs(bri) > 0.0001 { lines.append("    .brightness(\(briStr))") }
@@ -105,7 +117,7 @@ struct ApproximatorResultView: View {
             // Header metrics + actions
             HStack(spacing: 12) {
                 Text("Target \(output.target.hexString)")
-                Text("Base: \(output.baseName)")
+                Text("Base: \(output.base.displayName)")
                 Text(String(format: "ΔE00 %.2f (%@)", liveDeltaE, deltaLabel))
                     .monospaced()
                 

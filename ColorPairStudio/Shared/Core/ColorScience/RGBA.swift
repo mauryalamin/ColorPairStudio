@@ -47,7 +47,7 @@ struct RGBA: Equatable {
     private func clamp01(_ x: Double) -> Double { min(max(0, x), 1) }
 }
 
-extension RGBA {
+extension RGBA: Codable, Sendable {
     
     var asRGBText: String { "\(Int(r*255)),\(Int(g*255)),\(Int(b*255))" }
     

@@ -18,41 +18,44 @@ private extension String {
 }
 
 enum Exporter {
-    static func approximatorSnippet(output out: ApproximatedOutput) -> String {
-        // Normalize the base name to "Color.<dotless>"
-        let fillColor: String = {
-            // Try the structured token first (handles ".red" or "red")
-            if let token = SystemColorToken(maybeDotted: out.baseName.withoutColorPrefix) {
-                return "Color.\(token.swiftName)"
-            }
-            // Fallback: strip any "Color." and leading dot
-            let clean = out.baseName
-                .withoutColorPrefix      // "Color.red" -> "red"
-                .withoutLeadingDot       // ".red" -> "red"
-            return "Color.\(clean)"
-        }()
-
+    static func approximatorSnippet(output: ApproximatedOutput) -> String {
+        let base = output.swiftBaseExpr                // "Color.red"
+        let h = output.hueDegrees
+        let s = output.saturation
+        let b = output.brightness
+        
+        // Build modifiers only when they’re not identity
+        var mods: [String] = []
+        if abs(h) > 0.0001 { mods.append(".hueRotation(.degrees(\(Int(h.rounded()))))") }
+        if abs(s - 1.0) > 0.0001 { mods.append(String(format: ".saturation(%.2f)", s)) }
+        if abs(b) > 0.0001 { mods.append(String(format: ".brightness(%.2f)", b)) }
+        let modifierBlock = mods.joined(separator: "\n                            ")
+        
+        let header = String(
+            format: "// Target: %@  ΔE: %.2f  WCAG: %@",
+            output.target.hexString,
+            output.deltaE,
+            output.wcagPass ? "PASS" : "FAIL"
+        )
+        
         return """
-        // Target: \(out.target.hexString)  ΔE00: \(String(format: "%.2f", out.deltaE))  WCAG: \(out.wcagPass ? "PASS" : "FAIL")
-        struct BrandFilledCapsule: View {
-            var title: String
-            var body: some View {
-                Text(title)
-                    .font(.headline)
-                    .foregroundStyle(.white)
-                    .padding(.vertical, 8).padding(.horizontal, 16)
-                    .background(
-                        Capsule()
-                            .fill(\(fillColor))
-                            .hueRotation(.degrees(\(Int(out.hueDegrees))))
-                            .saturation(\(String(format: "%.2f", out.saturation)))
-                            .brightness(\(String(format: "%.2f", out.brightness)))
-                    )
+            \(header)
+            struct BrandFilledCapsule: View {
+                var title: String
+                var body: some View {
+                    Text(title)
+                        .font(.headline)
+                        .foregroundStyle(.white)
+                        .padding(.vertical, 8).padding(.horizontal, 16)
+                        .background(
+                            Capsule()
+                                .fill(\(base))\(modifierBlock.isEmpty ? "" : "\n                            \(modifierBlock)")
+                        )
+                }
             }
-        }
-        """
+            """
     }
-
+    
     static func derivedPairSnippet(name: String, pair: DerivedPair) -> String {
         """
         // Add a Color Set named \(name) with Light/Dark values.
@@ -65,7 +68,7 @@ enum Exporter {
             .foregroundStyle(.white)
         """
     }
-
+    
     private static func camelCase(_ s: String) -> String {
         let parts = s.split(separator: " ")
         guard let first = parts.first else { return s }
