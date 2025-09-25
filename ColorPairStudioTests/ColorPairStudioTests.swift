@@ -1,14 +1,14 @@
 //
-//  XcodeColorMatchTests.swift
-//  XcodeColorMatchTests
+//  ColorPairStudioTests.swift
+//  ColorPairStudioTests
 //
 //  Created by Maury Alamin on 8/26/25.
 //
 
 import Testing
-@testable import XcodeColorMatch
+@testable import ColorPairStudio
 
-struct XcodeColorMatchTests {
+struct ColorPairStudioTests {
 
     @Test func example() async throws {
         // Write your test here and use APIs like `#expect(...)` to check expected conditions.

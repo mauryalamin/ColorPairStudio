@@ -105,14 +105,14 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		AEC4119B2E5E56F90054C9E1 /* XcodeColorMatchTests */ = {
+		AEC4119B2E5E56F90054C9E1 /* ColorPairStudioTests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			path = XcodeColorMatchTests;
+			path = ColorPairStudioTests;
 			sourceTree = "<group>";
 		};
-		AEC411A52E5E56F90054C9E1 /* XcodeColorMatchUITests */ = {
+		AEC411A52E5E56F90054C9E1 /* ColorPairStudioTestsUITests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			path = XcodeColorMatchUITests;
+			path = ColorPairStudioTestsUITests;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -342,8 +342,8 @@
 				AE0D6E7D2E6277BB001CC246 /* InfoPlist.strings */,
 				AE2FBDC22E627B4000C833C9 /* ColorPairStudio-Info.plist */,
 				AEC411B92E5E57250054C9E1 /* ColorPairStudio */,
-				AEC4119B2E5E56F90054C9E1 /* XcodeColorMatchTests */,
-				AEC411A52E5E56F90054C9E1 /* XcodeColorMatchUITests */,
+				AEC4119B2E5E56F90054C9E1 /* ColorPairStudioTests */,
+				AEC411A52E5E56F90054C9E1 /* ColorPairStudioTestsUITests */,
 				AEC4118B2E5E56F70054C9E1 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -409,7 +409,7 @@
 				AEC4119A2E5E56F90054C9E1 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
-				AEC4119B2E5E56F90054C9E1 /* XcodeColorMatchTests */,
+				AEC4119B2E5E56F90054C9E1 /* ColorPairStudioTests */,
 			);
 			name = ColorPairStudioTests;
 			packageProductDependencies = (
@@ -432,7 +432,7 @@
 				AEC411A42E5E56F90054C9E1 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
-				AEC411A52E5E56F90054C9E1 /* XcodeColorMatchUITests */,
+				AEC411A52E5E56F90054C9E1 /* ColorPairStudioTestsUITests */,
 			);
 			name = ColorPairStudioUITests;
 			packageProductDependencies = (
@@ -728,10 +728,20 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = YES;
-				DEVELOPMENT_TEAM = 7Y457JX2Z3;
+				DEVELOPMENT_TEAM = 72UH9J49WY;
 				ENABLE_APP_SANDBOX = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_INCOMING_NETWORK_CONNECTIONS = NO;
+				ENABLE_OUTGOING_NETWORK_CONNECTIONS = NO;
 				ENABLE_PREVIEWS = YES;
+				ENABLE_RESOURCE_ACCESS_AUDIO_INPUT = NO;
+				ENABLE_RESOURCE_ACCESS_BLUETOOTH = NO;
+				ENABLE_RESOURCE_ACCESS_CALENDARS = NO;
+				ENABLE_RESOURCE_ACCESS_CAMERA = NO;
+				ENABLE_RESOURCE_ACCESS_CONTACTS = NO;
+				ENABLE_RESOURCE_ACCESS_LOCATION = NO;
+				ENABLE_RESOURCE_ACCESS_PRINTING = NO;
+				ENABLE_RESOURCE_ACCESS_USB = NO;
 				ENABLE_USER_SELECTED_FILES = readonly;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "";
@@ -744,7 +754,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MARKETING_VERSION = 0.1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.alamin.ColorPairStudio;
+				PRODUCT_BUNDLE_IDENTIFIER = com.touchdigital.ColorPairStudio;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				REGISTER_APP_GROUPS = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -778,7 +788,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MARKETING_VERSION = 0.1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.alamin.ColorPairStudio;
+				PRODUCT_BUNDLE_IDENTIFIER = com.touchdigital.ColorPairStudio;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				REGISTER_APP_GROUPS = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -793,11 +803,11 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = YES;
-				DEVELOPMENT_TEAM = 7Y457JX2Z3;
+				DEVELOPMENT_TEAM = 72UH9J49WY;
 				GENERATE_INFOPLIST_FILE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 15.5;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.alamin.XcodeColorMatchTests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.touchdigital.ColorPairStudioTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
@@ -830,10 +840,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = YES;
-				DEVELOPMENT_TEAM = 7Y457JX2Z3;
+				DEVELOPMENT_TEAM = 72UH9J49WY;
 				GENERATE_INFOPLIST_FILE = YES;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.alamin.XcodeColorMatchUITests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.touchdigital.ColorPairStudioUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;

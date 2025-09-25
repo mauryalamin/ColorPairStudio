@@ -1,13 +1,13 @@
 //
-//  XcodeColorMatchUITestsLaunchTests.swift
-//  XcodeColorMatchUITests
+//  ColorPairStudioTestsUITestsLaunchTests.swift
+//  ColorPairStudioTestsUITests
 //
 //  Created by Maury Alamin on 8/26/25.
 //
 
 import XCTest
 
-final class XcodeColorMatchUITestsLaunchTests: XCTestCase {
+final class ColorPairStudioTestsUITestsLaunchTests: XCTestCase {
 
     override class var runsForEachTargetApplicationUIConfiguration: Bool {
         true

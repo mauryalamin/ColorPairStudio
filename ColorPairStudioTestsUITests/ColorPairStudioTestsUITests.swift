@@ -1,13 +1,13 @@
 //
-//  XcodeColorMatchUITests.swift
-//  XcodeColorMatchUITests
+//  ColorPairStudioTestsUITests.swift
+//  ColorPairStudioTestsUITests
 //
 //  Created by Maury Alamin on 8/26/25.
 //
 
 import XCTest
 
-final class XcodeColorMatchUITests: XCTestCase {
+final class ColorPairStudioTestsUITests: XCTestCase {
 
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
