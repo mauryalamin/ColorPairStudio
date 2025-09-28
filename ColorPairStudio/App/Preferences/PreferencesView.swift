@@ -16,7 +16,7 @@ struct PreferencesView: View {
             Section("Privacy") {
                 Toggle("Share anonymous usage analytics", isOn: $analyticsOptIn)
                             .toggleStyle(.switch)
-                Text("Off by default. No personal data, no identifiers, and no color values are sent.")
+                Text("Off by default. No personal data, no\ridentifiers, and no color values are sent.")
                     .font(.footnote).foregroundStyle(.secondary)
                     .fixedSize(horizontal: false, vertical: true)
             }
