@@ -9,6 +9,7 @@
 import SwiftUI
 
 struct PreferencesView: View {
+    // Updated the look of the panel
     @AppStorage(Analytics.optInKey) private var analyticsOptIn = false
 
     var body: some View {
