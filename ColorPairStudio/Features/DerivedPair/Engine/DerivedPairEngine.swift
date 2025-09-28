@@ -28,7 +28,6 @@ enum DerivedPairEngine {
         )
     }
     
-    enum PairPolicy { case guardrailed, exactLightIfCompliant, brandLockedLight }
 
     // Cache once; adjust to computed vars if you ever need these to update at runtime.
     private static let lightBG: RGBA = makeSystemBG(.aqua)
@@ -46,42 +45,53 @@ enum DerivedPairEngine {
 
     /// Derive Light/Dark twins from a target color.
     /// Positive `bias` => lighter dark twin & darker light twin (more separation).
+    // DerivedPairEngine.swift
     static func derive(from target: RGBA,
                        bias: Double = 0.0,
                        policy: PairPolicy = .exactLightIfCompliant) -> DerivedPair {
+
         let clampedBias = bias.clamped(to: biasRange)
+        let biasScale: Double = 1.0
 
-        // Base offsets (tuned to feel “Mac-right”)
-        let baseLightOffset = -0.08   // darken for light background
-        let baseDarkOffset  =  0.10   // lighten for dark background
+        // Tuned base offsets (feel “Mac-right”)
+        let baseLightOffset = -0.08    // darken in Light mode
+        let baseDarkOffset  =  0.10    // lighten in Dark mode
 
-        // Bias-adjusted starting points
-        let lightBase = target.adjust(brightness: baseLightOffset - clampedBias * biasScale)
-        let darkBase  = target.adjust(brightness: baseDarkOffset  + clampedBias * biasScale)
+        // Helpers
+        func ensureUIContrast(_ c: RGBA, bg: RGBA) -> RGBA {
+            ensureContrast(color: c, bg: bg, minRatio: 3.0)  // ~UI legibility guardrail
+        }
 
-        var light: RGBA
-        var dark: RGBA
+        // Start with defaults; we’ll fill them per policy
+        var light = target
+        var dark  = target
 
         switch policy {
         case .guardrailed:
-            // Current behavior: minimal nudge both sides to meet contrast
-            light = ensureContrast(color: lightBase, bg: lightBG, minRatio: 3.0)
-            dark  = ensureContrast(color: darkBase,  bg: darkBG,  minRatio: 3.0)
+            // Both twins may move (previous behavior)
+            light = target.adjust(brightness: baseLightOffset - clampedBias * biasScale)
+            dark  = target.adjust(brightness: baseDarkOffset  + clampedBias * biasScale)
+            light = ensureUIContrast(light, bg: lightBG)
+            dark  = ensureUIContrast(dark,  bg: darkBG)
 
         case .exactLightIfCompliant:
-            // Keep Light exactly brand if it already passes on Light bg; otherwise minimal nudge FROM the brand
-            if WCAG.contrastRatio(fg: target, bg: lightBG) >= 3.0 {
+            // If target already passes on Light background, keep Light exact; else apply minimal nudge.
+            let lightPasses = WCAG.contrastRatio(fg: target, bg: lightBG) >= 3.0
+            if lightPasses {
                 light = target
             } else {
-                light = ensureContrast(color: target, bg: lightBG, minRatio: 3.0)
+                light = target.adjust(brightness: baseLightOffset - clampedBias * biasScale)
+                light = ensureUIContrast(light, bg: lightBG)
             }
-            // Dark still derived with bias and guardrails
-            dark = ensureContrast(color: darkBase, bg: darkBG, minRatio: 3.0)
+            // Dark uses the usual offset guardrailed path
+            dark  = target.adjust(brightness: baseDarkOffset  + clampedBias * biasScale)
+            dark  = ensureUIContrast(dark,  bg: darkBG)
 
         case .brandLockedLight:
-            // Force Light to be exact brand (even if it fails); Dark adjusted to pass
+            // Always keep Light = exact brand color (even if it fails); only Dark adjusts/guardrails.
             light = target
-            dark  = ensureContrast(color: darkBase, bg: darkBG, minRatio: 3.0)
+            dark  = target.adjust(brightness: baseDarkOffset  + clampedBias * biasScale)
+            dark  = ensureUIContrast(dark,  bg: darkBG)
         }
 
         // Preserve intuitive ordering (Dark twin should be lighter than Light twin)
@@ -90,7 +100,7 @@ enum DerivedPairEngine {
             dark  = nudge(color: dark,  direction: .lighter, steps: 1)
         }
 
-        // White-on-color badge (unchanged)
+        // Optional: compute your text badges (unchanged)
         let white = RGBA(r: 1, g: 1, b: 1, a: 1)
         let bothPassText =
             WCAG.passesAA(normalText: WCAG.contrastRatio(fg: white, bg: light)) &&
@@ -218,4 +228,24 @@ extension DerivedPairEngine {
 
 extension Comparable {
     func clamped(to r: ClosedRange<Self>) -> Self { min(max(self, r.lowerBound), r.upperBound) }
+}
+
+// PairPolicy.swift
+enum PairPolicy: String, CaseIterable, Codable, Sendable {
+    /// Default “balanced”: both twins may move, with background contrast guardrails.
+    case guardrailed
+
+    /// Keep Light exactly equal to the brand color **if** it already passes; otherwise nudge it.
+    case exactLightIfCompliant
+
+    /// Force Light to remain exactly the brand color regardless of guardrails; only Dark adjusts.
+    /// (Useful for demos/brand-lock scenarios; expect accessibility badges to reflect failures.)
+    case brandLockedLight
+}
+
+extension PairPolicy {
+    /// Convenience for the UI toggle: ON => exact when safe, OFF => balanced guardrails
+    static func fromToggle(_ keepLightExact: Bool) -> PairPolicy {
+        keepLightExact ? .exactLightIfCompliant : .guardrailed
+    }
 }

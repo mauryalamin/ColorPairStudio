@@ -130,7 +130,12 @@ struct ContentView: View {
             ApproximatorResultView(output: out, onExport: presentExport)
             
         case .some(.derived(let pair)):
-            DerivedPairResultView(pair: pair, bias: $vm.bias, onExport: presentExport)
+            DerivedPairResultView(
+                pair: pair,
+                bias: $vm.bias,
+                keepLightExact: $vm.keepLightExact,
+                onExport: presentExport   // or trailing closure if you prefer
+            )
         }
     }
 }

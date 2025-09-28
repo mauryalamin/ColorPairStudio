@@ -9,25 +9,29 @@ import SwiftUI
 
 struct DerivedPairResultView: View {
     // Stored props
-    let pair: DerivedPair
-    let onExport: (String) -> Void
+        let pair: DerivedPair
+        let onExport: (String) -> Void
 
-    // Single source of truth: bias comes in as a Binding
-    @Binding private var bias: Double
+        // Bindings
+        @Binding private var bias: Double
+        @Binding private var keepLightExact: Bool   // ← NEW
 
-    // ✅ Preferred initializer
-    init(pair: DerivedPair,
-         bias: Binding<Double>,
-         onExport: @escaping (String) -> Void = { _ in }) {
-        self.pair = pair
-        self.onExport = onExport
-        self._bias = bias
-    }
-    
-    // Recompute twins from current bias
-    private var recomputed: DerivedPair {
-        DerivedPairEngine.derive(from: pair.target, bias: bias)
-    }
+        // Init including the new toggle
+        init(pair: DerivedPair,
+             bias: Binding<Double>,
+             keepLightExact: Binding<Bool>,
+             onExport: @escaping (String) -> Void = { _ in }) {
+            self.pair = pair
+            self.onExport = onExport
+            self._bias = bias
+            self._keepLightExact = keepLightExact
+        }
+
+        // Recompute twins using the policy derived from the toggle
+        private var recomputed: DerivedPair {
+            let policy: PairPolicy = keepLightExact ? .exactLightIfCompliant : .guardrailed
+            return DerivedPairEngine.derive(from: pair.target, bias: bias, policy: policy)
+        }
     
     private var snippet: String {
         Exporter.derivedPairSnippet(name: "BrandPrimary", pair: recomputed)
@@ -94,6 +98,13 @@ struct DerivedPairResultView: View {
                 Text(String(format: "%+.2f", bias)).monospaced()
             }
             
+            Toggle(isOn: $keepLightExact) {
+                Text("Keep Light exactly brand (when safe)")
+            }
+            .help("If the brand hex already passes on the Light background, keep Light exact and only adjust Dark to meet guardrails.")
+            .accessibilityLabel("Keep Light exactly brand when safe")
+            .accessibilityHint("When on, Light stays equal to the input color if it already meets contrast. Dark adjusts to remain readable.")
+            
             HStack(spacing: 16) {
                 VStack(alignment: .leading, spacing: 6) {
                     TwinPreview(title: "Light", rgba: recomputed.light)
@@ -138,7 +149,7 @@ struct DerivedPairResultView: View {
 
 // MARK: - Back-compat wrapper for your old init(pair:onExport:)
 extension DerivedPairResultView {
-    @available(*, deprecated, message: "Prefer init(pair:bias:onExport:) with a Binding (e.g., bias: $vm.bias).")
+    @available(*, deprecated, message: "Prefer init(pair:bias:keepLightExact:onExport:).")
     static func legacy(pair: DerivedPair,
                        onExport: @escaping (String) -> Void = { _ in }) -> some View {
         _DerivedPairResultViewWithState(pair: pair, onExport: onExport)
@@ -146,13 +157,20 @@ extension DerivedPairResultView {
 }
 
 // A tiny wrapper view that owns a local @State and passes it as a Binding
+
 private struct _DerivedPairResultViewWithState: View {
     let pair: DerivedPair
     let onExport: (String) -> Void
     @State private var localBias: Double = 0.0
+    @State private var localKeepLightExact = true
 
     var body: some View {
-        DerivedPairResultView(pair: pair, bias: $localBias, onExport: onExport)
+        DerivedPairResultView(
+            pair: pair,
+            bias: $localBias,
+            keepLightExact: $localKeepLightExact,
+            onExport: onExport
+        )
     }
 }
 
@@ -171,7 +189,11 @@ extension DerivedPair {
 }
 
 #Preview("Derived Pair") {
-    DerivedPairResultView(pair: .sample, bias: .constant(0.0))
-        .frame(width: 860)
-        .padding(20)
+    DerivedPairResultView(
+        pair: .sample,
+        bias: .constant(0.0),
+        keepLightExact: .constant(true)
+    )
+    .frame(width: 860)
+    .padding(20)
 }

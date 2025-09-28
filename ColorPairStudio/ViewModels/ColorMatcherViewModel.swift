@@ -31,28 +31,35 @@ final class ColorMatcherViewModel: ObservableObject {
     // Engine dependencies (very simple placeholders for week‑3 demo)
     private let engine = ApproximatorEngine()
     
-    
-    
+    // In ColorMatcherViewModel.swift
+    @AppStorage("dp.keepLightExact") var keepLightExact: Bool = true
+    var pairPolicy: PairPolicy { keepLightExact ? .exactLightIfCompliant : .guardrailed }
+
     func generate() {
         let rgba = RGBA.fromHexString(hexText)
-        ?? RGBA.fromRGBText(rgbText)
-        ?? RGBA(r: 76/255, g: 111/255, b: 175/255, a: 1)
-        
-        let props: [String: Any]
-        
+            ?? RGBA.fromRGBText(rgbText)
+            ?? RGBA(r: 76/255, g: 111/255, b: 175/255, a: 1)
+
+        var props: [String: Any] = [:]
+
         switch mode {
         case .approximator:
             let approx = engine.approximate(to: rgba)
             result = .approximated(approx)
             props = ["mode": mode.rawValue, "feature": "Approximator"]
-            
+
         case .derivedPair:
-            let pair = DerivedPairEngine.derive(from: rgba, bias: bias)
+            let pair = DerivedPairEngine.derive(from: rgba, bias: bias, policy: pairPolicy)
             result = .derived(pair)
-            let roundedBias = (bias * 100).rounded() / 100   // optional nicety for logs
-            props = ["mode": mode.rawValue, "feature": "DerivedPair", "bias": roundedBias]
+            let roundedBias = (bias * 100).rounded() / 100
+            props = [
+                "mode": mode.rawValue,
+                "feature": "DerivedPair",
+                "bias": roundedBias,
+                "policy": pairPolicy.rawValue
+            ]
         }
-        
+
         Analytics.track("generate_clicked", props)
     }
     
