@@ -13,51 +13,28 @@ import Foundation
 
 struct ApproximatedOutput: Codable, Sendable {
     let target: RGBA
-    let base: SystemColorToken            // ← NEW: source of truth (no leading dot)
+    let base: SystemColorToken
     let hueDegrees: Double
     let saturation: Double
     let brightness: Double
     let deltaE: Double
     let wcagPass: Bool
 
-    // Back-compat shim if old code still sets `baseName` like ".red"
-    @available(*, deprecated, message: "Use `base` (SystemColorToken) instead.")
-    var baseName: String { ".\(base.rawValue)" }
-
-    // Convenience used by Exporter/UI if needed
+    // Convenience used by Exporter/UI
     var swiftBaseExpr: String { base.swiftExpr }
-    
-    // SwiftUI.Color for previews
-    var baseColor: Color { base.swiftUIColor }
 
-    // TEMP initializer to bridge old call sites that still pass `.baseName`
-    @available(*, deprecated, message: "Migrate call sites to pass `base: SystemColorToken`.")
-    init(target: RGBA,
-         baseName: String,
-         hueDegrees: Double,
-         saturation: Double,
-         brightness: Double,
-         deltaE: Double,
-         wcagPass: Bool)
-    {
-        self.target = target
-        self.base = SystemColorToken(normalizing: baseName) ?? .blue // safe default
-        self.hueDegrees = hueDegrees
-        self.saturation = saturation
-        self.brightness = brightness
-        self.deltaE = deltaE
-        self.wcagPass = wcagPass
+    private enum CodingKeys: String, CodingKey {
+        case target, base, baseName, hueDegrees, saturation, brightness, deltaE, wcagPass
     }
 
-    // Preferred initializer
+    // Preferred init for new code
     init(target: RGBA,
          base: SystemColorToken,
          hueDegrees: Double,
          saturation: Double,
          brightness: Double,
          deltaE: Double,
-         wcagPass: Bool)
-    {
+         wcagPass: Bool) {
         self.target = target
         self.base = base
         self.hueDegrees = hueDegrees
@@ -65,6 +42,43 @@ struct ApproximatedOutput: Codable, Sendable {
         self.brightness = brightness
         self.deltaE = deltaE
         self.wcagPass = wcagPass
+    }
+
+    // ✅ Custom decode: supports new `base` and legacy `baseName`
+    init(from decoder: Decoder) throws {
+        let c = try decoder.container(keyedBy: CodingKeys.self)
+        target     = try c.decode(RGBA.self,    forKey: .target)
+
+        if let tok = try? c.decode(SystemColorToken.self, forKey: .base) {
+            base = tok
+        } else if let legacy = try? c.decode(String.self, forKey: .baseName),
+                  let tok = SystemColorToken(normalizing: legacy) {
+            base = tok
+        } else {
+            // Choose: either fail hard or pick a safe default
+            // throw DecodingError.keyNotFound(CodingKeys.base, .init(codingPath: c.codingPath, debugDescription: "Missing `base` or `baseName`"))
+            base = .blue
+        }
+
+        hueDegrees = try c.decode(Double.self, forKey: .hueDegrees)
+        saturation = try c.decode(Double.self, forKey: .saturation)
+        brightness = try c.decode(Double.self, forKey: .brightness)
+        deltaE     = try c.decode(Double.self, forKey: .deltaE)
+        wcagPass   = try c.decode(Bool.self,   forKey: .wcagPass)
+    }
+
+    // ✅ Custom encode (writes new `base`; optionally echoes legacy `baseName` during a transition)
+    func encode(to encoder: Encoder) throws {
+        var c = encoder.container(keyedBy: CodingKeys.self)
+        try c.encode(target,     forKey: .target)
+        try c.encode(base,       forKey: .base)                 // new field
+        try c.encode(hueDegrees, forKey: .hueDegrees)
+        try c.encode(saturation, forKey: .saturation)
+        try c.encode(brightness, forKey: .brightness)
+        try c.encode(deltaE,     forKey: .deltaE)
+        try c.encode(wcagPass,   forKey: .wcagPass)
+        // Optional: keep for a version or two, then remove
+        try c.encode(".\(base.rawValue)", forKey: .baseName)
     }
 }
 
@@ -139,5 +153,8 @@ extension ApproximatedOutput {
 }
 
 extension ApproximatedOutput {
-    var baseRGBA: RGBA { base.rgbaApprox }
+        /// For UI previews
+        var baseColor: Color { base.swiftUIColor }
+        /// sRGB RGBA for ΔE/contrast math
+        var baseRGBA: RGBA { base.rgbaApprox }
 }

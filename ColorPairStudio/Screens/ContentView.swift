@@ -29,9 +29,24 @@ struct ContentView: View {
             header
             inputRow
             modeRow
-            Button("Generate", action: vm.generate)
-                .keyboardShortcut(.return)
-                .accessibilityLabel("Generate results")
+            HStack {
+                Button("Generate", action: vm.generate)
+                    .keyboardShortcut(.return)
+                    .accessibilityLabel("Generate results")
+                
+                // Remove Later
+                Spacer()
+                
+                Button("Test Network Ping") {
+                    print("analyticsOptIn =", vm.analyticsOptIn)
+                    guard vm.analyticsOptIn else { return } // respect opt-in
+                    let url = URL(string: "https://www.apple.com/library/test/success.html")!
+                    URLSession.shared.dataTask(with: url) { _, response, error in
+                        if let error = error { print("Ping failed:", error) }
+                        else { print("Ping OK:", (response as? HTTPURLResponse)?.statusCode ?? -1) }
+                    }.resume()
+                }
+            }
             
             Divider()
             resultsSection

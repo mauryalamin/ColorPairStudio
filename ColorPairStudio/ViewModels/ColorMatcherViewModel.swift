@@ -9,6 +9,8 @@ import Foundation
 import SwiftUI
 
 final class ColorMatcherViewModel: ObservableObject {
+    @AppStorage(Analytics.optInKey) var analyticsOptIn: Bool = false
+    
     @Published var hexText: String = "#4C6FAF"
     @Published var rgbText: String = "76,111,175"
     @Published var pickedColor: Color = Color(red: 76/255, green: 111/255, blue: 175/255)

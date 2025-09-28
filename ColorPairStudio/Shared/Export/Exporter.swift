@@ -70,10 +70,26 @@ enum Exporter {
     }
     
     private static func camelCase(_ s: String) -> String {
-        let parts = s.split(separator: " ")
-        guard let first = parts.first else { return s }
+        // 1) Remove non-alphanumerics -> spaces
+        let cleaned = s.replacingOccurrences(of: #"[^A-Za-z0-9]+"#,
+                                             with: " ",
+                                             options: .regularExpression)
+
+        // 2) Split each token on case boundaries: "BrandPrimary" -> ["Brand","Primary"]
+        let pattern = #"([A-Z]+(?![a-z])|[A-Z]?[a-z]+|[0-9]+)"#
+        let regex = try! NSRegularExpression(pattern: pattern)
+
+        var words: [String] = []
+        for raw in cleaned.split(separator: " ") {
+            let str = String(raw)
+            let ns = str as NSString
+            let matches = regex.matches(in: str, range: NSRange(location: 0, length: ns.length))
+            words += matches.map { ns.substring(with: $0.range) }
+        }
+
+        guard let first = words.first else { return s.lowercased() }
         let head = first.lowercased()
-        let tail = parts.dropFirst().map { $0.capitalized }.joined()
+        let tail = words.dropFirst().map { $0.capitalized }.joined()
         return head + tail
     }
 }
