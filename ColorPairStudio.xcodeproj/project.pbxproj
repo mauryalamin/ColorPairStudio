@@ -45,6 +45,16 @@
 		AEFB4FBA2E60D0110044D6C2 /* PassBadge.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEFB4FB92E60D0110044D6C2 /* PassBadge.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		AE7CF02D2E8A1C68002331EF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = AEC411822E5E56F70054C9E1 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = AEC411892E5E56F70054C9E1;
+			remoteInfo = ColorPairStudio;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		AE0A8ACC2E5E5A520066A017 /* ColorMatcherViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorMatcherViewModel.swift; sourceTree = "<group>"; };
 		AE0A8ACE2E5E5EC00066A017 /* EmptyState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyState.swift; sourceTree = "<group>"; };
@@ -69,7 +79,7 @@
 		AE72F0CE2E7216010054C84A /* FocusedActions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusedActions.swift; sourceTree = "<group>"; };
 		AE72F0D02E7226B10054C84A /* AppCommands.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCommands.swift; sourceTree = "<group>"; };
 		AE7350652E7E53F200EC3A14 /* SystemColorToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemColorToken.swift; sourceTree = "<group>"; };
-		AE7CF02C2E8A16C1002331EF /* ColorPairStudio.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = file; path = ColorPairStudio.xctestplan; sourceTree = "<group>"; };
+		AE7CF02C2E8A16C1002331EF /* ColorPairStudio.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = ColorPairStudio.xctestplan; sourceTree = "<group>"; };
 		AE85F15A2E7F68D800063541 /* Color Pair Studio Icon.icon */ = {isa = PBXFileReference; lastKnownFileType = folder.iconcomposer.icon; path = "Color Pair Studio Icon.icon"; sourceTree = "<group>"; };
 		AE91A1E82E61FCD9009575D0 /* PreferencesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesView.swift; sourceTree = "<group>"; };
 		AE91A1EC2E6200F8009575D0 /* AppearanceToggle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppearanceToggle.swift; sourceTree = "<group>"; };
@@ -323,9 +333,9 @@
 		AEC411812E5E56F70054C9E1 = {
 			isa = PBXGroup;
 			children = (
-				AE7CF02C2E8A16C1002331EF /* ColorPairStudio.xctestplan */,
 				AE0D6E7D2E6277BB001CC246 /* InfoPlist.strings */,
 				AE2FBDC22E627B4000C833C9 /* ColorPairStudio-Info.plist */,
+				AE7CF02C2E8A16C1002331EF /* ColorPairStudio.xctestplan */,
 				AEC411B92E5E57250054C9E1 /* ColorPairStudio */,
 				AEC4119B2E5E56F90054C9E1 /* ColorPairStudioTests */,
 				AEC411A52E5E56F90054C9E1 /* ColorPairStudioTestsUITests */,
@@ -391,6 +401,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				AE7CF02E2E8A1C68002331EF /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				AEC4119B2E5E56F90054C9E1 /* ColorPairStudioTests */,
@@ -439,6 +450,7 @@
 					};
 					AEC411972E5E56F90054C9E1 = {
 						CreatedOnToolsVersion = 16.4;
+						TestTargetID = AEC411892E5E56F70054C9E1;
 					};
 					AEC411A12E5E56F90054C9E1 = {
 						CreatedOnToolsVersion = 16.4;
@@ -550,6 +562,14 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		AE7CF02E2E8A1C68002331EF /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = AEC411892E5E56F70054C9E1 /* ColorPairStudio */;
+			targetProxy = AE7CF02D2E8A1C68002331EF /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		AE0D6E7D2E6277BB001CC246 /* InfoPlist.strings */ = {
@@ -779,6 +799,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ColorPairStudio.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/ColorPairStudio";
 			};
 			name = Debug;
 		};
@@ -796,6 +817,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ColorPairStudio.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/ColorPairStudio";
 			};
 			name = Release;
 		};
