@@ -1,0 +1,30 @@
+{
+  "configurations" : [
+    {
+      "id" : "967F1A4B-C2F0-4D66-8F75-544ABED5A9C9",
+      "name" : "Test Scheme Action",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "performanceAntipatternCheckerEnabled" : true,
+    "targetForVariableExpansion" : {
+      "containerPath" : "container:ColorPairStudio.xcodeproj",
+      "identifier" : "AEC411892E5E56F70054C9E1",
+      "name" : "ColorPairStudio"
+    }
+  },
+  "testTargets" : [
+    {
+      "parallelizable" : true,
+      "target" : {
+        "containerPath" : "container:ColorPairStudio.xcodeproj",
+        "identifier" : "AEC411972E5E56F90054C9E1",
+        "name" : "ColorPairStudioTests"
+      }
+    }
+  ],
+  "version" : 1
+}
