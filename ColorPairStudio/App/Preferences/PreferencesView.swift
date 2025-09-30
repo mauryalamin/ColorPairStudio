@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct PreferencesView: View {
-    // Updated the look of the panel to make it look better and more hopeful
+    // Updated the look of the panel to make it look better and more hopeful messing around
     @AppStorage(Analytics.optInKey) private var analyticsOptIn = false
 
     var body: some View {
