@@ -8,6 +8,7 @@
 // ExportSheet.swift
 import SwiftUI
 import AppKit
+import ColorPairCore
 
 struct ExportSheet: View {
     @Environment(\.dismiss) private var dismiss

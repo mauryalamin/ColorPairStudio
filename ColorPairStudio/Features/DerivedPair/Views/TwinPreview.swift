@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import ColorPairCore
 
 struct TwinPreview: View {
     var title: String

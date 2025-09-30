@@ -7,9 +7,14 @@
 
 import SwiftUI
 import AppKit
+import ColorPairCore
 
 @main
 struct ColorPairStudioApp: App {
+    init() {
+        DerivedPairEngine.refreshSystemBackgrounds()
+    }
+    
     var body: some Scene {
         WindowGroup("Color Pair Studio") {
             ContentView()
@@ -39,4 +44,3 @@ struct ColorPairStudioApp: App {
         }
     }
 }
-

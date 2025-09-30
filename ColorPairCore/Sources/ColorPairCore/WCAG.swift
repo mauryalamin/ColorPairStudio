@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum WCAG {
+public enum WCAG {
     /// sRGB (0...1) → relative luminance per WCAG
     private static func relLuminance(_ r: Double, _ g: Double, _ b: Double) -> Double {
         func toLinear(_ c: Double) -> Double {
@@ -18,13 +18,13 @@ enum WCAG {
     }
 
     /// Contrast ratio (>=1 ... 21)
-    static func contrastRatio(fg: RGBA, bg: RGBA) -> Double {
+    public static func contrastRatio(fg: RGBA, bg: RGBA) -> Double {
         let L1 = relLuminance(fg.r, fg.g, fg.b)
         let L2 = relLuminance(bg.r, bg.g, bg.b)
         let (light, dark) = (max(L1, L2), min(L1, L2))
         return (light + 0.05) / (dark + 0.05)
     }
 
-    static func passesAA(normalText ratio: Double) -> Bool { ratio >= 4.5 }
-    static func passesAA(largeText ratio: Double) -> Bool { ratio >= 3.0 } // ≥18pt or 14pt bold
+    public static func passesAA(normalText ratio: Double) -> Bool { ratio >= 4.5 }
+    public static func passesAA(largeText ratio: Double) -> Bool { ratio >= 3.0 } // ≥18pt or 14pt bold
 }

@@ -6,29 +6,29 @@
 //
 
 import Foundation
-import SwiftUI
 
 // ApproximatedOutput.swift
 import Foundation
 
-struct ApproximatedOutput: Codable, Sendable {
-    let target: RGBA
-    let base: SystemColorToken
-    let hueDegrees: Double
-    let saturation: Double
-    let brightness: Double
-    let deltaE: Double
-    let wcagPass: Bool
+
+public struct ApproximatedOutput: Codable, Sendable {
+    public let target: RGBA
+    public let base: SystemColorToken
+    public let hueDegrees: Double
+    public let saturation: Double
+    public let brightness: Double
+    public let deltaE: Double
+    public let wcagPass: Bool
 
     // Convenience used by Exporter/UI
-    var swiftBaseExpr: String { base.swiftExpr }
+    public var swiftBaseExpr: String { base.swiftExpr }
 
     private enum CodingKeys: String, CodingKey {
         case target, base, baseName, hueDegrees, saturation, brightness, deltaE, wcagPass
     }
 
     // Preferred init for new code
-    init(target: RGBA,
+    public init(target: RGBA,
          base: SystemColorToken,
          hueDegrees: Double,
          saturation: Double,
@@ -45,7 +45,7 @@ struct ApproximatedOutput: Codable, Sendable {
     }
 
     // ✅ Custom decode: supports new `base` and legacy `baseName`
-    init(from decoder: Decoder) throws {
+    public init(from decoder: Decoder) throws {
         let c = try decoder.container(keyedBy: CodingKeys.self)
         target     = try c.decode(RGBA.self,    forKey: .target)
 
@@ -68,7 +68,7 @@ struct ApproximatedOutput: Codable, Sendable {
     }
 
     // ✅ Custom encode (writes new `base`; optionally echoes legacy `baseName` during a transition)
-    func encode(to encoder: Encoder) throws {
+    public func encode(to encoder: Encoder) throws {
         var c = encoder.container(keyedBy: CodingKeys.self)
         try c.encode(target,     forKey: .target)
         try c.encode(base,       forKey: .base)                 // new field
@@ -85,7 +85,7 @@ struct ApproximatedOutput: Codable, Sendable {
 // MARK: - Samples (updated for SystemColorToken-based output)
 import SwiftUI
 
-extension ApproximatedOutput {
+public extension ApproximatedOutput {
 
     static let samplePass: ApproximatedOutput = {
         // Target brand-ish blue
@@ -152,9 +152,7 @@ extension ApproximatedOutput {
     }()
 }
 
-extension ApproximatedOutput {
-        /// For UI previews
-        var baseColor: Color { base.swiftUIColor }
-        /// sRGB RGBA for ΔE/contrast math
-        var baseRGBA: RGBA { base.rgbaApprox }
+public extension ApproximatedOutput {
+    /// sRGB RGBA for ΔE/contrast math
+    var baseRGBA: RGBA { base.rgbaApprox }
 }

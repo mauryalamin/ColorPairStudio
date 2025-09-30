@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import ColorPairCore
 
 struct DerivedPairResultView: View {
     // Stored props
@@ -174,19 +175,7 @@ private struct _DerivedPairResultViewWithState: View {
     }
 }
 
-extension DerivedPair {
-    static func sampleComputed() -> DerivedPair {
-        let target = RGBA(r: 0.3, g: 0.5, b: 0.7, a: 1)
-        let pair   = DerivedPairEngine.derive(from: target, bias: 0)
-        let white  = RGBA(r: 1, g: 1, b: 1, a: 1)
 
-        let lightCR = WCAG.contrastRatio(fg: white, bg: pair.light)
-        let darkCR  = WCAG.contrastRatio(fg: white, bg: pair.dark)
-        let pass    = (lightCR >= 4.5) && (darkCR >= 4.5)   // AA body text threshold
-
-        return DerivedPair(target: target, light: pair.light, dark: pair.dark, wcagPass: pass)
-    }
-}
 
 #Preview("Derived Pair") {
     DerivedPairResultView(

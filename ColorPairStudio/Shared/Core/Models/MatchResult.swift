@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import ColorPairCore
 
 enum MatchResult {
     case approximated(ApproximatedOutput)

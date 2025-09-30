@@ -7,7 +7,9 @@
 
 import Foundation
 import SwiftUI
+import ColorPairCore
 
+@MainActor
 final class ColorMatcherViewModel: ObservableObject {
     @AppStorage(Analytics.optInKey) var analyticsOptIn: Bool = false
     
@@ -37,32 +39,34 @@ final class ColorMatcherViewModel: ObservableObject {
     @AppStorage("dp.keepLightExact") var keepLightExact: Bool = true
     var pairPolicy: PairPolicy { keepLightExact ? .exactLightIfCompliant : .guardrailed }
 
+    @MainActor
     func generate() {
         let rgba = RGBA.fromHexString(hexText)
             ?? RGBA.fromRGBText(rgbText)
             ?? RGBA(r: 76/255, g: 111/255, b: 175/255, a: 1)
 
-        var props: [String: Any] = [:]
-
         switch mode {
         case .approximator:
             let approx = engine.approximate(to: rgba)
             result = .approximated(approx)
-            props = ["mode": mode.rawValue, "feature": "Approximator"]
+
+            Analytics.track("generate_clicked", [
+                "mode": mode.rawValue,
+                "feature": "Approximator"
+            ])
 
         case .derivedPair:
-            let pair = DerivedPairEngine.derive(from: rgba, bias: bias, policy: pairPolicy)
+            let pair = DerivedPairEngine
+                .deriveUsingCurrentConfig(from: rgba, bias: bias, policy: pairPolicy)
             result = .derived(pair)
-            let roundedBias = (bias * 100).rounded() / 100
-            props = [
+
+            Analytics.track("generate_clicked", [
                 "mode": mode.rawValue,
                 "feature": "DerivedPair",
-                "bias": roundedBias,
+                "bias": (bias * 100).rounded() / 100,
                 "policy": pairPolicy.rawValue
-            ]
+            ])
         }
-
-        Analytics.track("generate_clicked", props)
     }
     
     func exportSnippet() -> String {

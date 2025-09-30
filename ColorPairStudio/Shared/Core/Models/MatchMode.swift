@@ -28,3 +28,4 @@ enum MatchMode: String, CaseIterable, Hashable {
         }
     }
 }
+

@@ -7,12 +7,24 @@
 
 import Foundation
 
-struct HSB { var h: Double; var s: Double; var b: Double } // h in [0,360)
+public struct HSB { var h: Double; var s: Double; var b: Double } // h in [0,360)
 
-struct RGBA: Equatable {
-    var r: Double; var g: Double; var b: Double; var a: Double
+public struct RGBA: Equatable {
+    public var r: Double
+    public var g: Double
+    public var b: Double
+    public var a: Double
     
-    static func fromHexString(_ s: String) -> RGBA? {
+    // Explicit public initializer so app code can do RGBA(r:g:b:a:)
+    public init(r: Double, g: Double, b: Double, a: Double) {
+        self.r = r; self.g = g; self.b = b; self.a = a
+    }
+    
+    // Nice-to-have shortcuts
+    public static let white = RGBA(r: 1, g: 1, b: 1, a: 1)
+    public static let black = RGBA(r: 0, g: 0, b: 0, a: 1)
+    
+    public static func fromHexString(_ s: String) -> RGBA? {
         var hex = s.trimmingCharacters(in: .whitespacesAndNewlines)
         if hex.hasPrefix("#") { hex.removeFirst() }
         guard hex.count == 6, let v = Int(hex, radix: 16) else { return nil }
@@ -22,7 +34,7 @@ struct RGBA: Equatable {
         return RGBA(r: r, g: g, b: b, a: 1)
     }
     
-    static func fromRGBText(_ s: String) -> RGBA? {
+    public static func fromRGBText(_ s: String) -> RGBA? {
         let parts = s.split(separator: ",").map { $0.trimmingCharacters(in: .whitespaces) }
         guard parts.count == 3,
               let r = Double(parts[0]), let g = Double(parts[1]), let b = Double(parts[2])
@@ -39,7 +51,7 @@ struct RGBA: Equatable {
         RGBA(r: clamp01(r + delta), g: clamp01(g + delta), b: clamp01(b + delta), a: a)
     }
     
-    var hexString: String {
+    public var hexString: String {
         let R = Int(round(r * 255)), G = Int(round(g * 255)), B = Int(round(b * 255))
         return String(format: "#%02X%02X%02X", R, G, B)
     }
@@ -49,7 +61,7 @@ struct RGBA: Equatable {
 
 extension RGBA: Codable, Sendable {
     
-    var asRGBText: String { "\(Int(r*255)),\(Int(g*255)),\(Int(b*255))" }
+    public var asRGBText: String { "\(Int(r*255)),\(Int(g*255)),\(Int(b*255))" }
     
     func toHSB() -> HSB {
         let r = r, g = g, b = b
@@ -68,7 +80,7 @@ extension RGBA: Codable, Sendable {
         let v = maxv
         return HSB(h: h, s: s, b: v)
     }
-
+    
     static func fromHSB(_ hsb: HSB, alpha: Double = 1) -> RGBA {
         let c = hsb.b * hsb.s
         let x = c * (1 - abs(fmod(hsb.h / 60.0, 2) - 1))
@@ -84,9 +96,9 @@ extension RGBA: Codable, Sendable {
         }
         return RGBA(r: rp + m, g: gp + m, b: bp + m, a: alpha)
     }
-
+    
     /// Apply the same adjustments you show in UI (degrees, sat multiplier, brightness delta)
-    func applying(hueDegrees: Double, satMultiplier: Double, brightnessDelta: Double) -> RGBA {
+    public func applying(hueDegrees: Double, satMultiplier: Double, brightnessDelta: Double) -> RGBA {
         var hsb = toHSB()
         hsb.h = fmod((hsb.h + hueDegrees + 360), 360)
         hsb.s = min(max(hsb.s * satMultiplier, 0), 1)

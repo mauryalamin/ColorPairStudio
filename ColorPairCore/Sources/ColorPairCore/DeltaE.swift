@@ -7,12 +7,12 @@
 
 import Foundation
 
-struct Lab { var L: Double; var a: Double; var b: Double }
+public struct Lab { var L: Double; var a: Double; var b: Double }
 
 // sRGB → Lab helpers
 extension RGBA {
     // sRGB → XYZ (D65)
-    private func srgbToXYZ() -> (X: Double, Y: Double, Z: Double) {
+    public func srgbToXYZ() -> (X: Double, Y: Double, Z: Double) {
         func toLinear(_ c: Double) -> Double { c <= 0.04045 ? (c/12.92) : pow((c + 0.055)/1.055, 2.4) }
         let R = toLinear(r), G = toLinear(g), B = toLinear(b)
         let X = 0.4124564*R + 0.3575761*G + 0.1804375*B
@@ -21,7 +21,7 @@ extension RGBA {
         return (X, Y, Z)
     }
     // XYZ → Lab (D65/2°)
-    func toLab() -> Lab {
+    public func toLab() -> Lab {
         let xyz = srgbToXYZ()
         // D65 reference white
         let Xr = 0.95047, Yr = 1.00000, Zr = 1.08883
@@ -36,9 +36,9 @@ extension RGBA {
     }
 }
 
-enum DeltaE {
+public enum DeltaE {
     /// CIEDE2000 color difference (ΔE00)
-    static func ciede2000(_ A: Lab, _ B: Lab) -> Double {
+    public static func ciede2000(_ A: Lab, _ B: Lab) -> Double {
         let (L1, a1, b1) = (A.L, A.a, A.b)
         let (L2, a2, b2) = (B.L, B.a, B.b)
         let kL = 1.0, kC = 1.0, kH = 1.0

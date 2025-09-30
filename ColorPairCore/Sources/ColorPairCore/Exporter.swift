@@ -17,8 +17,8 @@ private extension String {
     }
 }
 
-enum Exporter {
-    static func approximatorSnippet(output: ApproximatedOutput) -> String {
+public enum Exporter {
+    public static func approximatorSnippet(output: ApproximatedOutput) -> String {
         let base = output.swiftBaseExpr                // "Color.red"
         let h = output.hueDegrees
         let s = output.saturation
@@ -56,7 +56,7 @@ enum Exporter {
             """
     }
     
-    static func derivedPairSnippet(name: String, pair: DerivedPair) -> String {
+    public static func derivedPairSnippet(name: String, pair: DerivedPair) -> String {
         """
         // Add a Color Set named \(name) with Light/Dark values.
         extension Color { static let \(camelCase(name)) = Color("\(name)") }

@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import ColorPairCore
 
 struct ApproximatorResultView: View {
     let output: ApproximatedOutput

@@ -8,6 +8,7 @@
 import Foundation
 import SwiftUI
 import AppKit
+import ColorPairCore
 
 struct ColorWellView: NSViewRepresentable {
     @Binding var rgba: RGBA
