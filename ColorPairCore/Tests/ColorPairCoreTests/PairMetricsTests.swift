@@ -12,10 +12,12 @@ import Foundation
 struct PairMetricsTests {
     @Test
     func metrics_bothPass_summary() {
-        let t = RGBA(r: 0.30, g: 0.50, b: 0.70, a: 1)
-        let p = DerivedPairEngine.derive(from: t, policy: .guardrailed)
+        // Choose a reliably dark target so white text passes on both twins.
+        let t = RGBA(r: 0.00, g: 0.00, b: 0.00, a: 1) // pure black works well
+        let p = DerivedPairEngine.derive(from: t, bias: 0, policy: .guardrailed)
         let m = DerivedPairEngine.metrics(for: p)
-        #expect(m.overallPass)
+
+        #expect(m.overallPass, "Expected a dark target to yield PASS for white text on both twins.")
         #expect(m.overallSummary == "Both PASS")
     }
 
