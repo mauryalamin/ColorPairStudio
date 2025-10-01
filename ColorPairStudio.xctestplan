@@ -17,14 +17,7 @@
     }
   },
   "testTargets" : [
-    {
-      "parallelizable" : true,
-      "target" : {
-        "containerPath" : "container:ColorPairStudio.xcodeproj",
-        "identifier" : "AEC411972E5E56F90054C9E1",
-        "name" : "ColorPairStudioTests"
-      }
-    }
+
   ],
   "version" : 1
 }

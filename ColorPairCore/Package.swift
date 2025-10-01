@@ -1,27 +1,30 @@
 // swift-tools-version: 6.2
 // The swift-tools-version declares the minimum version of Swift required to build this package.
 
+// swift-tools-version: 6.0
 import PackageDescription
 
 let package = Package(
     name: "ColorPairCore",
-    platforms: [.macOS(.v15)],
+    platforms: [.macOS(.v13)],
     products: [
-        // Products define the executables and libraries a package produces, making them visible to other packages.
-        .library(
-            name: "ColorPairCore",
-            targets: ["ColorPairCore"]
-        ),
+        .library(name: "ColorPairCore", targets: ["ColorPairCore"]),
+    ],
+    dependencies: [
+        .package(url: "https://github.com/apple/swift-testing", from: "0.9.0")
     ],
     targets: [
-        // Targets are the basic building blocks of a package, defining a module or a test suite.
-        // Targets can depend on other targets in this package and products from dependencies.
-        .target(
-            name: "ColorPairCore"
-        ),
+        .target(name: "ColorPairCore"),
         .testTarget(
             name: "ColorPairCoreTests",
-            dependencies: ["ColorPairCore"]
+            dependencies: [
+                "ColorPairCore",
+                .product(name: "Testing", package: "swift-testing")
+            ],
+            swiftSettings: [
+                // Only affects this test target; app code still shows real warnings.
+                .unsafeFlags(["-suppress-warnings"])
+            ]
         ),
     ]
 )

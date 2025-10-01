@@ -1,0 +1,24 @@
+{
+  "configurations" : [
+    {
+      "id" : "30EA0A48-3393-4FF0-8C9D-6431BBF84458",
+      "name" : "Configuration 1",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "testTimeoutsEnabled" : true
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:",
+        "identifier" : "ColorPairCoreTests",
+        "name" : "ColorPairCoreTests"
+      }
+    }
+  ],
+  "version" : 1
+}

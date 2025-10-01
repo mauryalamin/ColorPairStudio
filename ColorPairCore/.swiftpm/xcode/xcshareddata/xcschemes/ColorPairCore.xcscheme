@@ -15,10 +15,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "AEC411892E5E56F70054C9E1"
-               BuildableName = "ColorPairStudio.app"
-               BlueprintName = "ColorPairStudio"
-               ReferencedContainer = "container:ColorPairStudio.xcodeproj">
+               BlueprintIdentifier = "ColorPairCore"
+               BuildableName = "ColorPairCore"
+               BlueprintName = "ColorPairCore"
+               ReferencedContainer = "container:">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -30,34 +30,19 @@
       shouldUseLaunchSchemeArgsEnv = "YES">
       <TestPlans>
          <TestPlanReference
-            reference = "container:ColorPairStudio.xctestplan"
+            reference = "container:ColorPairCore.xctestplan"
             default = "YES">
-         </TestPlanReference>
-         <TestPlanReference
-            reference = "container:ColorPairCore/ColorPairCore.xctestplan">
          </TestPlanReference>
       </TestPlans>
       <Testables>
          <TestableReference
-            skipped = "NO"
-            parallelizable = "YES">
+            skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "AEC411972E5E56F90054C9E1"
-               BuildableName = "ColorPairStudioTests.xctest"
-               BlueprintName = "ColorPairStudioTests"
-               ReferencedContainer = "container:ColorPairStudio.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
-         <TestableReference
-            skipped = "NO"
-            parallelizable = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "AEC411A12E5E56F90054C9E1"
-               BuildableName = "ColorPairStudioUITests.xctest"
-               BlueprintName = "ColorPairStudioUITests"
-               ReferencedContainer = "container:ColorPairStudio.xcodeproj">
+               BlueprintIdentifier = "ColorPairCoreTests"
+               BuildableName = "ColorPairCoreTests"
+               BlueprintName = "ColorPairCoreTests"
+               ReferencedContainer = "container:">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -72,16 +57,6 @@
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
       allowLocationSimulation = "YES">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "AEC411892E5E56F70054C9E1"
-            BuildableName = "ColorPairStudio.app"
-            BlueprintName = "ColorPairStudio"
-            ReferencedContainer = "container:ColorPairStudio.xcodeproj">
-         </BuildableReference>
-      </BuildableProductRunnable>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"
@@ -89,16 +64,15 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
+      <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "AEC411892E5E56F70054C9E1"
-            BuildableName = "ColorPairStudio.app"
-            BlueprintName = "ColorPairStudio"
-            ReferencedContainer = "container:ColorPairStudio.xcodeproj">
+            BlueprintIdentifier = "ColorPairCore"
+            BuildableName = "ColorPairCore"
+            BlueprintName = "ColorPairCore"
+            ReferencedContainer = "container:">
          </BuildableReference>
-      </BuildableProductRunnable>
+      </MacroExpansion>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">

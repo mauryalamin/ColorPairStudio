@@ -62,6 +62,7 @@
 		AE0A8AE42E5E71750066A017 /* ExportSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportSheet.swift; sourceTree = "<group>"; };
 		AE0A8AE82E5E71D30066A017 /* Color+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extensions.swift"; sourceTree = "<group>"; };
 		AE0D6E7E2E6277BB001CC246 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		AE229E7B2E8DB78B00CFCE83 /* ColorPairCore.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; name = ColorPairCore.xctestplan; path = ColorPairCore/ColorPairCore.xctestplan; sourceTree = "<group>"; };
 		AE2FBDC22E627B4000C833C9 /* ColorPairStudio-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "ColorPairStudio-Info.plist"; sourceTree = "<group>"; };
 		AE331AAE2E5FA06100C6B110 /* ColorWellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorWellView.swift; sourceTree = "<group>"; };
 		AE4D78FB2E7AFB7300DA6AD9 /* Analytics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Analytics.swift; sourceTree = "<group>"; };
@@ -316,6 +317,7 @@
 		AEC411812E5E56F70054C9E1 = {
 			isa = PBXGroup;
 			children = (
+				AE229E7B2E8DB78B00CFCE83 /* ColorPairCore.xctestplan */,
 				AE0D6E7D2E6277BB001CC246 /* InfoPlist.strings */,
 				AE2FBDC22E627B4000C833C9 /* ColorPairStudio-Info.plist */,
 				AE7CF02C2E8A16C1002331EF /* ColorPairStudio.xctestplan */,
@@ -733,7 +735,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				REGISTER_APP_GROUPS = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
+				SWIFT_VERSION = 6.0;
 			};
 			name = Debug;
 		};
@@ -767,7 +769,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				REGISTER_APP_GROUPS = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
+				SWIFT_VERSION = 6.0;
 			};
 			name = Release;
 		};

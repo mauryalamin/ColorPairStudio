@@ -9,6 +9,7 @@ import Foundation
 import SwiftUI
 import AppKit
 
+@MainActor
 struct ModeSegmentedControl: NSViewRepresentable {
     @Binding var selection: MatchMode
 
@@ -23,7 +24,7 @@ struct ModeSegmentedControl: NSViewRepresentable {
             target: context.coordinator,
             action: #selector(Coordinator.changed(_:))
         )
-        control.segmentDistribution = .fillEqually        // <- fill available width evenly
+        control.segmentDistribution = .fillEqually
         control.setSelected(true, forSegment: selection.index)
 
         control.translatesAutoresizingMaskIntoConstraints = false
@@ -43,10 +44,12 @@ struct ModeSegmentedControl: NSViewRepresentable {
         context.coordinator.control?.setSelected(true, forSegment: selection.index)
     }
 
+    @MainActor
     final class Coordinator: NSObject {
         var parent: ModeSegmentedControl
         weak var control: NSSegmentedControl?
         init(_ parent: ModeSegmentedControl) { self.parent = parent }
+
         @objc func changed(_ sender: NSSegmentedControl) {
             parent.selection = (sender.selectedSegment == 0) ? .approximator : .derivedPair
         }
