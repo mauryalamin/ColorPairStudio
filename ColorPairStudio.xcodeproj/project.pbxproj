@@ -39,6 +39,9 @@
 		AEC7DDFC2E8B20FA0034E9A7 /* SystemColorToken+UI.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEC7DDFB2E8B20FA0034E9A7 /* SystemColorToken+UI.swift */; };
 		AEC7DDFE2E8B23230034E9A7 /* DerivedPairEngine+SystemBG.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEC7DDFD2E8B23230034E9A7 /* DerivedPairEngine+SystemBG.swift */; };
 		AEFB4FBA2E60D0110044D6C2 /* PassBadge.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEFB4FB92E60D0110044D6C2 /* PassBadge.swift */; };
+		AEFECEEC2E8F04C200D4EEC6 /* Clipboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEFECEEB2E8F04C200D4EEC6 /* Clipboard.swift */; };
+		AEFECEEE2E8F168F00D4EEC6 /* ClipboardService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEFECEED2E8F168F00D4EEC6 /* ClipboardService.swift */; };
+		AEFECEF92E8F255300D4EEC6 /* ColorPairCore in Frameworks */ = {isa = PBXBuildFile; productRef = AEFECEF82E8F255300D4EEC6 /* ColorPairCore */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -88,6 +91,8 @@
 		AEC7DDFB2E8B20FA0034E9A7 /* SystemColorToken+UI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SystemColorToken+UI.swift"; sourceTree = "<group>"; };
 		AEC7DDFD2E8B23230034E9A7 /* DerivedPairEngine+SystemBG.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DerivedPairEngine+SystemBG.swift"; sourceTree = "<group>"; };
 		AEFB4FB92E60D0110044D6C2 /* PassBadge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PassBadge.swift; sourceTree = "<group>"; };
+		AEFECEEB2E8F04C200D4EEC6 /* Clipboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Clipboard.swift; sourceTree = "<group>"; };
+		AEFECEED2E8F168F00D4EEC6 /* ClipboardService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClipboardService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -116,6 +121,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AEFECEF92E8F255300D4EEC6 /* ColorPairCore in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -302,6 +308,7 @@
 			isa = PBXGroup;
 			children = (
 				AE0A8AE42E5E71750066A017 /* ExportSheet.swift */,
+				AEFECEEB2E8F04C200D4EEC6 /* Clipboard.swift */,
 			);
 			path = Export;
 			sourceTree = "<group>";
@@ -310,6 +317,7 @@
 			isa = PBXGroup;
 			children = (
 				AE4D78FB2E7AFB7300DA6AD9 /* Analytics.swift */,
+				AEFECEED2E8F168F00D4EEC6 /* ClipboardService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -324,6 +332,7 @@
 				AEC411B92E5E57250054C9E1 /* ColorPairStudio */,
 				AEC4119B2E5E56F90054C9E1 /* ColorPairStudioTests */,
 				AEC411A52E5E56F90054C9E1 /* ColorPairStudioTestsUITests */,
+				AEFECEF22E8F1EBE00D4EEC6 /* Frameworks */,
 				AEC4118B2E5E56F70054C9E1 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -355,6 +364,13 @@
 				AEC5C6002E8B443E0056F021 /* DerivedPairEngineBridge.swift */,
 			);
 			path = ColorPairStudio;
+			sourceTree = "<group>";
+		};
+		AEFECEF22E8F1EBE00D4EEC6 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -398,6 +414,7 @@
 			);
 			name = ColorPairStudioTests;
 			packageProductDependencies = (
+				AEFECEF82E8F255300D4EEC6 /* ColorPairCore */,
 			);
 			productName = XcodeColorMatchTests;
 			productReference = AEC411982E5E56F90054C9E1 /* ColorPairStudioTests.xctest */;
@@ -458,7 +475,7 @@
 			mainGroup = AEC411812E5E56F70054C9E1;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
-				AE7E21EB2E8B11740017DF61 /* XCLocalSwiftPackageReference "ColorPairCore" */,
+				AEFECEF52E8F211C00D4EEC6 /* XCLocalSwiftPackageReference "ColorPairCore" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = AEC4118B2E5E56F70054C9E1 /* Products */;
@@ -506,6 +523,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AEFECEEC2E8F04C200D4EEC6 /* Clipboard.swift in Sources */,
 				AE0A8AD52E5E5F840066A017 /* MatchResult.swift in Sources */,
 				AE0A8AE32E5E713E0066A017 /* TwinPreview.swift in Sources */,
 				AEC7DDFE2E8B23230034E9A7 /* DerivedPairEngine+SystemBG.swift in Sources */,
@@ -531,6 +549,7 @@
 				AEFB4FBA2E60D0110044D6C2 /* PassBadge.swift in Sources */,
 				AE0A8AE12E5E70810066A017 /* PreviewRow.swift in Sources */,
 				AEC5C6012E8B443E0056F021 /* DerivedPairEngineBridge.swift in Sources */,
+				AEFECEEE2E8F168F00D4EEC6 /* ClipboardService.swift in Sources */,
 				AEC411BB2E5E57250054C9E1 /* ColorPairStudioApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -705,6 +724,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = YES;
+				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 72UH9J49WY;
 				ENABLE_APP_SANDBOX = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -749,6 +769,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = YES;
+				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 7Y457JX2Z3;
 				ENABLE_APP_SANDBOX = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -776,6 +797,7 @@
 		AEC411B02E5E56F90054C9E1 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = YES;
@@ -794,6 +816,7 @@
 		AEC411B12E5E56F90054C9E1 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = YES;
@@ -885,7 +908,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCLocalSwiftPackageReference section */
-		AE7E21EB2E8B11740017DF61 /* XCLocalSwiftPackageReference "ColorPairCore" */ = {
+		AEFECEF52E8F211C00D4EEC6 /* XCLocalSwiftPackageReference "ColorPairCore" */ = {
 			isa = XCLocalSwiftPackageReference;
 			relativePath = ColorPairCore;
 		};
@@ -894,6 +917,11 @@
 /* Begin XCSwiftPackageProductDependency section */
 		AE7E21EC2E8B11740017DF61 /* ColorPairCore */ = {
 			isa = XCSwiftPackageProductDependency;
+			productName = ColorPairCore;
+		};
+		AEFECEF82E8F255300D4EEC6 /* ColorPairCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = AEFECEF52E8F211C00D4EEC6 /* XCLocalSwiftPackageReference "ColorPairCore" */;
 			productName = ColorPairCore;
 		};
 /* End XCSwiftPackageProductDependency section */

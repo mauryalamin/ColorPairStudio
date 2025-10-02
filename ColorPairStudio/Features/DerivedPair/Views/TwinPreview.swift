@@ -5,21 +5,55 @@
 //  Created by Maury Alamin on 8/26/25.
 //
 
-import SwiftUI
 import ColorPairCore
+import SwiftUI
+import AppKit
 
 struct TwinPreview: View {
-    var title: String
-    var rgba: RGBA
-    
+    let title: String
+    let rgba: RGBA
+    var onTap: (() -> Void)? = nil
+
     var body: some View {
-        VStack(alignment: .leading) {
-            Text(title).font(.headline)
-            RoundedRectangle(cornerRadius: 12)
-                .fill(Color(rgba))
-                .frame(width: 380, height: 120)
-                .overlay(Text("Sample").foregroundStyle(.white))
+        VStack(alignment: .leading, spacing: 4) {
+            Text(title).font(.subheadline).foregroundStyle(.secondary)
+
+            RoundedRectangle(cornerRadius: 10, style: .continuous)
+                .fill(Color(red: rgba.r, green: rgba.g, blue: rgba.b))
+                .frame(height: 120)
+                // HEX pill (anchored)
+                .overlay(
+                    Text(rgba.hexString)
+                        .font(.caption.monospaced())
+                        .padding(.horizontal, 8).padding(.vertical, 4)
+                        .background(.regularMaterial, in: Capsule())
+                        .padding(8)
+                        .allowsHitTesting(false)
+                        .accessibilityHidden(true),
+                    alignment: .bottomTrailing
+                )
+                // Center “Sample” label
+                .overlay(
+                    Text("Sample")
+                        .font(.headline)
+                        .foregroundStyle(.white)
+                        .shadow(radius: 1)
+                        .allowsHitTesting(false)
+                        .accessibilityHidden(true)
+                )
+                .contentShape(Rectangle())
+                .onTapGesture {
+                    ClipboardService().copyHex(rgba)   // copy the hex to clipboard
+                    onTap?()                           // any UI feedback (toast, etc.)
+                }
+                .help("Click to copy \(rgba.hexString)")
+                .onHover { inside in
+                    if inside { NSCursor.pointingHand.push() } else { NSCursor.pop() }
+                }
         }
+        .accessibilityElement(children: .combine)
+        .accessibilityAddTraits(.isButton)
+        .accessibilityHint("Copies \(rgba.hexString) to the clipboard.")
     }
 }
 

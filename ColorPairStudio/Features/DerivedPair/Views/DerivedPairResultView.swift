@@ -5,34 +5,38 @@
 //  Created by Maury Alamin on 8/26/25.
 //
 
+import AppKit
 import SwiftUI
 import ColorPairCore
 
 struct DerivedPairResultView: View {
     // Stored props
-        let pair: DerivedPair
-        let onExport: (String) -> Void
-
-        // Bindings
-        @Binding private var bias: Double
-        @Binding private var keepLightExact: Bool   // ← NEW
-
-        // Init including the new toggle
-        init(pair: DerivedPair,
-             bias: Binding<Double>,
-             keepLightExact: Binding<Bool>,
-             onExport: @escaping (String) -> Void = { _ in }) {
-            self.pair = pair
-            self.onExport = onExport
-            self._bias = bias
-            self._keepLightExact = keepLightExact
-        }
-
-        // Recompute twins using the policy derived from the toggle
-        private var recomputed: DerivedPair {
-            let policy: PairPolicy = keepLightExact ? .exactLightIfCompliant : .guardrailed
-            return DerivedPairEngine.derive(from: pair.target, bias: bias, policy: policy)
-        }
+    let pair: DerivedPair
+    let onExport: (String) -> Void
+    
+    // Bindings
+    @Binding private var bias: Double
+    @Binding private var keepLightExact: Bool   // ← NEW
+    
+    @State private var copiedLight = false
+    @State private var copiedDark  = false
+    
+    // Init including the new toggle
+    init(pair: DerivedPair,
+         bias: Binding<Double>,
+         keepLightExact: Binding<Bool>,
+         onExport: @escaping (String) -> Void = { _ in }) {
+        self.pair = pair
+        self.onExport = onExport
+        self._bias = bias
+        self._keepLightExact = keepLightExact
+    }
+    
+    // Recompute twins using the policy derived from the toggle
+    private var recomputed: DerivedPair {
+        let policy: PairPolicy = keepLightExact ? .exactLightIfCompliant : .guardrailed
+        return DerivedPairEngine.derive(from: pair.target, bias: bias, policy: policy)
+    }
     
     private var snippet: String {
         Exporter.derivedPairSnippet(name: "BrandPrimary", pair: recomputed)
@@ -61,7 +65,7 @@ struct DerivedPairResultView: View {
     
     // Quick formatters
     private func r(_ x: Double) -> String { String(format: "%.2fx", x) }
-
+    
     private var lightCR: Double { WCAG.contrastRatio(fg: white, bg: recomputed.light) }
     private var darkCR:  Double { WCAG.contrastRatio(fg: white, bg: recomputed.dark) }
     
@@ -72,26 +76,46 @@ struct DerivedPairResultView: View {
         WCAG.passesAA(normalText: lightCR) && WCAG.passesAA(normalText: darkCR)
     }
     
+    private func copyLight() {
+        let hex = recomputed.light.hexString
+        Clipboard.copy(hex)
+        withAnimation(.spring(response: 0.25, dampingFraction: 0.85)) { copiedLight = true }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.2) {
+            withAnimation(.easeOut(duration: 0.25)) { copiedLight = false }
+        }
+        Analytics.track("copy_hex", ["feature": "DerivedPair", "twin": "light", "hex": hex])
+    }
+
+    private func copyDark() {
+        let hex = recomputed.dark.hexString
+        Clipboard.copy(hex)
+        withAnimation(.spring(response: 0.25, dampingFraction: 0.85)) { copiedDark = true }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.2) {
+            withAnimation(.easeOut(duration: 0.25)) { copiedDark = false }
+        }
+        Analytics.track("copy_hex", ["feature": "DerivedPair", "twin": "dark", "hex": hex])
+    }
+    
     var body: some View {
         VStack(alignment: .leading, spacing: 24) {
             
             HStack(spacing: 12) {
                 Text(String(format: "Text (AA) — Light: %.2fx   Dark: %.2fx", m.light.text, m.dark.text))
                     .monospaced()
-
+                
                 Label(m.overallSummary,
                       systemImage: m.overallPass ? "checkmark.seal" : "xmark.seal")
-                    .accessibilityLabel(m.overallPass ? "Both twins pass contrast" : "Both twins fail contrast")
-                    .foregroundStyle(m.overallPass ? .green : .red)
+                .accessibilityLabel(m.overallPass ? "Both twins pass contrast" : "Both twins fail contrast")
+                .foregroundStyle(m.overallPass ? .green : .red)
                 
                 Spacer()
                 
                 Button("Export to Assets + SwiftUI") {
                     onExport(snippet)
                 }
-                    .keyboardShortcut("e", modifiers: [.command])
-                    .accessibilityLabel("Export to Assets and SwiftUI")
-                    .accessibilityHint("Opens a window with steps and code for Xcode")
+                .keyboardShortcut("e", modifiers: [.command])
+                .accessibilityLabel("Export to Assets and SwiftUI")
+                .accessibilityHint("Opens a window with steps and code for Xcode")
             }
             
             LabeledContent("Brightness Bias") {
@@ -108,13 +132,19 @@ struct DerivedPairResultView: View {
             
             HStack(spacing: 16) {
                 VStack(alignment: .leading, spacing: 6) {
-                    TwinPreview(title: "Light", rgba: recomputed.light)
-                        .accessibilityElement(children: .ignore)
-                        .accessibilityLabel("Light twin")
-                        .accessibilityValue(
+                    ZStack {
+                        TwinPreview(title: "Light", rgba: recomputed.light, onTap: copyLight)
+                            .accessibilityElement(children: .ignore)
+                            .accessibilityLabel("Light twin")
+                            .accessibilityValue(
                                 "\(recomputed.light.hexString) " +
                                 String(format: "white text %.2fx %@", lightTextCR, lightPass ? "passes" : "fails")
                             )
+                        if copiedLight { CopiedPill().padding(8) }
+                    }
+                    .contextMenu {
+                        Button("Copy HEX \(recomputed.light.hexString)") { copyLight() }
+                    }
                     HStack(spacing: 8) {
                         PassBadge(title: "Text \(r(m.light.text))", pass: m.light.text >= 4.5)
                         PassBadge(title: "BG \(r(m.light.bg))",     pass: m.light.bg   >= 3.0)
@@ -123,13 +153,19 @@ struct DerivedPairResultView: View {
                 }
                 
                 VStack(alignment: .leading, spacing: 6) {
-                    TwinPreview(title: "Dark", rgba: recomputed.dark)
-                        .accessibilityElement(children: .ignore)
-                        .accessibilityLabel("Dark twin")
-                        .accessibilityValue(
+                    ZStack {
+                        TwinPreview(title: "Dark", rgba: recomputed.dark, onTap: copyDark)
+                            .accessibilityElement(children: .ignore)
+                            .accessibilityLabel("Dark twin")
+                            .accessibilityValue(
                                 "\(recomputed.dark.hexString) " +
                                 String(format: "white text %.2fx %@", darkTextCR, darkPass ? "passes" : "fails")
                             )
+                        if copiedDark { CopiedPill().padding(8) }
+                    }
+                    .contextMenu {
+                        Button("Copy HEX \(recomputed.light.hexString)") { copyLight() }
+                    }
                     HStack(spacing: 8) {
                         PassBadge(title: "Text \(r(darkTextCR))", pass: darkTextPass)
                         PassBadge(title: "BG \(r(darkVsBGCR))",   pass: darkVsBGPass)
@@ -164,7 +200,7 @@ private struct _DerivedPairResultViewWithState: View {
     let onExport: (String) -> Void
     @State private var localBias: Double = 0.0
     @State private var localKeepLightExact = true
-
+    
     var body: some View {
         DerivedPairResultView(
             pair: pair,
@@ -175,6 +211,16 @@ private struct _DerivedPairResultViewWithState: View {
     }
 }
 
+private struct CopiedPill: View {
+    var body: some View {
+        Label("Copied", systemImage: "doc.on.doc.fill")
+            .font(.caption2.weight(.semibold))
+            .padding(.horizontal, 8).padding(.vertical, 4)
+            .background(.thinMaterial, in: Capsule())
+            .shadow(radius: 2, y: 1)
+            .transition(.move(edge: .top).combined(with: .opacity))
+    }
+}
 
 
 #Preview("Derived Pair") {

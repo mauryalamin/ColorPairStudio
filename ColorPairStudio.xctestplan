@@ -17,7 +17,20 @@
     }
   },
   "testTargets" : [
-
+    {
+      "skippedTests" : {
+        "suites" : [
+          {
+            "name" : "ColorPairStudioCoreTests"
+          }
+        ]
+      },
+      "target" : {
+        "containerPath" : "container:ColorPairStudio.xcodeproj",
+        "identifier" : "AEC411972E5E56F90054C9E1",
+        "name" : "ColorPairStudioTests"
+      }
+    }
   ],
-  "version" : 1
+  "version" : 2
 }
