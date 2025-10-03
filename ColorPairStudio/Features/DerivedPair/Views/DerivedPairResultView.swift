@@ -85,7 +85,7 @@ struct DerivedPairResultView: View {
         }
         Analytics.track("copy_hex", ["feature": "DerivedPair", "twin": "light", "hex": hex])
     }
-
+    
     private func copyDark() {
         let hex = recomputed.dark.hexString
         Clipboard.copy(hex)
@@ -110,12 +110,12 @@ struct DerivedPairResultView: View {
                 
                 Spacer()
                 
-                Button("Export to Assets + SwiftUI") {
+                Button("Copy Assets + SwiftUI Setup") {
                     onExport(snippet)
                 }
                 .keyboardShortcut("e", modifiers: [.command])
-                .accessibilityLabel("Export to Assets and SwiftUI")
-                .accessibilityHint("Opens a window with steps and code for Xcode")
+                .accessibilityLabel("Copy steps and code to add color assets in Xcode")
+                .help("Copies instructions and SwiftUI snippet for your Assets catalog")
             }
             
             LabeledContent("Brightness Bias") {

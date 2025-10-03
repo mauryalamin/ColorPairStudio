@@ -64,18 +64,18 @@ struct ApproximatorResultView: View {
     private func fixContrast() {
         // If we already pass, don’t nudge.
         if wcagPass { return }
-
+        
         var trial = bri
         let step   = moreRange ? 0.02 : 0.01
         let minBri = moreRange ? -1.0 : -0.08
         let maxBri = moreRange ?  1.0 :  0.10   // safety cap in case you flip direction later
-
+        
         // Walk brightness downward (darker bg = higher contrast with white text)
         var passes = false
         var guardrail = 0
         while !passes && guardrail < 80 {
             trial = max(trial - step, minBri)
-
+            
             let testBG = output.baseRGBA.applying(
                 hueDegrees: hue,
                 satMultiplier: sat,
@@ -83,11 +83,11 @@ struct ApproximatorResultView: View {
             )
             let ratio  = WCAG.contrastRatio(fg: RGBA(r: 1, g: 1, b: 1, a: 1), bg: testBG)
             passes     = WCAG.passesAA(normalText: ratio)
-
+            
             guardrail += 1
             if trial <= minBri { break }
         }
-
+        
         // Apply the nudge
         let clamped = max(min(trial, maxBri), minBri)
         withAnimation { bri = clamped }
@@ -137,12 +137,12 @@ struct ApproximatorResultView: View {
                 
                 Spacer()
                 
-                Button("Export Snippet…") {
+                Button("Copy Snippet") {
                     onExport(snippet)
                 }
                 .keyboardShortcut("e", modifiers: [.command])
-                .accessibilityLabel("Export SwiftUI snippet")
-                .accessibilityHint("Opens a window to copy the SwiftUI code")
+                .accessibilityLabel("Copy SwiftUI color snippet for the approximated color")
+                .help("Copies a SwiftUI Color expression")
             }
             
             // Range toggle
